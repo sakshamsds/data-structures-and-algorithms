@@ -1,5 +1,7 @@
 package easy;
 
+import ds.ListNode;
+
 // https://leetcode.com/problems/reverse-linked-list/
 // 206. Reverse Linked List
 

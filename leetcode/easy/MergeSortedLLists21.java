@@ -1,5 +1,7 @@
 package easy;
 
+import ds.ListNode;
+
 // https://leetcode.com/problems/merge-two-sorted-lists
 // 21. Merge Two Sorted Lists
 

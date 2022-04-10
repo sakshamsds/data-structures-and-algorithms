@@ -3,22 +3,7 @@ package easy;
 // https://leetcode.com/problems/linked-list-cycle/
 // 141. Linked List Cycle
 
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode() {
-    }
-
-    ListNode(int val) {
-        this.val = val;
-    }
-
-    ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
-    }
-}
+import ds.ListNode;
 
 public class LinkedListCycle141 {
 
