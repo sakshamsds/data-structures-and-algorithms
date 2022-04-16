@@ -1,18 +1,12 @@
-package medium;
+package easy;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import ds.TreeNode;
 
-// 102. Binary Tree Level Order Traversal
-// https://leetcode.com/problems/binary-tree-level-order-traversal/
-
-public class BTLevelOrderTraversal102 {
+public class BTMinDepth111 {
     public static void main(String[] args) {
-
         TreeNode root = new TreeNode(1);
         TreeNode node1 = new TreeNode(2);
         TreeNode node2 = new TreeNode(3);
@@ -23,38 +17,38 @@ public class BTLevelOrderTraversal102 {
         node1.left = node3;
         node1.right = node4;
 
-        List<List<Integer>> output = levelOrder(root);
-        output.forEach(x -> System.out.println(x.toString()));
+        System.out.println(minDepth(root));
     }
 
-    // DFS = stack, BFS = for loop + queue
-    public static List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> output = new ArrayList<>();
+    public static int minDepth(TreeNode root) {
         if (root == null) {
-            return output;
+            return 0;
         }
 
+        // BFS
         Queue<TreeNode> q = new LinkedList<>();
         q.offer(root);
+        int minDepth = 0;
 
         while (!q.isEmpty()) {
+            minDepth++;
             int size = q.size();
-            List<Integer> levelList = new LinkedList<>();
             for (int i = 0; i < size; i++) {
                 TreeNode node = q.poll();
-                levelList.add(node.val);
-
+                // if leaf node found
+                if (node.left == null && node.right == null) {
+                    return minDepth;
+                }
                 if (node.left != null) {
                     q.offer(node.left);
                 }
+
                 if (node.right != null) {
                     q.offer(node.right);
                 }
             }
-            output.add(levelList);
         }
 
-        return output;
+        return minDepth;
     }
-
 }
