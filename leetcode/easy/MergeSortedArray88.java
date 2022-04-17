@@ -5,7 +5,7 @@ import java.util.Arrays;
 // https://leetcode.com/problems/merge-sorted-array/
 // 88. Merge Sorted Array
 
-public class MergeSortedArray {
+public class MergeSortedArray88 {
 	public static void main(String[] args) {
 
 		int[] nums1 = new int[] { 0 };

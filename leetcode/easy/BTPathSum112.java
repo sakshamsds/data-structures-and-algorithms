@@ -5,10 +5,10 @@ import java.util.Queue;
 
 import ds.TreeNode;
 
-// https://leetcode.com/problems/minimum-depth-of-binary-tree/
-// 111. Minimum Depth of Binary Tree
+// https://leetcode.com/problems/path-sum/
+// 112. Path Sum
 
-public class BTMinDepth111 {
+public class BTPathSum112 {
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         TreeNode node1 = new TreeNode(2);
@@ -20,38 +20,39 @@ public class BTMinDepth111 {
         node1.left = node3;
         node1.right = node4;
 
-        System.out.println(minDepth(root));
+        int targetSum = 4;
+        System.out.println(hasPathSum(root, targetSum));
     }
 
-    public static int minDepth(TreeNode root) {
+    public static boolean hasPathSum(TreeNode root, int targetSum) {
         if (root == null) {
-            return 0;
+            return false;
         }
 
-        // BFS
+        //BFS
         Queue<TreeNode> q = new LinkedList<>();
         q.offer(root);
-        int minDepth = 0;
-
         while (!q.isEmpty()) {
-            minDepth++;
             int size = q.size();
             for (int i = 0; i < size; i++) {
                 TreeNode node = q.poll();
-                // if leaf node found
-                if (node.left == null && node.right == null) {
-                    return minDepth;
-                }
-                if (node.left != null) {
-                    q.offer(node.left);
+                // leaf node
+                if (node.left == null && node.right == null && node.val == targetSum) {
+                    return true;
                 }
 
+                if (node.left != null) {
+                    node.left.val += node.val;
+                    q.offer(node.left);
+                }
                 if (node.right != null) {
+                    node.right.val += node.val;
                     q.offer(node.right);
                 }
             }
         }
 
-        return minDepth;
+        return false;
     }
+
 }

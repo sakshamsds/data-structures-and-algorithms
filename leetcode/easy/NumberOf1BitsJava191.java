@@ -4,7 +4,7 @@ package easy;
 // 191. Number of 1 Bits
 // geeksforgeeks.org/count-set-bits-in-an-integer/
 
-public class NumberOf1BitsJava {
+public class NumberOf1BitsJava191 {
 
     public static void main(String[] args) {
         int n = -3; // 1001

@@ -3,7 +3,7 @@ package easy;
 // https://leetcode.com/problems/count-odd-numbers-in-an-interval-range/
 // 1523. Count Odd Numbers in an Interval Range
 
-public class CountOddNumbersInIntervalRange {
+public class CountOddNumbersInIntervalRange1523 {
 
     public static void main(String[] args) {
         int low = 8;

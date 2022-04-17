@@ -3,7 +3,7 @@ package easy;
 // https://leetcode.com/problems/sign-of-the-product-of-an-array/
 // 1822. Sign of the Product of an Array
 
-public class SignOfPdtOfArray {
+public class SignOfPdtOfArray1822 {
 
     public static void main(String[] args) {
         int[] nums = { -1, -2, -3, -4, 3, 2, 1 };

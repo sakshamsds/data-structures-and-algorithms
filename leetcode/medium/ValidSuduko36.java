@@ -6,7 +6,7 @@ import java.util.Set;
 // https://leetcode.com/problems/valid-sudoku/
 // 36. Valid Sudoku
 
-public class ValidSuduko {
+public class ValidSuduko36 {
 	public static void main(String[] args) {
 
 		/*

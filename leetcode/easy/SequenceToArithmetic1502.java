@@ -7,7 +7,7 @@ import java.util.Set;
 // 1502. Can Make Arithmetic Progression From Sequence
 // https://leetcode.com/problems/can-make-arithmetic-progression-from-sequence/discuss/720253/JavaPython-3-O(n)-and-O(nlogn)-codes-w-brief-explanation-and-analysis.
 
-public class SequenceToArithmetic {
+public class SequenceToArithmetic1502 {
 
     public static void main(String[] args) {
 

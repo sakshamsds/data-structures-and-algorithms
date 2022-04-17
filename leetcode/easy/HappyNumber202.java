@@ -5,7 +5,7 @@ package easy;
 // https://leetcode.com/problems/happy-number/discuss/519280/JAVA-(-100-)-using-less-Cycle-finding-algorithm-greater
 // https://www.geeksforgeeks.org/floyds-cycle-finding-algorithm/
 
-public class HappyNumber {
+public class HappyNumber202 {
 
     public static void main(String[] args) {
 

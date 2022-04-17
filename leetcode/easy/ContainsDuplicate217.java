@@ -7,7 +7,7 @@ import java.util.Set;
 // https://leetcode.com/problems/contains-duplicate/
 // 217. Contains Duplicate
 
-public class ContainsDuplicate {
+public class ContainsDuplicate217 {
 
 	public static void main(String[] args) {
 		int[] nums = new int[] { 1, 2, 3, 4, 4 };

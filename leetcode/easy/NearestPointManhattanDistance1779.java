@@ -3,7 +3,7 @@ package easy;
 // https://leetcode.com/problems/find-nearest-point-that-has-the-same-x-or-y-coordinate/
 // 1779. Find Nearest Point That Has the Same X or Y Coordinate
 
-public class NearestPointManhattanDistance {
+public class NearestPointManhattanDistance1779 {
 
     public static void main(String[] args) {
         int[][] points = { { 2, 3 } };

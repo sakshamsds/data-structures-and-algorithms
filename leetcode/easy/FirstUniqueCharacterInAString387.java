@@ -3,7 +3,7 @@ package easy;
 // https://leetcode.com/problems/first-unique-character-in-a-string/
 // 387. First Unique Character in a String
 
-public class FirstUniqueCharacterInAString {
+public class FirstUniqueCharacterInAString387 {
 
 	public static void main(String[] args) {
 		String s = "loveleetcode";

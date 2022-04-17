@@ -3,7 +3,7 @@ package easy;
 // https://leetcode.com/problems/roman-to-integer/
 // 13. Roman to Integer
 
-public class RomanToInteger {
+public class RomanToInteger13 {
 
 	public static void main(String[] args) {
 

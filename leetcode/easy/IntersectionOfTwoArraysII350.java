@@ -7,7 +7,7 @@ import java.util.Map;
 // https://leetcode.com/problems/intersection-of-two-arrays-ii/
 // 350. Intersection of Two Arrays II
 
-public class IntersectionOfTwoArraysII {
+public class IntersectionOfTwoArraysII350 {
 
 	public static void main(String[] args) {
 

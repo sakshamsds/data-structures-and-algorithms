@@ -5,7 +5,7 @@ import java.util.Arrays;
 // https://leetcode.com/problems/reshape-the-matrix/
 // 566. Reshape the Matrix
 
-public class ReshapeTheMatrix {
+public class ReshapeTheMatrix566 {
 
 	public static void main(String[] args) {
 
