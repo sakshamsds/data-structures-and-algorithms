@@ -3,7 +3,7 @@ package easy;
 // https://leetcode.com/problems/average-salary-excluding-the-minimum-and-maximum-salary/
 // 1491. Average Salary Excluding the Minimum and Maximum Salary
 
-public class AverageSalaryExclusingMinAndMax1491 {
+public class AverageSalaryExcludingMinAndMax1491 {
 
     public static void main(String[] args) {
 
