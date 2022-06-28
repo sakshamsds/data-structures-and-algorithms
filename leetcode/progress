@@ -16,3 +16,231 @@ Maybe
     - Binary Search 1
     - Binary Search 2
     - Graph theory 1
+
+
+
+
+Algo 1, 17/14/0
+
+
+Two pointers
+	167. Two Sum II - Input Array Is Sorted
+
+Two pointers
+	344. Reverse String
+	557. Reverse Words in a String III
+
+Two pointers
+	876. Middle of the Linked List
+	19. Remove Nth Node From End of List
+
+Sliding window
+	3. Longest Substring Without Repeating Characters
+	567. Permutation in String
+
+BFS/DFS
+	733. Flood Fill
+	695. Max Area of Island
+
+BFS/DFS
+	617. Merge Two Binary Trees
+	116. Populating Next Right Pointers in Each Node
+
+BFS/DFS
+	542. 01 Matrix
+	994. Rotting Oranges
+
+Recursion / Backtracking
+	21. Merge Two Sorted Lists
+	206. Reverse Linked List
+
+Recursion / Backtracking
+	77. Combinations
+	46. Permutations
+	784. Letter Case Permutation
+
+Dynamic Programming
+	70. Climbing Stairs
+	198. House Robber
+	120. Triangle
+
+Bit Manipulation
+	231. Power of Two
+	191. Number of 1 Bits
+
+Bit Manipulation
+	190. Reverse Bits
+	136. Single Number
+
+
+
+Programming Skills 2, 11/30/0
+
+	896. Monotonic Array
+	28. Implement strStr()
+
+	110. Balanced Binary Tree
+	459. Repeated Substring Pattern
+
+	150. Evaluate Reverse Polish Notation
+	66. Plus One
+
+	1367. Linked List in Binary Tree
+	43. Multiply Strings
+
+	67. Add Binary
+	989. Add to Array-Form of Integer
+
+	739. Daily Temperatures
+	58. Length of Last Word
+
+	48. Rotate Image
+	1886. Determine Whether Matrix Can Be Obtained By Rotation
+
+	54. Spiral Matrix
+	973. K Closest Points to Origin
+
+	1630. Arithmetic Subarrays
+	429. N-ary Tree Level Order Traversal
+
+	503. Next Greater Element II
+	556. Next Greater Element III
+
+	1376. Time Needed to Inform All Employees
+	49. Group Anagrams
+
+	438. Find All Anagrams in a String
+	713. Subarray Product Less Than K
+
+	304. Range Sum Query 2D - Immutable
+	910. Smallest Range II
+
+	143. Reorder List
+	138. Copy List with Random Pointer
+
+	2. Add Two Numbers
+	445. Add Two Numbers II
+
+	61. Rotate List
+	173. Binary Search Tree Iterator
+
+	1845. Seat Reservation Manager
+	860. Lemonade Change
+
+	155. Min Stack
+	341. Flatten Nested List Iterator
+
+	1797. Design Authentication Manager
+	707. Design Linked List
+
+	380. Insert Delete GetRandom O(1)
+	622. Design Circular Queue
+	729. My Calendar I
+
+
+	
+
+DS 2, 	11/37/2
+
+Array
+	136. Single Number
+	169. Majority Element
+	15. 3Sum
+
+Array
+	75. Sort Colors
+	56. Merge Intervals
+	706. Design HashMap
+
+Array
+	119. Pascal's Triangle II
+	48. Rotate Image
+	59. Spiral Matrix II
+
+Array
+	240. Search a 2D Matrix II
+	435. Non-overlapping Intervals
+
+Array
+	334. Increasing Triplet Subsequence
+	238. Product of Array Except Self
+	560. Subarray Sum Equals K
+
+String
+	415. Add Strings
+	409. Longest Palindrome
+
+String
+	290. Word Pattern
+	763. Partition Labels
+
+String
+	49. Group Anagrams
+	43. Multiply Strings
+
+String
+	187. Repeated DNA Sequences
+	5. Longest Palindromic Substring
+
+LinkedList
+	2. Add Two Numbers
+	142. Linked List Cycle II
+
+LinkedList
+	160. Intersection of Two Linked Lists
+	82. Remove Duplicates from Sorted List II
+
+LinkedList
+	24. Swap Nodes in Pairs
+	707. Design Linked List
+
+LinkedList
+	25. Reverse Nodes in k-Group
+	143. Reorder List
+
+Stack/Queue
+	155. Min Stack
+	1249. Minimum Remove to Make Valid Parentheses
+	1823. Find the Winner of the Circular Game
+
+Tree
+	108. Convert Sorted Array to Binary Search Tree
+	105. Construct Binary Tree from Preorder and Inorder Traversal
+	103. Binary Tree Zigzag Level Order Traversal
+
+Tree
+	199. Binary Tree Right Side View
+	113. Path Sum II
+	450. Delete Node in a BST
+
+Tree
+	230. Kth Smallest Element in a BST
+	173. Binary Search Tree Iterator
+	
+Tree
+	236. Lowest Common Ancestor of a Binary Tree
+	297. Serialize and Deserialize Binary Tree
+
+Graph
+	997. Find the Town Judge
+	1557. Minimum Number of Vertices to Reach All Nodes
+	841. Keys and Rooms
+
+Heap
+	215. Kth Largest Element in an Array
+	347. Top K Frequent Elements
+
+Heap
+	451. Sort Characters By Frequency
+	973. K Closest Points to Origin
+
+
+
+Algorithms 2, 3/42/2
+
+
+Leetcode 75 - 1
+leetcode 75 - 2
+	
+leetcode 705
+leetcode 706
