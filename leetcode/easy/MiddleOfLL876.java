@@ -20,7 +20,7 @@ public class MiddleOfLL876 {
         ListNode slow = head;
         ListNode fast = head;
 
-        while(fast!=null && fast.next!=null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
@@ -29,16 +29,16 @@ public class MiddleOfLL876 {
     }
 
     // public ListNode middleNode(ListNode head) {
-    //     Map<Integer, ListNode> positionMap = new HashMap<>();
+    // Map<Integer, ListNode> positionMap = new HashMap<>();
 
-    //     int position = 0;
-    //     while (head != null) {
-    //         positionMap.put(position++, head);
-    //         head = head.next;
-    //     }
-    //     System.out.println(position);
+    // int position = 0;
+    // while (head != null) {
+    // positionMap.put(position++, head);
+    // head = head.next;
+    // }
+    // System.out.println(position);
 
-    //     return positionMap.get(position / 2);
+    // return positionMap.get(position / 2);
     // }
 
 }
