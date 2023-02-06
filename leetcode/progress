@@ -7,15 +7,43 @@ TODO
     - DS 2                               (11/37/2)
     - Algorithms 2                       (3/42/2)
     - Programming Skill 2                (11/30/0)
+    - Dynamic Programming 1
+    - graph theory 1
     - Leetcode 75 - 1                    (20/10/0)
     - Leetcode 75 - 2                    (11/32/0)
-
-Maybe
-    - SQL 1
-    - Dynamic Programming 1
     - Binary Search 1
     - Binary Search 2
-    - Graph theory 1
+    - blind 75 - needcode solutions - https://neetcode.io/practice
+    - top 100 most liked questions
+    - System Design Neetcode, 1,2,3
+    - Neetcode LL 21 - https://www.youtube.com/watch?v=S5bfdUTrKLM&list=PLot-Xpze53leU0Ec0VkBhnf4npMRFiNcB&index=1
+    	- 203
+    	- 234
+    	- 21
+    	- 23
+    	- 141
+    	- 83
+    - Neetcode trees 36 - https://www.youtube.com/watch?v=QfJsau0ItOY&list=PLot-Xpze53ldg4pN6PfzoJY7KsKcxF1jg&index=1
+    	- 110
+    	- 226
+    	- 617
+    	- 543
+    	- 100
+    	- 235
+    	- 104
+    	- 572
+    	- 112
+    	- 94
+    	- 606
+    - Neetcode Backtracking 20 - https://www.youtube.com/watch?v=pfiQ_PS1g8E&list=PLot-Xpze53lf5C3HSjCnyFghlW0G1HHXo&index=1
+    - Neetcode Graph Algos 30 - https://www.youtube.com/watch?v=utDu3Q7Flrw&list=PLot-Xpze53ldBT_7QA8NVot219jFNr_GI&index=1
+    	- 463
+    - Neetcode DP 49 - https://www.youtube.com/watch?v=g0npyaQtAQM&list=PLot-Xpze53lcvx_tjrr_m2lgD2NsRHlNO&index=1
+    	- 70
+    	- 198
+    	- 338
+    	- 118
+    	- 746
 
 
 
@@ -23,12 +51,7 @@ Maybe
 Algo 1, 17/14/0
 
 
-Two pointers
-	876. Middle of the Linked List
-	19. Remove Nth Node From End of List
-
 Sliding window
-	3. Longest Substring Without Repeating Characters
 	567. Permutation in String
 
 BFS/DFS
