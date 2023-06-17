@@ -3,11 +3,6 @@ Done
     - Programming Skills 1               (34/0/0)
 
 TODO
-https://leetcode.com/problems/design-linked-list/
-61. Rotate List
-
-
-
 206
 merge two sorted arrays
 merge two sorted lists
@@ -18,6 +13,7 @@ subset sum
 traveling salesman problem
 BFS graphs
 DFS graphs
+greedy knapsack problem
 
     - Algorithms 1                       (17/14/0)
     - DS 2                               (11/37/2)
