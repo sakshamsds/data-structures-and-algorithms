@@ -1,8 +1,6 @@
-Done
-    - DS 1                               (28/5/0)
-    - Programming Skills 1               (34/0/0)
 
 TODO
+
 206
 merge two sorted arrays
 merge two sorted lists
@@ -14,27 +12,20 @@ traveling salesman problem
 BFS graphs
 DFS graphs
 greedy knapsack problem
+leetcode 705
+leetcode 706
 
     - Algorithms 1                       (17/14/0)
     - DS 2                               (11/37/2)
     - Algorithms 2                       (3/42/2)
-    - Programming Skill 2                (11/30/0)
-    - Dynamic Programming 1
-    - graph theory 1
-    - Leetcode 75 - 1                    (20/10/0)
-    - Leetcode 75 - 2                    (11/32/0)
-    - Binary Search 1
-    - Binary Search 2
+	- leetcode DP - https://leetcode.com/studyplan/dynamic-programming/
+	- leetcode graph theory - https://leetcode.com/studyplan/graph-theory/
+    - Leetcode 75
     - blind 75 - needcode solutions - https://neetcode.io/practice
     - top 100 most liked questions
+	- top 150 questions
     - System Design Neetcode, 1,2,3
     - Neetcode LL 21 - https://www.youtube.com/watch?v=S5bfdUTrKLM&list=PLot-Xpze53leU0Ec0VkBhnf4npMRFiNcB&index=1
-    	- 203
-    	- 234
-    	- 21
-    	- 23
-    	- 141
-    	- 83
     - Neetcode trees 36 - https://www.youtube.com/watch?v=QfJsau0ItOY&list=PLot-Xpze53ldg4pN6PfzoJY7KsKcxF1jg&index=1
     	- 110
     	- 226
@@ -102,71 +93,6 @@ Bit Manipulation
 
 
 
-Programming Skills 2, 11/30/0
-
-	896. Monotonic Array
-	28. Implement strStr()
-
-	110. Balanced Binary Tree
-	459. Repeated Substring Pattern
-
-	150. Evaluate Reverse Polish Notation
-	66. Plus One
-
-	1367. Linked List in Binary Tree
-	43. Multiply Strings
-
-	67. Add Binary
-	989. Add to Array-Form of Integer
-
-	739. Daily Temperatures
-	58. Length of Last Word
-
-	48. Rotate Image
-	1886. Determine Whether Matrix Can Be Obtained By Rotation
-
-	54. Spiral Matrix
-	973. K Closest Points to Origin
-
-	1630. Arithmetic Subarrays
-	429. N-ary Tree Level Order Traversal
-
-	503. Next Greater Element II
-	556. Next Greater Element III
-
-	1376. Time Needed to Inform All Employees
-	49. Group Anagrams
-
-	438. Find All Anagrams in a String
-	713. Subarray Product Less Than K
-
-	304. Range Sum Query 2D - Immutable
-	910. Smallest Range II
-
-	143. Reorder List
-	138. Copy List with Random Pointer
-
-	2. Add Two Numbers
-	445. Add Two Numbers II
-
-	61. Rotate List
-	173. Binary Search Tree Iterator
-
-	1845. Seat Reservation Manager
-	860. Lemonade Change
-
-	155. Min Stack
-	341. Flatten Nested List Iterator
-
-	1797. Design Authentication Manager
-	707. Design Linked List
-
-	380. Insert Delete GetRandom O(1)
-	622. Design Circular Queue
-	729. My Calendar I
-
-
-	
 
 DS 2, 	11/37/2
 
@@ -263,12 +189,3 @@ Heap
 	973. K Closest Points to Origin
 
 
-
-Algorithms 2, 3/42/2
-
-
-Leetcode 75 - 1
-leetcode 75 - 2
-	
-leetcode 705
-leetcode 706
