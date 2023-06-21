@@ -2,18 +2,15 @@
 TODO
 
 206
-merge two sorted arrays
-merge two sorted lists
 merge sort
-contains duplicate
 matrix multiplication
 subset sum
 traveling salesman problem
 BFS graphs
 DFS graphs
 greedy knapsack problem
-leetcode 705
-leetcode 706
+380. Insert Delete GetRandom O(1)
+
 
     - Algorithms 1                       (17/14/0)
     - DS 2                               (11/37/2)
