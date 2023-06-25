@@ -1,8 +1,11 @@
 
 TODO
 
-206
-merge sort
+2073. Time Needed to Buy Tickets
+641. Design Circular Deque
+1670. Design Front Middle Back Queue
+
+
 matrix multiplication
 subset sum
 traveling salesman problem
@@ -10,6 +13,8 @@ BFS graphs
 DFS graphs
 greedy knapsack problem
 380. Insert Delete GetRandom O(1)
+72. Edit Distance
+
 
 
     - Algorithms 1                       (17/14/0)
