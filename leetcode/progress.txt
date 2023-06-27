@@ -1,9 +1,26 @@
-
-TODO
+Queues
 
 2073. Time Needed to Buy Tickets
 641. Design Circular Deque
 1670. Design Front Middle Back Queue
+
+Trees
+450. Delete Node in a BST
+110. Balanced Binary Tree
+173. Binary Search Tree Iterator
+
+938. Range Sum of BST
+98. Validate Binary Search Tree
+669. Trim a Binary Search Tree
+
+
+
+34. Find First and Last Position of Element in Sorted Array
+153. Find Minimum in Rotated Sorted Array
+33. Search in Rotated Sorted Array
+54. Spiral Matrix
+53. Maximum Subarray
+
 
 
 matrix multiplication
