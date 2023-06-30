@@ -22,6 +22,7 @@ Graphs
 53. Maximum Subarray
 
 
+Matrix multiplication
 1845. Seat Reservation Manager - min heap
 matrix multiplication
 subset sum
@@ -35,6 +36,9 @@ greedy knapsack problem
 
 https://seanprashad.com/leetcode-patterns/
 
+    - Striver, graph series, https://www.youtube.com/watch?v=M3_pLsDdeuU&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn
+    - Striver, DP, https://www.youtube.com/watch?v=FfXoiwwnxFw&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY
+    - Striver, backtracking and recursion, https://www.youtube.com/watch?v=yVdKa8dnKiE&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9
     - Algorithms 1			16/31
     - DS 2                              10/50
     - Algorithms 2                      2/46
