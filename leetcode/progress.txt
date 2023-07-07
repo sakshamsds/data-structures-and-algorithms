@@ -61,7 +61,7 @@ https://seanprashad.com/leetcode-patterns/
 
 Graphs
 DP
-Heap
+Heap - top k problems
 Backtracking
 ctci system design
 prefix sum leetcode
