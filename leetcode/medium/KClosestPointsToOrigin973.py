@@ -10,6 +10,7 @@ class Solution:
 
         # add all in a min heap in O(n)
         # pop k times in O(klogn), which is less than nlogn
+        # O(n + klogn)
 
         min_heap = []
         for x, y in points:
