@@ -9,10 +9,9 @@
 
 
 def merge_sort(elements):
-    if len(elements) <= 1:
+    if len(elements) == 1:
         return elements, 0
     mid = len(elements) // 2
-
     left, left_count = merge_sort(elements[:mid])
     right, right_count = merge_sort(elements[mid:])
     elements_sorted, merge_count = merge(left, right)
@@ -21,34 +20,36 @@ def merge_sort(elements):
 
 def merge(left, right):
     res = []
-    count = 0
-    i, j = 0, 0
+    count, i, j = 0, 0, 0
     n, m = len(left), len(right)
 
     while i < n and j < m:
         if left[i] > right[j]:
             res.append(right[j])
             j += 1
-            count += 1
+            count += len(left[i:])
         else:
             res.append(left[i])
             i += 1
 
-    while i < n:
-        res.append(left[i])
-        i += 1
-
-    while j < m:
-        res.append(right[j])
-        j += 1
-
+    res.extend(left[i:])
+    res.extend(right[j:])
     return res, count
 
 
 if __name__ == '__main__':
-    input_n = int(input())
-    elements = list(map(int, input().split()))
-    assert len(elements) == input_n
-    elements = [2, 3, 9, 2, 9]
+    # input_n = int(input())
+    # elements = list(map(int, input().split()))
+    # assert len(elements) == input_n
+    # elements = [2, 3, 9, 2, 9]
+    # elements = [3, 2, 1]
+    # elements = [5, 4, 3, 2, 1] 
+    # elements = [2]
+    # elements = [9, 8, 7, 3, 2, 1]
+    # elements = [3, 3, 18, 2, 5]
+    # elements = [1, 1, 1, 1]
+    # elements = [1, 0, 2]
+    # elements = [1, 2, 0]
+    elements = [0, 1, 3, 2]
     print(merge_sort(elements)[1])
     # print(inversions_naive(elements))
