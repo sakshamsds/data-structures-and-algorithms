@@ -10,9 +10,8 @@ def maximum_gold(capacity, weights):
             if weight - weights[items - 1] < 0:
                 dp[items][weight] = dp[items - 1][weight]
             else:
-                dp[items][weight] = max(dp[items - 1][weight], 
-                                    dp[items - 1][weight - weights[items - 1]] + weights[items - 1])
-                                #   0                           1               knapsack
+                dp[items][weight] = max(dp[items - 1][weight], dp[items - 1][weight - weights[items - 1]] + weights[items - 1])
+                                            #   0                                            1               knapsack
 
     # for row in dp:
     #     print(*row, sep='\t')
