@@ -31,7 +31,6 @@ BFS graphs
 DFS graphs
 greedy knapsack problem
 380. Insert Delete GetRandom O(1)
-72. Edit Distance
 
 
 https://seanprashad.com/leetcode-patterns/
