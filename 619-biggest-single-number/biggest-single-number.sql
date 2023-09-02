@@ -16,4 +16,11 @@ WITH cte AS
         HAVING COUNT(num) = 1
 )
 
-SELECT MAX(num) as num FROM cte;
+# SELECT MAX(num) as num FROM cte;
+SELECT 
+    CASE 
+        WHEN COUNT(num) > 0
+            THEN MAX(num)
+            ELSE NULL
+    END as num
+FROM cte;
