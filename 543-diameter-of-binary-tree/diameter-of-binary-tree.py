@@ -11,19 +11,22 @@ class Solution:
         # check height of node.right
         # max_depth = h_left + h_right
         # cur_height = max(h_left, h_right)
-        res = []
+
+        # self.diameter = 0
+        diameter = 0
 
         def dfs(node):
+            nonlocal diameter
             if node is None:
                 return 0
 
             h_left = dfs(node.left)
             h_right = dfs(node.right)
             cur_height = 1 + max(h_left, h_right)
-            res.append(h_left + h_right)
+            diameter = max(diameter, h_left + h_right)
             return cur_height
 
         dfs(root)
         # print(res)
-        return max(res)
+        return diameter
         
