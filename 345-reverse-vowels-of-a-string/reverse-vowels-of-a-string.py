@@ -8,7 +8,7 @@ class Solution:
 
         # print(res)
         while l < r:
-            print(l, r)
+            # print(l, r)
             if res[l] in vowels:
                 if res[r] in vowels:
                     res[l], res[r] = res[r], res[l]
