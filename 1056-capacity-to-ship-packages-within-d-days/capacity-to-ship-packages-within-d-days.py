@@ -8,20 +8,14 @@ class Solution:
         while l <= r:
             cap = l + (r - l)//2
 
-            time_taken = 0
+            time_taken = 1
             cur_w = 0
             for weight in weights:
-                if cur_w + weight > cap:
+                if cur_w + weight > cap:        # when weight increases, ship the prev day
                     time_taken += 1
                     cur_w = weight
-                elif cur_w + weight == cap:
-                    time_taken += 1
-                    cur_w = 0
                 else:
                     cur_w += weight
-            
-            if cur_w > 0:
-                time_taken += 1
 
             # print(cap, time_taken)
 
