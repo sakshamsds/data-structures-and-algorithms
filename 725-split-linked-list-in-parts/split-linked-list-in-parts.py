@@ -18,7 +18,6 @@ class Solution:
         while length > 0:
             # print(length)
             # numbers to add 
-            split = []
             split_size = math.ceil(length / k)
             cur_head = cur
             prev = cur
