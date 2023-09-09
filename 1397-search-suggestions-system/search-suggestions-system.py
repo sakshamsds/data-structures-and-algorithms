@@ -15,16 +15,6 @@ class Trie:
             cur = cur.children[char]
         cur.end = True     
 
-    # def print(self) -> None:
-    #     def dfs(cur, prefix):
-    #         if cur.end:
-    #             print(prefix)
-    #         for char, node in cur.children.items():
-    #             dfs(node, prefix + char)
-
-    #     dfs(self.root, "")
-    #     return
-        
     def getTop3Prefix(self, search_word):
         cur = self.root
         res = []
@@ -62,8 +52,8 @@ class Trie:
 
 class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        products.sort()
         trie = Trie()
         for product in products:
             trie.add(product)
-        # trie.print()
         return trie.getTop3Prefix(searchWord)
