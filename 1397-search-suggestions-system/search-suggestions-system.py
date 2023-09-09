@@ -1,7 +1,7 @@
 class TrieNode:
     def __init__(self):
-        self.children = {}      # we use
-        self.end = False
+        self.children = dict()
+        self.words = list()
 
 class Trie:
     def __init__(self) -> None:
@@ -13,42 +13,16 @@ class Trie:
             if char not in cur.children:
                 cur.children[char] = TrieNode()
             cur = cur.children[char]
-        cur.end = True     
+            if len(cur.words) < 3:
+                cur.words.append(word)
 
-    def getTop3Prefix(self, search_word):
+    def find_word_by_prefix(self, prefix):
         cur = self.root
-        res = []
-        prefix = ""
-        for i, char in enumerate(search_word):
-            prefix += char
-            if char not in cur.children:
-                break
-            else:
-                res.append(self.getTop3Char(cur.children[char], prefix))
-            cur = cur.children[char]
-
-        while len(res) < len(search_word):
-            res.append([])
-        return res
-
-
-    def getTop3Char(self, cur, prefix):
-        top3 = []
-
-        def dfs(node, char, prefix):
-            if len(top3) == 3:
-                return
-
-            if node.end:
-                top3.append(prefix)
-
-            for letter in string.ascii_lowercase:
-                if letter in node.children:
-                    dfs(node.children[letter], letter, prefix + letter)
-
-        dfs(cur, prefix[-1], prefix)
-        return top3
-
+        for c in prefix:
+            if c not in cur.children:
+                return ''
+            cur = cur.children[c]
+        return cur.words
 
 class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
@@ -56,4 +30,7 @@ class Solution:
         trie = Trie()
         for product in products:
             trie.add(product)
-        return trie.getTop3Prefix(searchWord)
+        res = []
+        for i in range(len(searchWord)):
+            res.append(trie.find_word_by_prefix(searchWord[:i + 1]))
+        return res
