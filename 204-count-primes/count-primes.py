@@ -8,7 +8,7 @@ class Solution:
         i = 2
         while i*i < n:
             if primes[i] == 1:          # optimization
-                for j in range(2*i, n, i):
+                for j in range(i*i, n, i):
                     primes[j] = 0       # not a prime
             i += 1
                 
