@@ -6,12 +6,9 @@ class Solution:
             freq_map[char] += 1
 
         # print(freq_map)
-        freqs = freq_map.values()
-        # freqs = sorted(freq_map.values(), reverse=True)
-        # print(freqs)
         seen = set()
         cnt = 0
-        for freq in freqs:
+        for _, freq in freq_map.items():
             while freq in seen:
                 freq -= 1
                 cnt += 1
