@@ -6,12 +6,8 @@ class Solution:
             freq_map[char] += 1
 
         # print(freq_map)
-        
-        # start with max freq
-        # check cur freq in set
-        #   keep -- until not present
-
-        freqs = sorted(freq_map.values(), reverse=True)
+        freqs = freq_map.values()
+        # freqs = sorted(freq_map.values(), reverse=True)
         # print(freqs)
         seen = set()
         cnt = 0
