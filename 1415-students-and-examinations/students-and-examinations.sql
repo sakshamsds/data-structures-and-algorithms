@@ -27,4 +27,4 @@ FROM cte
 LEFT JOIN cte2
     ON cte.student_id = cte2.student_id
         AND cte.subject_name = cte2.subject_name
-ORDER BY student_id, subject_name
+ORDER BY cte.student_id, cte.subject_name
