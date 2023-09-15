@@ -1,7 +1,6 @@
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
         manhattan = lambda p1, p2: abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
-
         n = len(points)
         adj = collections.defaultdict(list) # i: list of (cost, node)
         # create adj list
