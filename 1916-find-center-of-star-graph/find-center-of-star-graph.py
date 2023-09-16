@@ -1,11 +1,6 @@
 class Solution:
-    def findCenter(self, edges: List[List[int]]) -> int:
+    def findCenter(self, e: List[List[int]]) -> int:
         # min two edges
-        edge1 = edges[0]
-        edge2 = edges[1]
-        # print(edge1, edge2)
-        if edge1[0] == edge2[0] or edge1[0] == edge2[1]:
-            return edge1[0]
-        if edge1[1] == edge2[0] or edge1[1] == edge2[1]:
-            return edge1[1]
-        return 0
+        if e[0][0] == e[1][0] or e[0][0] == e[1][1]:
+            return e[0][0]
+        return e[0][1]
