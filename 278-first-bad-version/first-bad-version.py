@@ -3,14 +3,13 @@
 
 class Solution:
     def firstBadVersion(self, n: int) -> int:
+# after exiting the while loop, left is the minimal k​ satisfying the condition function;
         l, r = 1, n
-        
-        while l <= r:
-            mid = (l + r) // 2
-            
+        while l < r:
+            mid = l + (r - l)//2
             if isBadVersion(mid):
-                r = mid - 1
+                r = mid
             else:
                 l = mid + 1
-                
+
         return l
