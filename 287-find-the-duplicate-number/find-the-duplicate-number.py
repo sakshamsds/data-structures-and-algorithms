@@ -2,8 +2,8 @@ class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
         # detect cycle using linked list
 
-        slow = nums[0]
-        fast = nums[0]
+        slow = 0
+        fast = 0
         while True:
             slow = nums[slow]
             fast = nums[nums[fast]]
@@ -11,7 +11,7 @@ class Solution:
             if slow == fast:
                 break
 
-        slow2 = nums[0]
+        slow2 = 0
         while slow != slow2:
             slow = nums[slow]
             slow2 = nums[slow2]
