@@ -1,30 +1,22 @@
 # Write your MySQL query statement below
 
-WITH cte as (
-    SELECT *
-    FROM students     # for every student have 3 rows, M, P, Prog, 4 * 3 rows
-    CROSS JOIN subjects
-),
-cte2 as (
-    SELECT 
-        student_id, 
-        subject_name,
-        COUNT(subject_name) AS attended_exams
-    FROM examinations
-    GROUP BY student_id, subject_name
+WITH cte AS(
+  SELECT *
+  FROM students
+  CROSS JOIN subjects
 )
+# SELECT * FROM cte;
 
 SELECT 
-    cte.student_id,
-    cte.student_name,
-    cte.subject_name,
-    CASE 
-        WHEN attended_exams IS NOT NULL 
-            THEN attended_exams
-        ELSE 0
-    END AS attended_exams
-FROM cte 
-LEFT JOIN cte2
-    ON cte.student_id = cte2.student_id
-        AND cte.subject_name = cte2.subject_name
+  cte.student_id,
+  cte.student_name,
+  cte.subject_name,
+  COUNT(e.subject_name) as attended_exams
+FROM cte
+LEFT JOIN examinations e
+  ON cte.student_id = e.student_id
+    AND cte.subject_name = e.subject_name
+GROUP BY cte.student_id, cte.subject_name
 ORDER BY cte.student_id, cte.subject_name
+
+
