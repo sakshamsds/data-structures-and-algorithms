@@ -2,6 +2,7 @@ class Solution:
     def longestStrChain(self, words: List[str]) -> int:
         # use hint, memoization
         # formula, len = max(1, len(pre) + 1)
+        words.sort(key=lambda w: len(w), reverse=True)
         words_set = set(words)
         cache = dict()
 
