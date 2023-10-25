@@ -7,18 +7,14 @@
 
 class Solution:
     def kthGrammar(self, n: int, k: int) -> int:
+        # print(f'row: {n}, idx: {k}')
+        if k == 1:
+            return 0
 
-        def helper(n, i):
-            # print(f'row: {n}, idx: {i}')
-            if i == 0:
-                return 0
+        parent = self.kthGrammar(n - 1, (k + 1)//2)
+        # print(f'parent: {parent}')
 
-            parent = helper(n - 1, i//2)
-            # print(f'parent: {parent}')
-
-            if parent == 0: # 01
-                return 0 if i % 2 == 0 else 1
-            else:         # 10    
-                return 1 if i % 2 == 0 else 0
-        
-        return helper(n, k - 1)
+        if parent == 0: # 01
+            return 1 if k % 2 == 0 else 0
+        else:         # 10    
+            return 0 if k % 2 == 0 else 1
