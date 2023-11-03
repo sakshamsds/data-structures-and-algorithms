@@ -11,8 +11,9 @@ class Solution:
         last_added = 0
 
         for num in target:
-            diff = num - last_added - 1
-            res.extend(diff * ["Push", "Pop"])
+            for _ in range(num - last_added - 1):
+                res.append("Push")
+                res.append("Pop")
             res.append("Push")
             last_added = num
 
