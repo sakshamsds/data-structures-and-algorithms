@@ -1,9 +1,8 @@
 # Write your MySQL query statement below
-
-SELECT 
+SELECT
     player_id,
     MIN(event_date) as first_login
 FROM 
     activity
-GROUP BY
+GROUP BY 
     player_id
