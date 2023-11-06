@@ -4,7 +4,7 @@ class SeatManager:
         # heap of unreserved seats
         # all seats are unreserved initially
         self.available = [i for i in range(1, n + 1)]
-        heapq.heapify(self.available)
+        # heapq.heapify(self.available)
 
     def reserve(self) -> int:
         # get the min from available
