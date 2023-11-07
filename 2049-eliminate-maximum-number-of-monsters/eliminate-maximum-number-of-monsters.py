@@ -12,12 +12,13 @@ class Solution:
     def eliminateMaximum(self, dist: List[int], speed: List[int]) -> int:
         n = len(dist)
         arrivalTime = []
-        for i, (d, s) in enumerate(zip(dist, speed)):
-            heapq.heappush(arrivalTime, d/s)
-        # print(arrivalTime)
+        for i in range(n):
+            arrivalTime.append(dist[i]/speed[i])
+
+        arrivalTime.sort()
 
         for t in range(n):
-            if heapq.heappop(arrivalTime) <= t:
+            if arrivalTime[t] <= t:
                 return t
 
         return n
