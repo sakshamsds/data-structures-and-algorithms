@@ -13,17 +13,14 @@ class Solution:
                 break
 
         res = []
-        visited = set()
-
-        def dfs(node):
+        
+        def dfs(node, prev):
             res.append(node)
-            visited.add(node)
-            
-            for n in adj_list[node]:
-                if n not in visited:
-                    dfs(n)
+            for neighbor in adj_list[node]:
+                if neighbor != prev:
+                    dfs(neighbor, node)
 
-        dfs(root)
+        dfs(root, None)
         return res
 
 
