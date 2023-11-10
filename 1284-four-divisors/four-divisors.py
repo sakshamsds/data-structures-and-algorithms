@@ -3,7 +3,9 @@ class Solution:
         res = 0
         for num in nums:
             div = set()
-            for i in range(1, floor(sqrt(num)) + 1):    # trick is to reduce this computation by sqrt(n)
+            for i in range(1, floor(sqrt(num)) + 1):    
+                # hint 2
+                # trick is to reduce this computation by sqrt(n)
                 if num % i == 0:
                     div.add(i)
                     div.add(num // i)
