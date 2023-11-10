@@ -12,10 +12,11 @@ class Solution:
         for i in range(len(s)):
             if s[i] == '1':
                 cnt += 1
-                res = (res + cnt) % (10 ** 9 + 7)
             else:       # when you encounter 0
+                res += (cnt * (cnt + 1) // 2) % (10 ** 9 + 7)
                 cnt = 0
 
+        res += (cnt * (cnt + 1) // 2) % (10 ** 9 + 7)
         return res
 
 
