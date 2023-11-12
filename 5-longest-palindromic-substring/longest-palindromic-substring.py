@@ -1,30 +1,19 @@
-'''
-longest palindrome with character at the center
-
-'''
-
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        res = ""
-        res_size = 0
+        # check substring for every starting from every possible idx
 
+        res_l, res_r = 0, 0
+        max_size = 0
         for i in range(len(s)):
-            # check for odd length palindrome
-            l, r = i, i
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                if (r - l + 1) > res_size:
-                    res = s[l:r + 1]
-                    res_size = r - l + 1
-                l -= 1
-                r += 1
+            # one odd length
+            # one even length
+            for l, r in [(i, i), (i, i + 1)]:
+                while l >= 0 and r < len(s) and s[l] == s[r]:
+                    if r - l + 1 > max_size:
+                        max_size = r - l + 1
+                        res_l = l
+                        res_r = r
+                    l -= 1
+                    r += 1
 
-            # check for even length palindrome
-            l, r = i, i + 1
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                if (r - l + 1) > res_size:
-                    res = s[l:r + 1]
-                    res_size = r - l + 1
-                l -= 1
-                r += 1
-
-        return res
+        return s[res_l:res_r + 1]
