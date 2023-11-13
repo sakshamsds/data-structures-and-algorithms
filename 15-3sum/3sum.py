@@ -3,21 +3,25 @@ class Solution:
         nums.sort()
         res = []
 
-        for i, a in enumerate(nums):
-            if i > 0 and a == nums[i - 1]:
+        prev = None
+        for i in range(len(nums)):
+            if nums[i] == prev:
                 continue
 
             l, r = i + 1, len(nums) - 1
             while l < r:
-                threeSum = a + nums[l] + nums[r]
-                if threeSum > 0:
-                    r -= 1
-                elif threeSum < 0:
-                    l += 1
-                else:
-                    res.append([a, nums[l], nums[r]])
-                    l += 1
-                    while nums[l] == nums[l - 1] and l < r:
+                cur_sum = nums[i] + nums[l] + nums[r]
+                if cur_sum == 0:
+                    res.append([nums[i], nums[l], nums[r]])
+                    cur = nums[l]
+                    while nums[l] == cur and l < r:
                         l += 1
+                elif cur_sum > 0:
+                    r -= 1
+                else:
+                    l += 1
+            prev = nums[i]
 
         return res
+
+
