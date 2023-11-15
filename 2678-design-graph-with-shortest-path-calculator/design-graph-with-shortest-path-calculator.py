@@ -18,14 +18,16 @@ class Graph:
 
         while pq:
             dist, node = heapq.heappop(pq)
+            if node == node2:
+                return dist
+            if dist > distances[node]:
+                continue
             for nbr, edge_weight in self.adj_list[node]:
                 if dist + edge_weight < distances[nbr]:
                     distances[nbr] = dist + edge_weight
                     heapq.heappush(pq, (distances[nbr], nbr))
 
-        if distances[node2] == float('inf'):
-            return -1
-        return distances[node2] 
+        return -1
         
 
 
