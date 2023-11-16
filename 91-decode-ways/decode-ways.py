@@ -16,10 +16,8 @@ class Solution:
             if s[i] == '0':
                 return 0
 
-            ways = 0
             # take 1 char
-            if s[i] != '0':
-                ways += dfs(i + 1)
+            ways = dfs(i + 1)
 
             # take 2 char
             if i + 2 <= len(s) and ('1' <= s[i:i + 2] <= '26'):
