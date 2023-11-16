@@ -1,15 +1,11 @@
-'''
-2, 2 -> total = 2^n = 4 - 2 = 2
-n = 3, total = 2^3 = 8 - 3 = 5
-'''
+# Cantor's diagonal argument
 
 class Solution:
     def findDifferentBinaryString(self, nums: List[str]) -> str:
-        n = len(nums)
-        available = set()
-        for binary in nums:
-            available.add(int(binary, 2))
-
-        for num in range(n + 1):    # for n = 2, available should be 0, 1, 2, 3
-            if num not in available:
-                return bin(num)[2:].zfill(n)
+        # make the res differ from every num in nums by 1 place
+        res = []
+        for i in range(len(nums)):
+            cur = nums[i][i]
+            res.append("1" if cur == "0" else "0")
+        return "".join(res)
+        
