@@ -1,1 +1,1 @@
-<h2>find-unique-binary-string Notes</h2><hr>chatgpt solution, small code
+<h2>find-unique-binary-string Notes</h2><hr>O(n) sol
