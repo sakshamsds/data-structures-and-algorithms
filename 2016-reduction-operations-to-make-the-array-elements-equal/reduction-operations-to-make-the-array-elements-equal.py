@@ -1,26 +1,12 @@
-'''
-5 3 1
-3 1
-1
-
-3 2 2 1 1
-2 1 1
-1
-'''
-
 class Solution:
-    def reductionOperations(self, nums: List[int]) -> int:  
-        nums_set = set()
-        # distinct = []
-        res = 0
+    def reductionOperations(self, nums: List[int]) -> int:
         nums.sort()
-        for num in nums:
-            nums_set.discard(num)
-            # distinct.append(len(nums_set))
-            res += len(nums_set)
-            nums_set.add(num)
+        num_distinct, res = 0, 0
 
-        # print(nums)
-        # print(distinct)
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i - 1]:      # distinct number found
+                num_distinct += 1         # gotta reduce the cur num to this level
+            res += num_distinct
+
         return res
-        
+            
