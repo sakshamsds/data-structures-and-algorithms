@@ -14,8 +14,8 @@ class Solution:
         res = 0
         for num in nums:
             if num - 1 not in nums_set: # start of sequence found
-                cur, cur_len = num, 0
-                while cur in nums_set:
-                    cur, cur_len = cur + 1, cur_len + 1
+                cur_len = 0
+                while (num + cur_len) in nums_set:
+                    cur_len += 1
                 res = max(res, cur_len)
         return res
