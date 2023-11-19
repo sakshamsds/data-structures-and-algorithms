@@ -20,8 +20,7 @@ class Solution:
             res += len(nums_set)
             nums_set.add(num)
 
-        print(nums)
+        # print(nums)
         # print(distinct)
-
         return res
         
