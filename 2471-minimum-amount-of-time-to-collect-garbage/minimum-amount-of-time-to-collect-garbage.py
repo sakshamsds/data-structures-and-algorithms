@@ -15,16 +15,14 @@ class Solution:
         def get_cost(g_type):
             time_taken = 0
             last_house = -1
-            for i in range(len(garbage)):
-                count = garbage[i].count(g_type)
+            for i, house in enumerate(garbage):
+                count = house.count(g_type)
                 if count > 0:
                     last_house = i
                 time_taken += count
-
             travel_cost = 0
             if last_house > 0:   # either not found or found at 0 house   
                 travel_cost = sum(travel[:last_house])
-
             return travel_cost + time_taken
 
         return get_cost('G') + get_cost('M') + get_cost('P')
