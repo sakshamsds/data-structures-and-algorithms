@@ -1,15 +1,24 @@
+'''
+leetcode 
+dfs(0) -> matches with leet -> dfs(4) -> matches with code -> dfs(8) = True
+'''
+
+
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        dp = [False] * (len(s) + 1)
-        dp[-1] = True
+        cache = {len(s): True}
+        
+        def dfs(idx):
+            if idx in cache:    # already computed the subproblem
+                return cache[idx]
 
-        for i in range(len(s) - 1, -1, -1):
             for word in wordDict:
-                if len(word) + i <= len(s) and s[i:i+len(word)] == word:
-                    # print(i, len(word))
-                    dp[i] = dp[i + len(word)]
-                    if dp[i]: 
-                        break
+                if idx + len(word) <= len(s) and s[idx:idx + len(word)] == word:
+                    if dfs(idx + len(word)):
+                        cache[idx] = True
+                        return True
 
-        # print(dp)
-        return dp[0]
+            cache[idx] = False
+            return False
+        
+        return dfs(0)
