@@ -1,17 +1,15 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        @cache
-        def dfs(i):
-            if i == len(s):   # base case
-                return True
-            # print(i)
+        dp = [False] * (len(s) + 1)
+        dp[-1] = True
 
-            # at every idx try all the words to see if you get a match
-            for w in wordDict:
-                if i + len(w) <= len(s) and s[i:i+len(w)] == w:
-                    if dfs(i + len(w)):
-                        return True
-            return False
+        for i in range(len(s) - 1, -1, -1):
+            for word in wordDict:
+                if len(word) + i <= len(s) and s[i:i+len(word)] == word:
+                    # print(i, len(word))
+                    dp[i] = dp[i + len(word)]
+                    if dp[i]: 
+                        break
 
-        return dfs(0)
-        
+        # print(dp)
+        return dp[0]
