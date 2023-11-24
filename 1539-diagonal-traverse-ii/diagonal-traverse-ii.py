@@ -1,25 +1,16 @@
-'''
-    0   1   2   3   4   5
-0   0   1   2   3   4   5
-1   1   2   3   4   5   6
-2   2   3   4   5   6   7
-3   3   4   5   6   7   8
-4   4   5   6   7   8   9
-5   5   6   7   8   9   10
-'''
-
 class Solution:
     def findDiagonalOrder(self, nums: List[List[int]]) -> List[int]:
-        diagDict = collections.defaultdict(list)
-        for r in range(len(nums) - 1, -1, -1):
-            for c in range(len(nums[r])):
-                diagDict[r + c].append(nums[r][c])
-
-        print(diagDict.keys())
+        # bfs solution
+        q = collections.deque()
+        q.append((0, 0))
         res = []
-        key = 0
-        while key in diagDict:
-            res.extend(diagDict[key])
-            key += 1
+        while q:
+            r, c = q.popleft()
+            res.append(nums[r][c])
+            # add nbrs to the q
+            if c == 0 and r + 1 < len(nums):
+                q.append((r + 1, c))
+            if c + 1 < len(nums[r]):
+                q.append((r, c + 1))
 
         return res
