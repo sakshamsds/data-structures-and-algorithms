@@ -10,7 +10,8 @@ class Solution:
         for i, num in enumerate(nums):
             leftSum = prefixSum[i] - num
             rightSum = totalSum - prefixSum[i]
-            total_diff = (i * num - leftSum) + (rightSum - (n - i - 1) * num)
+            # total_diff = (i * num - leftSum) + (rightSum - (n - i - 1) * num)
+            total_diff = rightSum - leftSum - (n - 2*i - 1) * num
             # total_diff = (leftSize * num - leftSum) + \
             #              (rightSum - rightSize * num)
             res.append(total_diff)
