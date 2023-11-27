@@ -15,16 +15,13 @@ class Solution:
 
         prev_dp = [1] * 10
         MOD = 1e9 + 7
-        # print(1, prev_dp)
 
-
-        for i in range(2, n + 1):
+        for _ in range(2, n + 1):
             next_dp = [0] * 10
             for num in range(10):
                 for nbr in adj_list[num]:
-                    next_dp[num] = int((next_dp[num] + prev_dp[nbr]) % MOD)
+                    next_dp[num] = (next_dp[num] + prev_dp[nbr]) % MOD
             prev_dp = next_dp
-            # print(i, prev_dp)
 
         return int(sum(prev_dp) % MOD)
 
