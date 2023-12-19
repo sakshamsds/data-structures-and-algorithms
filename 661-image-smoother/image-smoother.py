@@ -6,12 +6,11 @@ class Solution:
 
         for r in range(rows):
             for c in range(cols):
-                agg = 0
-                cnt = 0
+                agg, cnt = 0, 0
                 for dr, dc in points:
                     nr, nc = r + dr, c + dc
                     if (0 <= nr < rows and 0 <= nc < cols):
                         agg += img[nr][nc]
                         cnt += 1
-                res[r][c] = floor(agg/cnt)
+                res[r][c] = agg // cnt
         return res
