@@ -4,15 +4,12 @@ class Solution:
         s.sort()
 
         cookie_ptr = 0
-        cnt = 0
         for i in range(len(g)):
             while cookie_ptr < len(s) and s[cookie_ptr] < g[i]:
                 cookie_ptr += 1
-            if cookie_ptr < len(s) and s[cookie_ptr] >= g[i]:   # current greed is statisfied:
-                cnt += 1
-                cookie_ptr += 1
-            if cookie_ptr == len(s):
-                return cnt
+            if cookie_ptr == len(s):    # not able to find cookie for cur child
+                return i
+            cookie_ptr += 1         # cur cookie given to the child
 
         return len(g)
 
