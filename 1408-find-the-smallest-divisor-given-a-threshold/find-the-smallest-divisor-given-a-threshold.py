@@ -17,3 +17,5 @@ class Solution:
                 r = mid
 
         return l
+
+# O(n * log(MAX(nums)))
