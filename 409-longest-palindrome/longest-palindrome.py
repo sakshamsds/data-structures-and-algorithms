@@ -3,10 +3,10 @@ class Solution:
         # get freq of all elements
         # even freq will add to palindrom
         # get the largest odd freq
-        freqDict = collections.Counter(s)
+        freqs = collections.Counter(s).values()
         longest = 0
         odd_exists = False
-        for _, freq in freqDict.items():
+        for freq in freqs:
             if freq % 2 == 0:
                 longest += freq
             else:
