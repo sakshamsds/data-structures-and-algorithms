@@ -1,5 +1,7 @@
 class Solution:
     def minSpeedOnTime(self, dist: List[int], hour: float) -> int:
+        if hour < len(dist) - 1:
+            return -1
 
         def getTime(speed):
             arrival_time = 0
@@ -8,7 +10,6 @@ class Solution:
             return arrival_time + dist[-1]/speed
 
         l, r = 1, max(dist) * 100
-
         while l < r:
             mid = l + (r - l) // 2
             arr_time = getTime(mid)
