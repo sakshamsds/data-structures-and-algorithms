@@ -27,7 +27,7 @@ class Solution:
         for num in nums:
             for t in range(target, num - 1, -1):
                 dp[t] = dp[t] or dp[t - num]
-                if dp[target]:
-                    return True
+            if dp[target]:
+                return True
 
         return dp[target]
