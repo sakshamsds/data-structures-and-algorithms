@@ -12,8 +12,7 @@ class Solution:
         total_increment = 0
         for r in range(n):
             for c in range(n):
-                total_increment += max(0, \
-                                       min(row_max[r], col_max[c]) - grid[r][c])
+                total_increment += min(row_max[r], col_max[c]) - grid[r][c]
         return total_increment         
 
         
