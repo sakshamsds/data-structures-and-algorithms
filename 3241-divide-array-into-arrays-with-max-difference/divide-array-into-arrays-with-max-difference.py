@@ -4,8 +4,7 @@ class Solution:
         nums.sort()
         res = []
         for i in range(0, len(nums), 3):
-            f, s, t = nums[i], nums[i + 1], nums[i + 2]
-            if abs(f - s) > k or abs(f - t) > k or abs(s - t) > k:
+            if nums[i + 2] - nums[i] > k:
                 return []
-            res.append([f, s, t])
+            res.append(nums[i:i + 3])
         return res
