@@ -1,21 +1,17 @@
 class Solution:
     def numberOfArithmeticSlices(self, nums: List[int]) -> int:
-        # calculate valid subarrays from an index
+        prev_diff = -inf
+        size = -1
         res = 0
-        i = 0
-        while i < len(nums) - 2:
-            curLen = 2
-            diff = nums[i + 1] - nums[i]
-            for j in range(i + 2, len(nums)):
-                if nums[j] - nums[j - 1] != diff:
-                    break
-                curLen += 1
-                if curLen > 2:
-                    res += curLen - 2
-            if curLen > 2:
-                i = j - 1
+
+        for i in range(1, len(nums)):
+            cur_diff = nums[i] - nums[i - 1]
+            if cur_diff == prev_diff:
+                size += 1
+                if size > 2:
+                    res += size - 2
             else:
-                i += 1
+                prev_diff = cur_diff
+                size = 2
 
         return res
-                
