@@ -8,9 +8,11 @@ class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
         if root is None:
             return 0
-        leftSum = self.rangeSumBST(root.left, low, high)
-        rightSum = self.rangeSumBST(root.right, low, high)
-        curSum = leftSum + rightSum
+        curSum = 0
+        if root.val >= low:
+            curSum += self.rangeSumBST(root.left, low, high)
+        if root.val <= high:
+            curSum += self.rangeSumBST(root.right, low, high)
         if low <= root.val <= high:
             curSum += root.val
         return curSum
