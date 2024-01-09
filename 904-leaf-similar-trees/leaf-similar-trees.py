@@ -7,17 +7,18 @@
 class Solution:
     def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
         
-        def getLeafNodes(node, leafs):  # pre order
+        def getLeaves(node):  # pre order
             if node is None:
-                return leafs
+                return []
 
             if node.left is None and node.right is None:    # leaf node
-                leafs.append(node.val)
+                return [node.val]
             
-            new_leafs = getLeafNodes(node.left, leafs)
-            return getLeafNodes(node.right, new_leafs)
+            l = getLeaves(node.left)
+            r = getLeaves(node.right)
+            return l + r
 
-        return getLeafNodes(root1, []) == getLeafNodes(root2, [])
+        return getLeaves(root1) == getLeaves(root2)
         # leafs1 = getLeafNodes(root1, [])
         # leafs2 = getLeafNodes(root2, [])
         # print(leafs1)
