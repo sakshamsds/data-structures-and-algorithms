@@ -35,11 +35,11 @@ class Solution:
             size = len(q)
             for _ in range(size):
                 cur = q.popleft()
-                visited.add(cur)
+                # visited.add(cur)
                 for nbr in adj_list[cur]:
                     if nbr not in visited:
                         q.append(nbr)
-                        # visited.add(nbr)
+                        visited.add(nbr)
 
         return minutes
 
