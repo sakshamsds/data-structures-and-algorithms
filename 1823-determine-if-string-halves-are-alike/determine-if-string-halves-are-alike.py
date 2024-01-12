@@ -13,6 +13,6 @@ class Solution:
         for i in range(mid, len(s), 1):
             if s[i] in vowels:
                 num_vowels_right += 1
-        print(num_vowels_left, num_vowels_right)
+        # print(num_vowels_left, num_vowels_right)
         return num_vowels_left == num_vowels_right
             
