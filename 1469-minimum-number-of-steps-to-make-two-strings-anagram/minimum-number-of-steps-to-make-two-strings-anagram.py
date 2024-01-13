@@ -12,15 +12,16 @@ practice - a1 c2    e1 i1       p1 r1 t1
 
 class Solution:
     def minSteps(self, s: str, t: str) -> int:
-        s_freq = [0] * 26
-        t_freq = [0] * 26
+        return sum((Counter(s) - Counter(t)).values())
+        # s_freq = [0] * 26
+        # t_freq = [0] * 26
 
-        for c1, c2 in zip(s, t):
-            s_freq[ord(c1) - ord('a')] += 1
-            t_freq[ord(c2) - ord('a')] += 1
+        # for c1, c2 in zip(s, t):
+        #     s_freq[ord(c1) - ord('a')] += 1
+        #     t_freq[ord(c2) - ord('a')] += 1
 
-        diff = 0
-        for i in range(26):
-            diff += abs(t_freq[i] - s_freq[i])
+        # diff = 0
+        # for i in range(26):
+        #     diff += abs(t_freq[i] - s_freq[i])
 
-        return diff // 2
+        # return diff // 2
