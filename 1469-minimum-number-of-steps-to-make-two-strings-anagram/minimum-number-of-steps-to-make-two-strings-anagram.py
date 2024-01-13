@@ -12,7 +12,8 @@ practice - a1 c2    e1 i1       p1 r1 t1
 
 class Solution:
     def minSteps(self, s: str, t: str) -> int:
-        return sum((Counter(s) - Counter(t)).values())
+        return (Counter(s) - Counter(t)).total()
+        # return sum((Counter(s) - Counter(t)).values())
         # s_freq = [0] * 26
         # t_freq = [0] * 26
 
