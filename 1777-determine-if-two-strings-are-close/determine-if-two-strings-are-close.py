@@ -9,4 +9,10 @@ a > b, b > a
 class Solution:
     def closeStrings(self, word1: str, word2: str) -> bool:
         # if we can make them anagrams of each other, return true
-        return len(word1) == len(word2) and set(word1) == set(word2) and sorted(Counter(word1).values()) == sorted(Counter(word2).values())
+        if len(word1) != len(word2):    
+            return False
+
+        if set(word1) != set(word2):    # 2nd op with existing letters only
+            return False
+
+        return sorted(Counter(word1).values()) == sorted(Counter(word2).values())
