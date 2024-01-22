@@ -1,11 +1,10 @@
 class Solution:
     def findErrorNums(self, nums: List[int]) -> List[int]:
-        freqs = Counter(nums)
-        duplicated = -1
-        for k, v in freqs.items():
-            if v == 2:
-                duplicated = k
-                break
-        n = len(nums)
-        missing = n * (n + 1) // 2 + duplicated - sum(nums)
-        return [duplicated, missing]
+        c = Counter(nums)
+        res = [-1, -1]
+        for i in range(1, len(nums) + 1):
+            if c[i] == 0:
+                res[1] = i
+            if c[i] == 2:
+                res[0] = i
+        return res
