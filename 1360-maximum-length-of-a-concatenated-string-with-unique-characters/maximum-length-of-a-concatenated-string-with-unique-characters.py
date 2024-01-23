@@ -1,27 +1,17 @@
 class Solution:
     def maxLength(self, arr: List[str]) -> int:
-        freqs = [0] * 26
+        res = set()
 
-        def dfs(i):
+        def backtrack(i):
+            max_size = len(res)
             if i == len(arr):
-                return sum(freqs)
+                return max_size
 
-            # do not include
-            max_len = dfs(i + 1)
+            for j in range(i, len(arr)):
+                if len(set(arr[j])) == len(arr[j]) and not res & set(arr[j]):
+                    res.update(arr[j])
+                    max_size = max(backtrack(j + 1), max_size)
+                    res.difference_update(arr[j])
+            return max_size
 
-            unique = True
-            for c in arr[i]:
-                if freqs[ord(c) - 97] > 0:
-                    unique = False
-                    break
-
-            if unique and len(set(arr[i])) == len(arr[i]):            
-                for c in arr[i]:
-                    freqs[ord(c) - 97] += 1
-                max_len = max(max_len, dfs(i + 1))
-                for c in arr[i]:
-                    freqs[ord(c) - 97] -= 1
-
-            return max_len
-
-        return dfs(0)
+        return backtrack(0)
