@@ -1,1 +1,1 @@
-<h2>longest-common-subsequence Notes</h2><hr>top left to bottom right tabulation
+<h2>longest-common-subsequence Notes</h2><hr>exp in top
