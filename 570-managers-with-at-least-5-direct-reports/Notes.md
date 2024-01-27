@@ -1,1 +1,1 @@
-<h2>managers-with-at-least-5-direct-reports Notes</h2><hr>group by managerid
+<h2>managers-with-at-least-5-direct-reports Notes</h2><hr>INNER JOIN
