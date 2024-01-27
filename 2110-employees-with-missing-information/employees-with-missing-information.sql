@@ -7,7 +7,7 @@ LEFT JOIN salaries
     USING (employee_id)
 WHERE salary IS NULL
 UNION
-SELECT
+SELECT 
     employee_id
 FROM salaries
 LEFT JOIN employees
