@@ -5,14 +5,14 @@ WITH cte AS (
     FROM students
     CROSS JOIN subjects
 ),
-cte2 as (
+cte2 AS (
     SELECT 
-        student_id,
-        subject_name,
-        COUNT(subject_name) AS attended_exams
-    FROM examinations
+        *,
+        COUNT(*) AS attended_exams
+    FROM examinations e
     GROUP BY student_id, subject_name
 )
+
 SELECT 
     cte.student_id,
     cte.student_name,
@@ -20,8 +20,9 @@ SELECT
     CASE WHEN attended_exams IS NULL
             THEN 0
          ELSE attended_exams
-    END as attended_exams
+    END AS attended_exams
 FROM cte
 LEFT JOIN cte2
-    USING (student_id, subject_name)
-ORDER BY student_id, subject_name;
+    ON cte.student_id = cte2.student_id
+    AND cte.subject_name = cte2.subject_name
+ORDER BY cte.student_id, cte.subject_name;
