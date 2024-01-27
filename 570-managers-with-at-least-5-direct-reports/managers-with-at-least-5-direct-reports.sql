@@ -1,8 +1,12 @@
 # Write your MySQL query statement below
 
-SELECT name FROM employee
-WHERE id IN (
-    SELECT managerId FROM employee
+WITH cte AS (
+    SELECT managerId
+    FROM employee
     GROUP BY managerId
-        HAVING COUNT(managerId) >= 5
-);
+        HAVING COUNT(*) > 4
+)
+SELECT name
+FROM cte
+INNER JOIN employee e
+    ON cte.managerId = e.id;
