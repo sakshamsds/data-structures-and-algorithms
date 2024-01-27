@@ -1,1 +1,1 @@
-<h2>calculate-special-bonus Notes</h2><hr>%
+<h2>calculate-special-bonus Notes</h2><hr>MOD, NOT LIKE
