@@ -1,19 +1,10 @@
 # Write your MySQL query statement below
 
-# WITH cte AS
-# (
-#     SELECT u.name as NAME, SUM(t.amount) as BALANCE
-#     FROM users u
-#     INNER JOIN transactions t
-#         ON u.account = t.account
-#     GROUP BY u.account
-# )
-
-# SELECT * FROM cte WHERE balance > 10000;
-
-SELECT u.name, SUM(t.amount) as balance
+SELECT 
+    name,
+    SUM(amount) AS balance
 FROM users u
-INNER JOIN transactions t
-    ON u.account = t.account
-GROUP BY u.account
+INNER JOIN transactions
+    USING (account)
+GROUP BY account
     HAVING balance > 10000;
