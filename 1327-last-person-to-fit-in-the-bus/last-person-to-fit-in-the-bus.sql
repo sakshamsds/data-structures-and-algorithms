@@ -1,15 +1,12 @@
 # Write your MySQL query statement below
 
-# calculate the running weight using window function
-
-WITH cte AS (
-    SELECT 
-        *,
-        SUM(weight) OVER(ORDER BY turn ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS total
-    FROM queue
-)
-SELECT person_name
-FROM cte
-WHERE total <= 1000
-ORDER BY total DESC
+SELECT 
+    q1.person_name
+    -- SUM(q2.weight)
+FROM queue q1
+JOIN queue q2
+    ON q1.turn >= q2.turn
+GROUP BY q1.turn
+    HAVING SUM(q2.weight) <= 1000
+ORDER BY SUM(q2.weight) DESC
 LIMIT 1;
