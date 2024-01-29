@@ -12,6 +12,5 @@ SELECT
     year AS first_year,
     quantity,
     price
-FROM cte
-INNER JOIN sales s
-    USING (product_id, year);
+FROM sales
+WHERE (product_id, year) IN (SELECT * FROM cte);
