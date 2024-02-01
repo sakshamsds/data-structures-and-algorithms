@@ -1,0 +1,1 @@
+<h2>divide-array-into-arrays-with-max-difference Notes</h2><hr>using sort
