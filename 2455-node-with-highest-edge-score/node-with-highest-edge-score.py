@@ -4,12 +4,11 @@
 
 [10,0,0,0,0,7,0,11]
 '''
-import numpy as np
 
 class Solution:
     def edgeScore(self, edges: List[int]) -> int:
         scores = [0] * len(edges)
         for start, end in enumerate(edges):
             scores[end] += start
-        return np.argmax(scores)
+        return scores.index(max(scores))
         
