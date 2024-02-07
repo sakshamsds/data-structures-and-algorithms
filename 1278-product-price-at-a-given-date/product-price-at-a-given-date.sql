@@ -1,24 +1,21 @@
-# Write your MySQL query statement below
+-- # Write your MySQL query statement below
 
 WITH cte AS (
-    SELECT
+    SELECT 
         product_id,
-        MAX(change_date) as change_date
+        new_price,
+        RANK() OVER(PARTITION BY product_id ORDER BY change_date DESC) AS r
     FROM products
-    WHERE DATEDIFF(change_date, '2019-08-16') <= 0
-    GROUP BY product_id
+    WHERE change_date <= '2019-08-16'
 )
+SELECT 
+    product_id,
+    new_price AS price
+FROM cte
+WHERE r = 1
+UNION
 SELECT 
     product_id,
     10 AS price
 FROM products
-WHERE product_id NOT IN (
-    SELECT product_id FROM cte
-)
-UNION
-SELECT
-    product_id,
-    new_price AS price
-FROM cte
-INNER JOIN products
-    USING (product_id, change_date);
+WHERE product_id NOT IN (SELECT product_id FROM cte);
