@@ -8,10 +8,7 @@ prev    0   0   0   1   1   3
 class Solution:
     def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
         nums.sort()
-        dp = []    # longest, prev
-        for i in range(len(nums)):
-            dp.append((1, i))
-
+        dp = [(1, -1)] * len(nums)    # longest, prev
         longest, max_idx = -1, 0
         for i in range(len(nums)):
             for j in range(i):
@@ -20,13 +17,9 @@ class Solution:
             if dp[i][0] > longest:
                 longest = dp[i][0]
                 max_idx = i
-
         # print(dp, i)
-
-        # build subset
-        cur, prev = max_idx, dp[max_idx][1]
-        subset = [nums[cur]]
-        while cur != prev:
-            cur, prev = prev, dp[prev][1]
-            subset.append(nums[cur])
+        subset = []
+        while max_idx != -1:
+            subset.append(nums[max_idx])
+            max_idx = dp[max_idx][1]
         return subset[::-1]
