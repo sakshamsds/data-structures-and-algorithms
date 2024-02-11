@@ -3,32 +3,24 @@ class Solution:
         rows, cols = len(grid), len(grid[0])
         cache = {}
 
-        def dfs(i, j, k):
-            if j < 0 or j == cols or k < 0 or k == cols:
+        def dfs(r, c1, c2):
+            if min(c1, c2) < 0 or max(c1, c2) == cols or r == rows:
                 return 0 
-
-            if i == rows:
-                return 0
             
-            if (i, j, k) in cache:
-                return cache[(i, j, k)]
+            if (r, c1, c2) in cache:
+                return cache[(r, c1, c2)]
 
-            cherries = grid[i][j]
-            if j != k:
-                cherries += grid[i][k]
+            cherries = 0
+            for c1_d in [-1, 0, 1]:
+                for c2_d in [-1, 0, 1]:
+                    cherries = max(cherries, 
+                                    dfs(r + 1, c1 + c1_d, c2 + c2_d))
 
-            cherries += max(
-                dfs(i + 1, j - 1, k - 1),
-                dfs(i + 1, j - 1, k),
-                dfs(i + 1, j - 1, k + 1),
-                dfs(i + 1, j, k - 1),
-                dfs(i + 1, j, k),
-                dfs(i + 1, j, k + 1),
-                dfs(i + 1, j + 1, k - 1),
-                dfs(i + 1, j + 1, k),
-                dfs(i + 1, j + 1, k + 1)
-            )
+            cherries += grid[r][c1]
+            if c1 != c2:
+                cherries += grid[r][c2]
 
-            cache[(i, j, k)] = cherries
+            cache[(r, c1, c2)] = cherries
             return cherries
+
         return dfs(0, 0, cols - 1)
