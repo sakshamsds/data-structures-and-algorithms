@@ -21,10 +21,9 @@ class Solution:
     def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:
         freqs = collections.Counter(arr)
         buckets = [0] * (len(arr) + 1)
-        uniques = 0
+        uniques = len(freqs)
         for num, freq in freqs.items():
             buckets[freq] += 1
-            uniques += 1
 
         for freq, uniq in enumerate(buckets):
             num_elements = freq * uniq
