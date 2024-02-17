@@ -7,9 +7,8 @@ class Solution:
                 continue
             heapq.heappush(min_heap, diff)
             if len(min_heap) > ladders:     # use bricks for smaller heights
-                min_diff = heapq.heappop(min_heap)
-                if min_diff > bricks:
-                    return i - 1
-                bricks -= min_diff
+                bricks -= heapq.heappop(min_heap)
+            if bricks < 0:
+                return i - 1
             # print(bricks)
         return len(heights) - 1     # reached the last index
