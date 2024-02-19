@@ -1,12 +1,9 @@
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
-        if n < 1:
-            return False
-        one_bits = 0
-        while n > 0:
-            if n % 2 == 1:
-                one_bits += 1
-            if one_bits > 1:
-                return False
-            n = n >> 1
-        return True
+        MAX = 2 ** 31 - 1
+        store = set()
+        for power in range(0, 30 + 1):
+            store.add(2 ** power)
+        return n in store
+
+        
