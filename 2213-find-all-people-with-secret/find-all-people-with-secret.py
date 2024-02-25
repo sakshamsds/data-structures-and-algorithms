@@ -1,29 +1,27 @@
 class Solution:
     def findAllPeople(self, n: int, meetings: List[List[int]], firstPerson: int) -> List[int]:
-        # O(n)
-        # make graph for every timestep
-        time_steps = {}
-        for src, dst, t in meetings:
-            if t not in time_steps:
-                time_steps[t] = collections.defaultdict(list)
-            time_steps[t][src].append(dst)
-            time_steps[t][dst].append(src)
-
+        time_map = {}
+        for x, y, time in meetings:
+            if time not in time_map:
+                time_map[time] = collections.defaultdict(list)
+            time_map[time][x].append(y)
+            time_map[time][y].append(x)
+        
         secrets = set([0, firstPerson])
 
-        def dfs(node, adj):
+        def dfs(node):
             if node in visited:
                 return
             secrets.add(node)
             visited.add(node)
             for nbr in adj[node]:
-                dfs(nbr, adj)
+                dfs(nbr)
 
-        # O(mlogm + n)
-        for t in sorted(time_steps.keys()):
+        for t in sorted(time_map.keys()):
             visited = set()
-            for node in time_steps[t]:
-                if node in secrets:  # then only we can infect the secret
-                    dfs(node, time_steps[t])
+            adj = time_map[t]
+            for src in adj:
+                if src in secrets:
+                    dfs(src)
 
         return list(secrets)
