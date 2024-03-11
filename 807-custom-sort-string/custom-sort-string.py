@@ -1,6 +1,12 @@
 class Solution:
     def customSortString(self, order: str, s: str) -> str:
-        idxDict = collections.defaultdict(int)
-        for i, char in enumerate(order):
-            idxDict[char] = i
-        return ''.join(sorted(s, key=lambda x : idxDict[x]))
+        freqs = defaultdict(int)
+        res = []
+        for char in s:
+            if char not in order:
+                res.append(char)
+            else:
+                freqs[char] += 1
+        for char in order:
+            res.extend([char * freqs[char]])
+        return ''.join(res)
