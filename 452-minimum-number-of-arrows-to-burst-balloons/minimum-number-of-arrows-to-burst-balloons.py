@@ -4,8 +4,7 @@ class Solution:
         shot_pos = points[0][1]
         shots = 1
         for l, r in points:
-            if l <= shot_pos:      # we shot this
-                continue
-            shot_pos = r            # need another shot
-            shots += 1
+            if shot_pos < l:
+                shot_pos = r            # need another shot
+                shots += 1
         return shots
