@@ -8,13 +8,13 @@ class Solution:
             if nums[r] == mx:
                 cnt += 1
 
-            while cnt >= k and l <= r:
+            while cnt == k:
                 if nums[l] == mx:
                     cnt -= 1
                 l += 1
             
-            res += r - l + 1
-        return n * (n + 1) // 2 - res
+            res += l
+        return res
             
 
                 
