@@ -16,9 +16,7 @@ class Solution:
         value, prefixSum, closestDiff = 0, 0, float('inf')
         n = len(arr)
         i = 0
-        for num in range(10**5 + 1):
-            if num > arr[-1]:
-                break
+        for num in range(arr[-1] + 1):
             while arr[i] < num:
                 prefixSum += arr[i]
                 i += 1
