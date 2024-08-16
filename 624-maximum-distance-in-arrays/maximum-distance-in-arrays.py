@@ -18,24 +18,12 @@
 
 class Solution:
     def maxDistance(self, arrays: List[List[int]]) -> int:
-        lowest, second_lowest = 10_000, 10_000
-        highest, second_highest = -10_000, -10_000
-        lowest_i, highest_i = -1, -1
+        mn, mx = arrays[0][0], arrays[0][-1]
+        mx_dist = -1
 
-        for i, array in enumerate(arrays):
-            if array[0] < lowest:
-                lowest, second_lowest = array[0], lowest
-                lowest_i = i
-            elif array[0] < second_lowest:
-                second_lowest = array[0]
+        for arr in arrays[1:]:
+            mx_dist = max(mx_dist, abs(arr[0] - mx), abs(arr[-1] - mn))
+            mn = min(mn, arr[0])
+            mx = max(mx, arr[-1])
 
-            if array[-1] > highest:
-                highest, second_highest = array[-1], highest
-                highest_i = i
-            elif array[-1] > second_highest:
-                second_highest = array[-1]
-
-        if lowest_i != highest_i:
-            return highest - lowest
-        
-        return max(highest - second_lowest, second_highest - lowest)
+        return mx_dist
