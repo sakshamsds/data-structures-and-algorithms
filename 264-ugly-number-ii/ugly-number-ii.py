@@ -1,14 +1,16 @@
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
-        # generate ugly numbers 
-        seen = set([1])
-        min_ugly = [1]
+        dp = [1]
+        i2, i3, i5 = 0, 0, 0
+        
+        while len(dp) < n:
+            next_ugly = min(dp[i2] * 2, dp[i3] * 3, dp[i5] * 5)
+            dp.append(next_ugly)
+            if next_ugly == dp[i2] * 2:
+                i2 += 1
+            if next_ugly == dp[i3] * 3:
+                i3 += 1
+            if next_ugly == dp[i5] * 5:
+                i5 += 1
 
-        for _ in range(n):
-            mn = heapq.heappop(min_ugly)
-            for num in [2, 3, 5]:
-                new_ugly = num * mn
-                if new_ugly not in seen:
-                    heapq.heappush(min_ugly, new_ugly)
-                    seen.add(new_ugly)
-        return mn
+        return dp[-1]
