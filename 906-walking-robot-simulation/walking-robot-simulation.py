@@ -1,55 +1,20 @@
 class Solution:
     def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:
-        # find distance from orgin after every move
-        obs = set()
-        for ox, oy in obstacles:
-            obs.add((ox, oy))
+        obstacles = set(map(tuple, obstacles))
 
-        d = 'N'     # ['N', 'W', 'S', 'E']
-        x, y = 0, 0
-        mx_dist = 0
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        x, y, d, mx = 0, 0, 0, 0
 
-        for cmd in commands:
-            if d == 'N':
-                if cmd == -2:
-                    d = 'W'
-                elif cmd == -1:
-                    d = 'E'
-                else:
-                    k = 1
-                    while k <= cmd and (x, y + k) not in obs:
-                        k += 1
-                    y += k - 1
-            elif d == 'W':
-                if cmd == -2:
-                    d = 'S'
-                elif cmd == -1:
-                    d = 'N'
-                else:
-                    k = 1
-                    while k <= cmd and (x - k, y) not in obs:
-                        k += 1
-                    x -= k - 1
-            elif d == 'S':
-                if cmd == -2:
-                    d = 'E'
-                elif cmd == -1:
-                    d = 'W'
-                else:
-                    k = 1
-                    while k <= cmd and (x, y - k) not in obs:
-                        k += 1
-                    y -= k - 1
-            elif d == 'E':
-                if cmd == -2:
-                    d = 'N'
-                elif cmd == -1:
-                    d = 'S'
-                else:
-                    k = 1
-                    while k <= cmd and (x + k, y) not in obs:
-                        k += 1
-                    x += k - 1
-            mx_dist = max(mx_dist, x ** 2 + y ** 2)
-
-        return mx_dist
+        for c in commands:
+            if c == -2:
+                d = (d - 1) % 4
+            elif c == -1:
+                d = (d + 1) % 4
+            else:
+                dx, dy = directions[d]
+                while c and (x + dx, y + dy) not in obstacles:
+                    x += dx
+                    y += dy
+                    c -= 1
+                mx = max(mx, x ** 2 + y **2)
+        return mx
