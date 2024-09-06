@@ -4,8 +4,4 @@
 
 class Solution:
     def minimumOperations(self, nums: List[int]) -> int:
-        uniques = set(nums)
-        if 0 in uniques:
-            return len(uniques) - 1
-        else:
-            return len(uniques)
+        return len(set(nums) - set([0]))
