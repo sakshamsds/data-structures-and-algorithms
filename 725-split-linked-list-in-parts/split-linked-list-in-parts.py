@@ -6,34 +6,38 @@
 class Solution:
     def splitListToParts(self, head: Optional[ListNode], k: int) -> List[Optional[ListNode]]:
         
-        length = 0
-        cur = head
-        while cur:
-            cur = cur.next
-            length += 1
-
-        # print(length)
-        res = []
-        cur = head
-        while length > 0:
-            # print(length)
-            # numbers to add 
-            split_size = math.ceil(length / k)
-            cur_head = cur
-            prev = cur
-            for _ in range(split_size):
-                # split.append(cur.val)
-                prev = cur
+        def getSize(head):
+            cur = head
+            size = 0
+            while cur:
                 cur = cur.next
-            prev.next = None
-            res.append(cur_head)
-            length -= split_size
-            k -= 1
+                size += 1
+            return size
 
+        rem_size = getSize(head)
+        # print(size)
+
+        def getPart(head, size):
+            cur = head
+            for _ in range(size - 1):
+                cur = cur.next
+            next_head = cur.next
+            cur.next = None
+            return head, next_head
+
+
+        res = []
+        next_head = head
         while k > 0:
-            res.append(None)
+            part_size = math.ceil(rem_size / k)
+            if part_size == 0:
+                res.extend([None for _ in range(k)])
+                break
+            part_head, next_head = getPart(next_head, part_size)
+            res.append(part_head)
+            rem_size -= part_size
             k -= 1
 
-        # for row in res:
-            # print(row)
         return res
+
+
