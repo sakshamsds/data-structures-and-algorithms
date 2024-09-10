@@ -4,24 +4,18 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    
     def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev, nxt = head, head.next
 
-        def getGCD(l, s):
-            if s == 0:
-                return l
-            return getGCD(s, l%s)
+        def gcd(a, b):
+            if b == 0:
+                return a
+            return gcd(b, a % b)
 
-        prev = head
-        cur = head.next
-
-        while cur:
-            s = min(prev.val, cur.val)
-            l = max(prev.val, cur.val)
-            prev.next = ListNode(getGCD(l, s), cur)
-            prev = cur
-            cur = cur.next
+        while prev and nxt:
+            mn, mx = min(prev.val, nxt.val), max(prev.val, nxt.val)
+            prev.next = ListNode(gcd(mx, mn), nxt)
+            prev = nxt
+            nxt = nxt.next
 
         return head
-
-        
