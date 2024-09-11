@@ -1,9 +1,8 @@
 class Solution:
     def minBitFlips(self, start: int, goal: int) -> int:
-        # find different bits using XOR operation
-        xor = start ^ goal
-        ones = 0
-        while xor > 0:
-            xor = xor & (xor - 1)
-            ones += 1
-        return ones
+        n = start ^ goal
+        res = 0
+        while n > 0:
+            n = n & (n - 1)
+            res += 1
+        return res
