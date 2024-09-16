@@ -1,34 +1,27 @@
-'''
-17:22
-07:21
-'''
-
 class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
-        # sort
-        # check right, check diff between first and last 
+        minutes = [0] * (24 * 60)
+        for time in timePoints:
+            h, m = map(int, time.split(':'))
+            total_minutes = h * 60 + m
+            if minutes[total_minutes]:
+                return 0
+            minutes[total_minutes] = 1
 
-        timePoints.sort()
+        l = -1
+        first_time_idx = -1
         min_mins = 24 * 60
-
-        def getMinutesDiff(t1, t2):
-            h1, m1 = map(int, t1.split(':'))
-            h2, m2 = map(int, t2.split(':'))
-            return (h2 - h1) * 60 + m2 - m1
-
-        for i in range(0, len(timePoints) - 1):
-            min_mins = min(
-                min_mins, 
-                getMinutesDiff(
-                    timePoints[i], 
-                    timePoints[i + 1]
-                )
-            )
-
-        # last check
-        h0, m0 = map(int, timePoints[0].split(':'))
+        for r in range(24 * 60):
+            if not minutes[r]:
+                continue
+            if l > 0:
+                min_mins = min(min_mins, r - l)
+            l = r
+            if first_time_idx == -1:
+                first_time_idx = r
 
         return min(
             min_mins, 
-            getMinutesDiff(timePoints[-1], "24:00") + h0 * 60 + m0
+            24 * 60 - l + first_time_idx
         )
+            
