@@ -5,6 +5,8 @@
 
 class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
+        if len(timePoints) > 24 * 60:
+            return 0
 
         timePoints.sort()
         min_mins = 24 * 60
