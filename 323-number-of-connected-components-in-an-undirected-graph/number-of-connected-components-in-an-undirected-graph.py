@@ -4,11 +4,9 @@ class Solution:
         rank = [1] * (n + 1)
 
         def find(node: int) -> int:
-            p = parent[node]
-            while p != parent[p]:
-                parent[p] = parent[parent[p]]
-                p = parent[p]
-            return p
+            if node != parent[node]:
+                parent[node] = find(parent[node])
+            return parent[node]
 
         def union(n1: int, n2: int) -> int:
             p1, p2 = find(n1), find(n2)
