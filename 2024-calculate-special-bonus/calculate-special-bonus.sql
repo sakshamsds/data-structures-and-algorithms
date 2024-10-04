@@ -6,6 +6,6 @@
 
 SELECT
     employee_id,
-    IF(MOD(employee_id, 2) = 1 AND name NOT LIKE 'M%', salary, 0) AS bonus
+    IF(MOD(employee_id, 2) = 1 AND SUBSTRING(name, 1, 1) != 'M', salary, 0) AS bonus
 FROM employees
 ORDER BY employee_id
