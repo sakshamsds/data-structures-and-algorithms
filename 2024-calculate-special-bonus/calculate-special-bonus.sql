@@ -1,11 +1,11 @@
 # Write your MySQL query statement below
 
+-- SELECT IF(condition, true_result, false_result) AS alias_name
+-- FROM table_name;
+
+
 SELECT
     employee_id,
-    CASE
-        WHEN employee_id % 2 = 1 AND name NOT LIKE 'M%'
-            THEN salary
-        ELSE 0
-    END AS bonus
+    IF(MOD(employee_id, 2) = 1 AND name NOT LIKE 'M%', salary, 0) AS bonus
 FROM employees
 ORDER BY employee_id
