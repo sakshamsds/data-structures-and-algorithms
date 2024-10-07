@@ -6,15 +6,11 @@ class Solution:
         parent = {}     # initial parent is the word itself
         rank = {}       # initial rank is 1 for every word
 
-        for w1, w2 in zip(s1, s2):
-            parent[w1], rank[w1] = w1, 1
-            parent[w2], rank[w2] = w2, 1
-
-        for w1, w2 in pairs:
-            parent[w1], rank[w1] = w1, 1
-            parent[w2], rank[w2] = w2, 1
-
         def find(word):     # O(1)
+            if word not in parent:      # initializations
+                parent[word] = word
+                rank[word] = 1
+            p = parent[word]
             if parent[word] != word:
                 parent[word] = find(parent[parent[word]])
             return parent[word]
