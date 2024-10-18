@@ -15,6 +15,7 @@ class Solution:
             mx_or |= num
         
         # print(mx_or)
+        @cache
         def backtrack(i, cur_or):
             if cur_or == mx_or:
                 return 2 ** (len(nums) - i)
