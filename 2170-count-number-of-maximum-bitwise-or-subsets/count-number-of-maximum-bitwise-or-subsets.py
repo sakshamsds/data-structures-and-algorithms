@@ -15,17 +15,13 @@ class Solution:
             mx_or |= num
         
         # print(mx_or)
-
         def backtrack(i, cur_or):
+            if cur_or == mx_or:
+                return 2 ** (len(nums) - i)
+            
             if i == len(nums):
-                return 1 if cur_or == mx_or else 0
+                return 0
 
-            cnt = backtrack(i + 1, cur_or)
-            cnt += backtrack(i + 1, cur_or | nums[i])
-            # cnt = 0
-            # for j in range(i, len(nums)):
-                # cnt += backtrack(j + 1, cur_or | nums[j])
-
-            return cnt
+            return backtrack(i + 1, cur_or) + backtrack(i + 1, cur_or | nums[i])
 
         return backtrack(0, 0)
