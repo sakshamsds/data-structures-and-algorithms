@@ -4,7 +4,7 @@ class Solution:
         self.mx_count = 1
 
         def backtrack(i):
-            if len(s) - i + len(uniques) < self.mx_count:
+            if len(s) - i + len(uniques) <= self.mx_count:
                 return
 
             if i == len(s):
