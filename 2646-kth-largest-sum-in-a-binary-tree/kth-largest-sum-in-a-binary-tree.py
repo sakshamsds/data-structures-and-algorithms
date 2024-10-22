@@ -8,8 +8,8 @@ class Solution:
     def kthLargestLevelSum(self, root: Optional[TreeNode], k: int) -> int:
         q = collections.deque([root])
         sums = []
-        
-        while q:
+
+        while q:        #O(N * logK + logN * logK)
             lvl_sum = 0
             for _ in range(len(q)):
                 cur = q.popleft()
