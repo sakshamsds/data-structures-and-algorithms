@@ -5,19 +5,20 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def flipEquiv(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
-        
-        def dfs(n1, n2):        
-            if not n1 and not n2:
-                return True
+    def flipEquiv(self, r1: Optional[TreeNode], r2: Optional[TreeNode]) -> bool:
+        if not r1 and not r2:
+            return True
             
-            if not n1 or not n2 or n1.val != n2.val:
-                return False
+        if not r1 or not r2 or r1.val != r2.val:
+            return False
 
-            return (dfs(n1.left, n2.left) and dfs(n1.right, n2.right)) or \
-            (dfs(n1.right, n2.left) and dfs(n1.left, n2.right))
+        return (
+            (self.flipEquiv(r1.left, r2.left) and \
+                self.flipEquiv(r1.right, r2.right)) or \
+            (self.flipEquiv(r1.right, r2.left) and \
+                self.flipEquiv(r1.left, r2.right))
+        )
 
-        return dfs(root1, root2)
         
 
             
