@@ -1,18 +1,38 @@
+class TrieNode:
+    def __init__(self):
+        self.mp = {}
+        self.end = False
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def add(self, directory):
+        cur = self.root
+        for folder in directory:
+            if not cur.end:
+                if folder not in cur.mp:
+                    cur.mp[folder] = TrieNode()
+                cur = cur.mp[folder] 
+        cur.end = True
+        cur.mp = {}
+
+    def getFolders(self):
+        res, cur = [], ['.']
+        def backtrack(node):
+            if node.end:
+                res.append('/'.join(cur)[1:])
+            for folder, subNode in node.mp.items():
+                cur.append(folder)
+                backtrack(subNode)
+                cur.pop()
+        backtrack(self.root)
+        return res
+
+
 class Solution:
     def removeSubfolders(self, folder: List[str]) -> List[str]:
-        res = []
-        folder.sort()
-        res.append(folder[0])
-
-        def isParentfolder(d1, d2):
-            d1 = d1.split('/')[1:]
-            d2 = d2.split('/')[1:]
-            for i in range(len(d1)):
-                if d1[i] != d2[i]:
-                    return False
-            return True
-
-        for i in range(1, len(folder)):
-            if not isParentfolder(res[-1], folder[i]):
-                res.append(folder[i])
-        return res
+        trie = Trie()
+        for f in folder:
+            trie.add(f.split('/')[1:])
+        return trie.getFolders()
