@@ -15,7 +15,7 @@ class Trie:
                     cur.mp[folder] = TrieNode()
                 cur = cur.mp[folder] 
         cur.end = True
-        cur.mp = {}
+        cur.mp = {}     # imp
 
     def getFolders(self):
         res, cur = [], ['.']
