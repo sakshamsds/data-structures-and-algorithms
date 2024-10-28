@@ -5,12 +5,12 @@ class Solution:
         longest = 0
 
         for num in nums:
-            if math.sqrt(num) not in nums:  
-                cur, length = num, 1
-                while cur * cur in nums:
-                    cur = cur * cur
-                    length += 1
-                longest = max(longest, length)
+            # if math.sqrt(num) not in nums:  
+            cur, length = num, 1
+            while cur * cur in nums:
+                cur = cur * cur
+                length += 1
+            longest = max(longest, length)
 
         return longest if longest >= 2 else -1
 
