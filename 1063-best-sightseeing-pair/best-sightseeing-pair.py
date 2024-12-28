@@ -1,10 +1,22 @@
+'''
+            0   1   2   3   4
+            8   1   5   2   6
+v[i] + i    8   2   7   5   10
+
+v[j] - j    8   0   3   -1  2
+mx          8   3   3   2   2
+
+'''
+
 class Solution:
     def maxScoreSightseeingPair(self, values: List[int]) -> int:
-        best_left = values[0] - 1   # best value spot to the left
-        best_score = 0
+        suffix = [v - j for j, v in enumerate(values)]
 
-        for i in range(1, len(values)):
-            best_score = max(best_score, best_left + values[i])
-            best_left = max(best_left, values[i]) - 1
+        for j in range(len(suffix) - 2, -1, -1):
+            suffix[j] = max(suffix[j + 1], suffix[j])
+        
+        mx_score = -1e5
+        for i in range(0, len(values) - 1):
+            mx_score = max(mx_score, values[i] + i + suffix[i + 1])
 
-        return best_score
+        return mx_score
