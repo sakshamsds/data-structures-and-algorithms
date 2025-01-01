@@ -1,19 +1,15 @@
-'''
-score = zeros_in_left + ones_in_right
-score = zeros_in_left + ones_in_total(const) - ones_in_left
-'''
-
 class Solution:
     def maxScore(self, s: str) -> int:
-        ones, zeros = 0, 0
-        best = -500
+        ones = s.count('1')
+        left_zeros, right_ones = 0, ones
 
-        for i in range(len(s) - 1):
-            if s[i] == '1':
-                ones += 1
+        max_score = 0
+        for i in range(0, len(s) - 1):
+            c = s[i]
+            if c == '0':
+                left_zeros += 1
             else:
-                zeros += 1
-            best = max(best, zeros - ones)
-        if s[-1] == '1':
-            ones += 1
-        return best + ones
+                right_ones -= 1
+
+            max_score = max(max_score, left_zeros + right_ones)
+        return max_score
