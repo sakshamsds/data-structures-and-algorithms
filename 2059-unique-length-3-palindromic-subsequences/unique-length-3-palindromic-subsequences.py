@@ -1,24 +1,19 @@
 class Solution:
     def countPalindromicSubsequence(self, s: str) -> int:
-        # precompute the indices
-        startIdxs = [-1] * 26
-        endIdxs = [-1] * 26
+        # precompute indices
+        left_indices, right_indices = [-1] * 26, [-1] * 26
 
-        for i, char in enumerate(s):
-            idx = ord('a') - ord(char)
-            if startIdxs[idx] == -1:
-                startIdxs[idx] = i
+        for i, c in enumerate(s):
+            char_idx = ord(c) - ord('a')
+            if left_indices[char_idx] == -1:
+                left_indices[char_idx] = i
+            else:
+                right_indices[char_idx] = i
 
-        for i in range(len(s) - 1, -1, -1):
-            idx = ord('a') - ord(s[i])
-            if endIdxs[idx] == -1:
-                endIdxs[idx] = i
-
-        count = 0
+        total = 0
         for i in range(26):
-            l, r = startIdxs[i], endIdxs[i]
-            if l == -1:
-                continue
-            count += len(set(s[l + 1:r]))
+            if left_indices[i] != -1 and right_indices[i] != -1:
+                l, r = left_indices[i], right_indices[i]
+                total += len(set(s[l + 1:r]))
 
-        return count
+        return total
