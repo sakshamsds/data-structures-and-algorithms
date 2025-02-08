@@ -1,30 +1,24 @@
 class NumberContainers:
 
-    # index -> number
-    # number -> heap of indexes
-
-    # lazy approach, resolve the second one during the find operation
-
+    # sorted set solution
     def __init__(self):
-        self.idx_to_num = collections.defaultdict(int)
-        self.num_to_idxs = collections.defaultdict(list)
+        self.number_to_indices = collections.defaultdict(SortedSet)
+        self.index_to_number = {}
+        
+    def change(self, index: int, number: int) -> None:
+        if index in self.index_to_number:
+            previous_number = self.index_to_number[index]
+            self.number_to_indices[previous_number].remove(index)
+            if not self.number_to_indices[previous_number]:
+                del self.number_to_indices[previous_number]
 
-
-    def change(self, index: int, number: int) -> None:  # O(logn)
-        # add number to the index
-        # add index to heap of indexex for the number
-        self.idx_to_num[index] = number
-        heapq.heappush(self.num_to_idxs[number], index)
-
+        self.index_to_number[index] = number
+        self.number_to_indices[number].add(index)
+        
 
     def find(self, number: int) -> int:
-        # the topmost element is not the smallest index
-        # verify with index -> number list
-        while self.num_to_idxs[number]:
-            smallest_idx = self.num_to_idxs[number][0]
-            if self.idx_to_num[smallest_idx] == number:
-                return smallest_idx
-            heapq.heappop(self.num_to_idxs[number])
+        if self.number_to_indices[number]:
+            return self.number_to_indices[number][0]
         return -1
         
 
