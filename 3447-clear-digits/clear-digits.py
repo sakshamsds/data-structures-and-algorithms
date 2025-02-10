@@ -1,14 +1,9 @@
 class Solution:
     def clearDigits(self, s: str) -> str:
         res = []
-        cnt = 0
-        for c in reversed(s):
-            if 'a' <= c <= 'z':
-                if cnt > 0:
-                    cnt -= 1
-                else:
-                    res.append(c)
+        for c in s:
+            if c.isalpha():
+                res.append(c)
             else:
-                cnt += 1
-        return ''.join(res[::-1])
-                
+                res.pop()
+        return ''.join(res)
