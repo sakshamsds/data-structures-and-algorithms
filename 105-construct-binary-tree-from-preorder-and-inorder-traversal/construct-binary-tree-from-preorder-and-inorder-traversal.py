@@ -12,12 +12,19 @@
 '''
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        if not preorder:
-            return None
+        inorder_map = {}
+        for i, root in enumerate(inorder):
+            inorder_map[root] = i
 
-        root = TreeNode(preorder[0])
-        i = inorder.index(root.val)
+        def helper(preorder, inorder):
+            if not preorder:
+                return None
 
-        root.left = self.buildTree(preorder[1:1 + i], inorder[:i])
-        root.right = self.buildTree(preorder[i + 1:], inorder[i + 1:])
-        return root
+            root = TreeNode(preorder[0])
+            i = inorder_map[root.val]
+
+            root.left = self.buildTree(preorder[1:1 + i], inorder[:i])
+            root.right = self.buildTree(preorder[i + 1:], inorder[i + 1:])
+            return root
+
+        return helper(preorder, inorder)
