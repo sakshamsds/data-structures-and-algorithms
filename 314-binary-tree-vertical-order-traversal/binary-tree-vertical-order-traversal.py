@@ -17,12 +17,12 @@ class Solution:
             for _ in range(lvl_size):
                 node, col = q.popleft()
                 store[col].append(node.val)
+                min_col = min(min_col, col)
+                max_col = max(max_col, col)
 
                 if node.left:
-                    min_col = min(min_col, col - 1)
                     q.append((node.left, col - 1))
                 if node.right:
-                    max_col = max(max_col, col + 1)
                     q.append((node.right, col + 1))
 
         res = []
