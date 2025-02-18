@@ -1,29 +1,21 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        most_common, highest_freq = s[0], 0
-        freqs = collections.defaultdict(int)
-        for c in s:
-            freqs[c] += 1
-            if freqs[c] > highest_freq:
-                most_common = c
-                highest_freq += 1
+        counter = collections.Counter(s)
+        max_heap = [(-freq, c) for c, freq in counter.items()]
+        heapq.heapify(max_heap)
 
-        if highest_freq > ceil(len(s) / 2):
-            return ""
+        res = []
+        while max_heap:
+            f1, c1 = heapq.heappop(max_heap)
+            res.append(c1)
 
-        res = [""] * len(s)
-        i = 0
-        for _ in range(highest_freq):
-            res[i] = most_common
-            i += 2
+            if not max_heap:        # no other element is left
+                return ''.join(res) if f1 == -1 else ""
 
-        freqs.pop(most_common)
-        for c, freq in freqs.items():
-            for _ in range(freq):
-                if i >= len(s):
-                    i = 1
-                res[i] = c
-                i += 2
+            f2, c2 = heapq.heappop(max_heap)
+            res.append(c2)
+
+            if f1 < -1: heapq.heappush(max_heap, (f1 + 1, c1))
+            if f2 < -1: heapq.heappush(max_heap, (f2 + 1, c2))            
 
         return ''.join(res)
-        
