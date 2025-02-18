@@ -12,7 +12,6 @@
 class Solution:
     def leastBricks(self, wall: List[List[int]]) -> int:
         height = len(wall)
-        brick_total = sum(wall[0])
         num_bricks = {0: height}
 
         for row in wall:
