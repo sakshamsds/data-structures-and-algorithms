@@ -19,9 +19,7 @@ class Solution:
             cur_length = 0
             for brick_size in row[:-1]:
                 cur_length += brick_size
-                if cur_length not in num_bricks:
-                    num_bricks[cur_length] = height
-                num_bricks[cur_length] -= 1
+                num_bricks[cur_length] = num_bricks.get(cur_length, height) - 1
 
         return min(num_bricks.values())
 
