@@ -6,7 +6,7 @@ class Solution:
         prefix_sum = 0
         for num in arr:
             prefix_sum += num
-            if prefix_sum % 2 == 1:
+            if prefix_sum & 1 == 1:
                 count_odd_sums += 1
                 total_sums += count_even_sums
             else:
