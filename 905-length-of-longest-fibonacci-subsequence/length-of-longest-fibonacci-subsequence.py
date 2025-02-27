@@ -13,17 +13,19 @@
 class Solution:
     def lenLongestFibSubseq(self, arr: List[int]) -> int:
         n = len(arr)
-        dp = dict()
+        dp = [[-1] * n for _ in range(n)]
         nums_set = set(arr)
+        longest_seq = 0
+        idx_map = {value: i for i, value in enumerate(arr)}
 
         for row in range(n - 2, -1, -1):
             for col in range(n - 1, row, -1):
                 x1, x2 = arr[row], arr[col]
                 x3 = x1 + x2
                 if x3 > arr[-1] or x3 not in nums_set:
-                    dp[(x1, x2)] = 1
+                    dp[row][col] = 1
                 else:
-                    dp[(x1, x2)] = 1 + dp[(x2, x3)]
+                    dp[row][col] = 1 + dp[col][idx_map[x3]]
+                    longest_seq = max(longest_seq, dp[row][col])
 
-        longest_seq = max(dp.values()) + 1
-        return longest_seq if longest_seq > 2 else 0
+        return longest_seq + 1 if longest_seq > 1 else 0
