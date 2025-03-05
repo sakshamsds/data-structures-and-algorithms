@@ -1,12 +1,8 @@
 '''
-    1   1 * 4
-    5   2 * 4
-    13  3 * 4
+1 + 1 * 4 + 2 * 4 + 3 * 4
+1 + 4 * (n * (n - 1)) / 2
 '''
 
 class Solution:
     def coloredCells(self, n: int) -> int:
-        res = 1
-        for i in range(n):
-            res += i * 4
-        return res
+        return 1 + 2 * n * (n - 1)
