@@ -7,7 +7,7 @@ class Solution:
         div = 2
         while div * div < n:
             if primes[div]:
-                for num in range(2 * div, n, div):
+                for num in range(div * div, n, div):
                     primes[num] = 0
             div += 1
 
