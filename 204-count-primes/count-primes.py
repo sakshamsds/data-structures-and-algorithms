@@ -1,17 +1,14 @@
 class Solution:
     def countPrimes(self, n: int) -> int:
-        if n < 2:
+        if n < 3:
             return 0
 
-        primes = [0, 0]  + [1] * (n - 2)
-        
-        i = 2
-        while i*i < n:
-            if primes[i] == 1:          # optimization
-                for j in range(i*i, n, i):
-                    primes[j] = 0       # not a prime
-            i += 1
-                
-        # print(primes)
-        return sum(primes)
-        
+        primes = [1] * n
+        div = 2
+        while div * div < n:
+            if primes[div]:
+                for num in range(2 * div, n, div):
+                    primes[num] = 0
+            div += 1
+
+        return sum(primes[2:])
