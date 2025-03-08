@@ -3,14 +3,12 @@ class Solution:
         if k == len(cardPoints):
             return sum(cardPoints)
 
-        size = len(cardPoints) - k
-        cur_points, min_points = 0, float('inf')
-        for i in range(size - 1):
-            cur_points += cardPoints[i]
+        window_size = len(cardPoints) - k
+        cur_points = sum(cardPoints[:window_size])
+        min_window_sum = cur_points
 
-        for i in range(size - 1, len(cardPoints)):
-            cur_points += cardPoints[i]
-            min_points = min(cur_points, min_points)
-            cur_points -= cardPoints[i - size + 1]
+        for i in range(window_size, len(cardPoints)):
+            cur_points += cardPoints[i] - cardPoints[i - window_size]
+            min_window_sum = min(cur_points, min_window_sum)
 
-        return sum(cardPoints) - min_points
+        return sum(cardPoints) - min_window_sum
