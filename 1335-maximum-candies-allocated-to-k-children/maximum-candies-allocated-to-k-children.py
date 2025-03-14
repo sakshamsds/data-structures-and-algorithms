@@ -1,6 +1,6 @@
 class Solution:
     def maximumCandies(self, candies: List[int], k: int) -> int:
-        l, r = 0, max(candies)
+        l, r = 0, sum(candies) // k + 1
 
         def isSatisfied(num_candies):
             cnt = 0
