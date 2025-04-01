@@ -1,23 +1,18 @@
+'''
+    0   1   2   3   
+    5   4   4   2
+'''
+
 class Solution:
     def mostPoints(self, questions: List[List[int]]) -> int:
-        cache = {}
+        num_questions = len(questions)
+        dp = [0] * num_questions
+        dp[-1] = questions[-1][0]
 
-        def dfs(i):
-            if i >= len(questions):
-                return 0
-            
-            if i in cache:
-                return cache[i]
-            
-            # choose i
-            pts = questions[i][0] + dfs(i + questions[i][1] + 1)
+        for i in range(num_questions - 2, -1, -1):
+            if i + 1 + questions[i][1] >= num_questions:
+                dp[i] = max(dp[i + 1], questions[i][0])
+            else:
+                dp[i] = max(dp[i + 1], questions[i][0] + dp[i + 1 + questions[i][1]])
 
-            # do no choose i
-            pts = max(pts, dfs(i + 1))
-
-            cache[i] = pts
-            return pts
-
-        return dfs(0)
-
-
+        return dp[0]
