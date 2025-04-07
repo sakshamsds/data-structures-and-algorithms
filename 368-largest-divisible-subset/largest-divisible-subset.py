@@ -1,19 +1,29 @@
+'''
+    0       1       2       3       4       5
+    2       8       14      16      21      28
+    3,1     2,3     2,5     1,-1    1,-1    1,-1
+'''
+
 class Solution:
     def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
         nums.sort()
-        cache = {}  # (i, prev) -> []   # 32
+        n = len(nums)
 
-        def dfs(i, prev):
-            if i == len(nums):
-                return []
-            if (i, prev) in cache:
-                return cache[(i, prev)]
-            
-            res = dfs(i + 1, prev)  # skip nums[i]
-            if nums[i] % prev == 0:
-                tmp = [nums[i]] + dfs(i + 1, nums[i])   # include nums[i]
-                res = tmp if len(tmp) > len(res) else res
-            
-            cache[(i, prev)] = res
-            return res
-        return dfs(0, 1)
+        dp = [[1, -1] for _ in range(n)]
+        longest_size, longest_i = 1, 0
+        for i in range(n - 2, -1, -1):
+            for j in range(i + 1, n):
+                if nums[j] % nums[i] == 0 and dp[i][0] < 1 + dp[j][0]:
+                    dp[i][0] = 1 + dp[j][0]
+                    dp[i][1] = j
+            if dp[i][0] > longest_size:
+                longest_size = dp[i][0]
+                longest_i = i
+        # print(dp, longest_size, longest_i)
+
+        longest = []
+        for _ in range(longest_size):
+            longest.append(nums[longest_i])
+            longest_i = dp[longest_i][1]
+        
+        return longest
