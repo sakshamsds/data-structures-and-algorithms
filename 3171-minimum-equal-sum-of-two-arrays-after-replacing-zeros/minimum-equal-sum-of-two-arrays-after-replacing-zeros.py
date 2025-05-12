@@ -1,27 +1,9 @@
 class Solution:
     def minSum(self, nums1: List[int], nums2: List[int]) -> int:
+        s1, s2 = sum(nums1), sum(nums2)
+        z1, z2 = nums1.count(0), nums2.count(0)
 
-        def getSumAndZeros(nums):
-            total, zeros = 0, 0
-            for num in nums:
-                if num == 0:
-                    zeros += 1
-                total += num
-            return total, zeros
-
-        total_1, zeros_1 = getSumAndZeros(nums1)
-        total_2, zeros_2 = getSumAndZeros(nums2)
-
-        min_possible_1 = total_1 + zeros_1
-        min_possible_2 = total_2 + zeros_2
-
-        if min_possible_1 == min_possible_2:
-            return min_possible_1
-        elif min_possible_1 < min_possible_2:
-            if zeros_1 == 0:
-                return -1
-            return min_possible_2
-        else:
-            if zeros_2 == 0:
-                return -1
-            return min_possible_1
+        if (z1 == 0 and z2 + s2 > s1) or (z2 == 0 and z1 + s1 > s2):
+            return -1
+        
+        return max(s1 + z1, s2 + z2)
