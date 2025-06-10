@@ -9,5 +9,5 @@ class Solution:
             else:
                 min_even = min(min_even, f)
 
-        min_even = 0 if min_even == 101 else min_even
+        # min_even = 0 if min_even == 101 else min_even
         return max_odd - min_even
