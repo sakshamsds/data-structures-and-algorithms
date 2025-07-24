@@ -8,6 +8,7 @@ class Solution:
         # available
         powers = [3 ** i for i in range(20)]
 
+        @cache
         def dfs(i, num):
             if num == 0:
                 return True
