@@ -28,7 +28,7 @@ class Solution:
                 for nbr, is_backward in nbrs[::-1]:
                     if (
                         nbr < 0 or
-                        nbr > (x + 20 * b) or
+                        nbr > 2000 + a + b or
                         (nbr, is_backward) in visited or
                         nbr in forbidden
                     ):
