@@ -15,9 +15,9 @@ class Solution:
         for num in nums:
             if num == 0:
                 num_zeros += 1
+                res += num_zeros
             else:
                 num_zeros = 0
-            res += num_zeros
 
         return res
             
