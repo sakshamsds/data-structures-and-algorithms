@@ -6,6 +6,6 @@ class Solution:
         for i in range(len(heights) - 2, -1, -1):
             if heights[i] > max_height:
                 res.append(i)
-            max_height = max(max_height, heights[i])
+                max_height = heights[i]
 
         return res[::-1]
