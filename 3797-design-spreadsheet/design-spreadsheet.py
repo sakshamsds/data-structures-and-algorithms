@@ -1,32 +1,34 @@
 class Spreadsheet:
 
     def __init__(self, rows: int):
-        self.matrix = [[0] * 26 for _ in range(rows)]
+        self.queries = dict()
 
     def _get_row_col(self, cell: str):
         row = int(cell[1:]) - 1
-        col = int(ord('A') - ord(cell[0]))
+        col = ord(cell[0]) - int(ord('A'))
         return row, col
 
     def setCell(self, cell: str, value: int) -> None:
         row, col = self._get_row_col(cell)
-        self.matrix[row][col] = value
+        self.queries[(row, col)] = value
 
     def resetCell(self, cell: str) -> None:
-        self.setCell(cell, 0)
+        row, col = self._get_row_col(cell)
+        if (row, col) in self.queries:
+            self.queries.pop((row, col))
 
     def getValue(self, formula: str) -> int:
         x, y = formula[1:].split('+')
         val = 0
         if 'A' <= x[0] <= 'Z':
             rx, cx = self._get_row_col(x)
-            val += self.matrix[rx][cx]
+            val += self.queries.get((rx, cx), 0)
         else:
             val += int(x)
 
         if 'A' <= y[0] <= 'Z':
             ry, cy = self._get_row_col(y)
-            val += self.matrix[ry][cy]
+            val += self.queries.get((ry, cy), 0)
         else:
             val += int(y)
 
