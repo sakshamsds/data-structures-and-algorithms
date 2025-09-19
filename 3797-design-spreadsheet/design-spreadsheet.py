@@ -20,17 +20,17 @@ class Spreadsheet:
     def getValue(self, formula: str) -> int:
         x, y = formula[1:].split('+')
         val = 0
-        if 'A' <= x[0] <= 'Z':
+        if x.isnumeric():
+            val += int(x)
+        else:
             rx, cx = self._get_row_col(x)
             val += self.queries.get((rx, cx), 0)
-        else:
-            val += int(x)
 
-        if 'A' <= y[0] <= 'Z':
+        if y.isnumeric():
+            val += int(y)
+        else:
             ry, cy = self._get_row_col(y)
             val += self.queries.get((ry, cy), 0)
-        else:
-            val += int(y)
 
         return val
         
