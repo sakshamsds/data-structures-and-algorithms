@@ -1,38 +1,28 @@
 class Spreadsheet:
 
     def __init__(self, rows: int):
-        self.queries = dict()
-
-    def _get_row_col(self, cell: str):
-        row = int(cell[1:]) - 1
-        col = ord(cell[0]) - int(ord('A'))
-        return row, col
+        self.queries = collections.defaultdict(int)
 
     def setCell(self, cell: str, value: int) -> None:
-        row, col = self._get_row_col(cell)
-        self.queries[(row, col)] = value
+        self.queries[cell] = value
 
     def resetCell(self, cell: str) -> None:
-        row, col = self._get_row_col(cell)
-        if (row, col) in self.queries:
-            self.queries.pop((row, col))
+        self.setCell(cell, 0)
 
     def getValue(self, formula: str) -> int:
         x, y = formula[1:].split('+')
-        val = 0
+
         if x.isnumeric():
-            val += int(x)
+            x = int(x)
         else:
-            rx, cx = self._get_row_col(x)
-            val += self.queries.get((rx, cx), 0)
+            x = self.queries.get(x, 0)
 
         if y.isnumeric():
-            val += int(y)
+            y = int(y)
         else:
-            ry, cy = self._get_row_col(y)
-            val += self.queries.get((ry, cy), 0)
+            y = self.queries.get(y, 0)
 
-        return val
+        return x + y
         
 
 
