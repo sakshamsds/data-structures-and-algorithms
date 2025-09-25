@@ -1,15 +1,20 @@
+'''
+2   inf inf inf
+5   6
+'''
+
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
         num_rows = len(triangle)
-        dp = [float('inf')] + [0]
+        dp = [float(inf)] * num_rows
+        dp[0] = triangle[0][0]
 
-        for r in range(1, num_rows + 1):
-            num_cols = len(triangle[r - 1])
-            next_dp = [float('inf')] + triangle[r - 1] + [float('inf')]
+        for row in range(1, num_rows):
+            for i in range(row, 0, -1):
+                dp[i] = triangle[row][i] + min(dp[i - 1], dp[i])
+            dp[0] = dp[0] + triangle[row][0]
             # print(dp)
-            # print(next_dp)
-            for c in range(1, num_cols + 1):
-                next_dp[c] += min(dp[c - 1], dp[c])
-            dp = next_dp 
 
-        return min(dp[1:])
+        return min(dp)
+        
+                
