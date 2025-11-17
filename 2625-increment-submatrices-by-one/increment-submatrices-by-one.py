@@ -17,7 +17,6 @@ class Solution:
                 top_left = 0 if r == 0 or c == 0 else grid[r - 1][c - 1]
                 grid[r][c] += top + left - top_left
 
-        grid = grid[:-1]    # remove last row
-        return [row[:-1] for row in grid]       # remove last column
+        return [row[:-1] for row in grid[:-1]]
     
         
