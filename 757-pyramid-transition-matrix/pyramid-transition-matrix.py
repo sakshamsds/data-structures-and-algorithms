@@ -5,6 +5,7 @@ class Solution:
         for pattern in allowed:
             mapping[pattern[:2]].append(pattern[2])
 
+        @cache
         def backtrack(i, cur_row, upper_row):
             if len(cur_row) == 1:
                 return True
