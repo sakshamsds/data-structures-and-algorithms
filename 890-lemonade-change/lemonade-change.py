@@ -11,8 +11,7 @@ class Solution:
                 count_5 -= 1
                 count_10 += 1
             else:       # 20
-                # case 1
-                if count_10 > 0 and count_5 > 0:
+                if count_10 > 0 and count_5 > 0:    # greedy
                     count_10 -= 1
                     count_5 -= 1
                 elif count_5 > 2:
