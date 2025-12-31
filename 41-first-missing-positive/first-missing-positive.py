@@ -1,20 +1,21 @@
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
-        # num < 1 and > len(nums) doesn't matter
-        # use the concept of index marking
-
-        n = len(nums)
+        # remove negatives
         for i, num in enumerate(nums):
             if num < 1:
-                nums[i] = n + 1
+                nums[i] = len(nums) + 5
 
-        for num in nums:
+        # index marking
+        for i, num in enumerate(nums):
             idx = abs(num) - 1
-            if idx < n and nums[idx] > 0:
-                nums[idx] = -nums[idx]
+            if idx < len(nums):
+                nums[idx] = -abs(nums[idx])
 
-        for i in range(n):
-            if nums[i] > 0:
+        # find first missing
+        for i, num in enumerate(nums):
+            if num > 0:
                 return i + 1
 
-        return n + 1
+        return len(nums) + 1
+
+        
