@@ -2,17 +2,20 @@ class Solution:
     def sumFourDivisors(self, nums: List[int]) -> int:
         res = 0
         for num in nums:
-            div = set()
-            for i in range(1, floor(sqrt(num)) + 1):    
-                # hint 2
-                # trick is to reduce this computation by sqrt(n)
+            num_divisors, divisor_sum = 2, 1 + num
+            i = 2
+            while i * i <= num and num_divisors < 5:
                 if num % i == 0:
-                    div.add(i)
-                    div.add(num // i)
-                if len(div) > 4:
-                    break
+                    div1, div2 = i, num // i
+                    if div1 == div2:
+                        num_divisors += 1
+                        divisor_sum += div1
+                    else:
+                        num_divisors += 2
+                        divisor_sum += div1 + div2
+                i += 1
+            
+            if num_divisors == 4:
+                res += divisor_sum
 
-            print(div)
-            if len(div) == 4:
-                res += sum(div)
         return res
