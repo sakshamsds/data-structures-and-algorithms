@@ -1,20 +1,17 @@
-'''
-have a [-1, -1] and [-1, -1]T filter and apply multiple times
-number negatives 
-'''
 class Solution:
     def maxMatrixSum(self, matrix: List[List[int]]) -> int:
-        count_neg = 0
-        abs_sum, abs_min = 0, 10 ** 5
-        
-        rows, cols = len(matrix), len(matrix[0])
-        for r in range(rows):
-            for c in range(cols):
-                if matrix[r][c] < 0:
-                    count_neg += 1
-                abs_min = min(abs_min, abs(matrix[r][c]))
-                abs_sum += abs(matrix[r][c])
+        # pass negative sign to the smallest value
+        n = len(matrix)
+        num_neg, smallest_value = 0, 10 ** 5
+        matrix_sum = 0
 
-        if count_neg % 2 == 0:
-            return abs_sum
-        return abs_sum - 2 * abs_min
+        for r in range(n):
+            for c in range(n):
+                num = matrix[r][c]
+                smallest_value = min(smallest_value, abs(num))
+                if num < 0:
+                    num_neg += 1
+                matrix_sum += abs(num)
+
+        # print(matrix_sum, smallest_value)
+        return matrix_sum if num_neg % 2 == 0 else matrix_sum - 2 * smallest_value
