@@ -1,27 +1,32 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adj_list = collections.defaultdict(list)     # course -> prereq
-        for course, prereq in prerequisites:
-            adj_list[course].append(prereq)
+        
+        # iterate through all the courses
+        # adj list, course -> [preq1, preq2]
+        # if preq is [], return True
+        # Time complexity O(N + E)
 
+        adjList = collections.defaultdict(list)
+        for course, preq in prerequisites:
+            adjList[course].append(preq)
         visited = set()
+
         def dfs(course):
-            if adj_list[course] == []:      # base condition 1
-                return True
-            if course in visited:           # base condition 2
+            if course in visited:       # chain detected
                 return False
-
+            if not adjList[course]:
+                return True
             visited.add(course)
-            for prereq in adj_list[course]:     # directed graph
-                if not dfs(prereq):
-                    return False
 
+            for preq in adjList[course]:
+                if not dfs(preq):
+                    return False
+            adjList[course] = []
             visited.remove(course)
-            adj_list[course] = []
             return True
 
-        for course in range(numCourses):
-            if not dfs(course):
+        for i in range(numCourses):
+            if i not in visited and not dfs(i):
                 return False
 
         return True
