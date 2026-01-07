@@ -1,32 +1,27 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        
-        # iterate through all the courses
-        # adj list, course -> [preq1, preq2]
-        # if preq is [], return True
-        # Time complexity O(N + E)
+        # kahn's algorithm, topological sort
 
-        adjList = collections.defaultdict(list)
+        adj_list = collections.defaultdict(list)
+        indegree = [0] * numCourses                 # indegree for given courses
         for course, preq in prerequisites:
-            adjList[course].append(preq)
-        visited = set()
+            indegree[preq] += 1
+            adj_list[course].append(preq)
 
-        def dfs(course):
-            if course in visited:       # chain detected
-                return False
-            if not adjList[course]:
-                return True
-            visited.add(course)
-
-            for preq in adjList[course]:
-                if not dfs(preq):
-                    return False
-            adjList[course] = []
-            visited.remove(course)
-            return True
-
+        q = collections.deque()                     # queue for processing
         for i in range(numCourses):
-            if i not in visited and not dfs(i):
-                return False
+            if indegree[i] == 0:
+                q.append(i)
 
-        return True
+        while q:
+            cur = q.popleft()
+            for nbr in adj_list[cur]:               # remove indegree for the nbrs 
+                indegree[nbr] -= 1
+                if indegree[nbr] == 0:
+                    q.append(nbr)
+
+        return sum(indegree) == 0
+
+         
+
+
