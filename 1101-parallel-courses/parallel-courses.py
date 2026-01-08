@@ -12,6 +12,7 @@ class Solution:
             if indegree == 0:
                 q.append(course)
 
+        studied = len(q)
         num_semesters = 0
         while q:
             num_semesters += 1
@@ -21,7 +22,6 @@ class Solution:
                     indegrees[nxt] -= 1
                     if indegrees[nxt] == 0:
                         q.append(nxt)
+                        studied += 1
 
-        if sum(indegrees) == 0:
-            return num_semesters
-        return -1
+        return num_semesters if studied == n else -1
