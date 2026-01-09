@@ -6,31 +6,19 @@
 #         self.right = right
 class Solution:
     def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        # find max depth and number of nodes at that depth
-        q = collections.deque([root])
-        lvl = 0
-        while q:
-            lvl += 1
-            lvl_size = len(q)
-            for _ in range(lvl_size):
-                node = q.popleft()
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-
-        max_depth, num_nodes = lvl, lvl_size
-        # print(root.val, max_depth, num_nodes)
-        self.deepest_subtree, self.subtree_depth = root, 1
-
-        def dfs(node, depth):
+        def dfs(node):  # returns depth, lca
             if not node:
-                return 0
-            depth_nodes = 1 if depth == max_depth else 0
-            depth_nodes += dfs(node.left, 1 + depth) + dfs(node.right, 1 + depth)
-            if depth_nodes == num_nodes and depth > self.subtree_depth:
-                self.deepest_subtree, self.subtree_depth = node, depth
-            return depth_nodes
-        
-        dfs(root, 1)
-        return self.deepest_subtree
+                return 0, None
+
+            left_depth, left_lca = dfs(node.left)
+            right_depth, right_lca = dfs(node.right)
+
+            if left_depth > right_depth:    # lca lies in left
+                return 1 + left_depth, left_lca
+            
+            if right_depth > left_depth:
+                return 1 + right_depth, right_lca
+
+            return 1 + left_depth, node     # cur node is the lca
+
+        return dfs(root)[1]
