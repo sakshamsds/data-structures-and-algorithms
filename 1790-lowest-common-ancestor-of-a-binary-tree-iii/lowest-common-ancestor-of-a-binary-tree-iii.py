@@ -9,28 +9,13 @@ class Node:
 """
 
 class Solution:
-    def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
-        p_parents = set([p])
-        q_parents = set([q])
-
-        while p.parent and q.parent:
-            p_parents.add(p.parent)
-            q_parents.add(q.parent)
-            if q.parent in p_parents:
-                return q.parent
-            if p.parent in q_parents:
-                return p.parent
-            p = p.parent
-            q = q.parent
-
-        while p.parent:
-            if p.parent in q_parents:
-                return p.parent
+    def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node': 
+        path = set()
+        while p:
+            path.add(p)
             p = p.parent
 
-        while q.parent:
-            if q.parent in p_parents:
-                return q.parent
+        while q not in path:
             q = q.parent
 
-        return None
+        return q
