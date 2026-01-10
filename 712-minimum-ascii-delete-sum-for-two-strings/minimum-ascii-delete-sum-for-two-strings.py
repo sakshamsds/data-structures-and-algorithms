@@ -1,17 +1,19 @@
 '''
-longest common subsequence
-
 delete
 leet
 
 lee
 let
 
-i, j
-
 delete i, i + 1
 delete j, j + 1
 don't delete only if equal, i + 1, j + 1
+
+dp(del, le) = min(
+                dp(de, le) + ord(l),
+                dp(del, l) + ord(e),
+                dp(de, l) + ord(l) + ord(e)     # both l and e are same then no addition
+            ) 
 
         d   e   l   e   t   e
     0   1   2   3   4   5   6
@@ -19,12 +21,6 @@ l   1   2   3
 e   2   3       
 e   3
 t   4
-
-        s   e   a
-    0   1   2   3
-e   1   2   1
-a   2
-t   3
 
 dp[i][j] = min(top + del_i, left + del_j)
 if si = sj, top_left + 0
