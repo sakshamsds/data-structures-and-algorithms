@@ -13,27 +13,40 @@ delete i, i + 1
 delete j, j + 1
 don't delete only if equal, i + 1, j + 1
 
+        d   e   l   e   t   e
+    0   1   2   3   4   5   6
+l   1   2   3   
+e   2   3       
+e   3
+t   4
 
+        s   e   a
+    0   1   2   3
+e   1   2   1
+a   2
+t   3
 
+dp[i][j] = min(top + del_i, left + del_j)
+if si = sj, top_left + 0
+if s1 != sj, top_left + 2
 '''
 
 
 class Solution:
     def minimumDeleteSum(self, s1: str, s2: str) -> int:
+        prev_dp = [0]
+        for i in range(len(s1)):
+            prev_dp.append(ord(s1[i]) + prev_dp[-1])
+        # print(prev_dp)
 
-        @cache
-        def dfs(i, j):
-            if i == len(s1) or j == len(s2):
-                deleted = 0
-                for k in range(i, len(s1)):
-                    deleted += ord(s1[k])
-                for k in range(j, len(s2)):
-                    deleted += ord(s2[k])
-                return deleted
+        for i in range(len(s2)):
+            dp = [0] * (len(s1) + 1)
+            dp[0] = ord(s2[i]) + prev_dp[0]
 
-            min_del = min(ord(s1[i]) + dfs(i + 1, j), ord(s2[j]) + dfs(i, j + 1))
-            if s1[i] == s2[j]:
-                min_del = min(min_del, dfs(i + 1, j + 1))
+            for j in range(1, len(s1) + 1):
+                top_left = prev_dp[j - 1]
+                top_left += 0 if s1[j - 1] == s2[i] else ord(s1[j - 1]) + ord(s2[i]) 
+                dp[j] = min(prev_dp[j] + ord(s2[i]), dp[j - 1] + ord(s1[j - 1]), top_left)
 
-            return min_del
-        return dfs(0, 0)
+            prev_dp = dp
+        return dp[-1]
