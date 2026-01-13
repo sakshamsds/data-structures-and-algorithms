@@ -7,23 +7,16 @@
 
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        adj_list = collections.defaultdict(set)
-        uniques = set(words[0])         # for edge cases
+        adj_list = {c: set() for w in words for c in w}
         for i in range(len(words) - 1):
             w1, w2 = words[i], words[i + 1]
             min_len = min(len(w1), len(w2))
+            if len(w1) > len(w2) and w1[:min_len] == w2:        # edge case
+                return ''
             for j in range(min_len):
                 if w1[j] != w2[j]:      # calculate an edge
                     adj_list[w1[j]].add(w2[j])
                     break
-            uniques = uniques.union(set(w2))
-            if len(w1) > len(w2) and w1[:min_len] == w2:        # edge case
-                return ''
-
-        # every letter should be in adj_list to get topo_sort
-        for unique in uniques:
-            if unique not in adj_list:
-                adj_list[unique] = set()
 
         in_degrees = {k: 0 for k in adj_list.keys()}
         for v in adj_list.values():
