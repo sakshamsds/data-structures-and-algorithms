@@ -37,7 +37,7 @@ class Solution:
             c = board[i][j]
             new_prefix = prefix + c
             if cur.map[c].end:
-                found.add(new_prefix)
+                found.append(new_prefix)
                 cur.map[c].end = False
             dfs(i + 1, j, new_prefix, cur.map[c])
             dfs(i, j + 1, new_prefix, cur.map[c])
@@ -50,9 +50,9 @@ class Solution:
                 del cur.map[c]
             return
 
-        found = set()
+        found = []
         for r in range(m):
             for c in range(n):
                 dfs(r, c, "", trie.node)
 
-        return list(found)        
+        return found    
