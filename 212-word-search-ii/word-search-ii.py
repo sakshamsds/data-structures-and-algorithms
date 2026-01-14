@@ -27,21 +27,27 @@ class Solution:
 
         visited = set()
         def dfs(i, j, prefix, cur):
-            if i < 0 or j < 0 or i >= m or j >= n or (i, j) in visited:
+            if (
+                min(i, j) < 0 or i >= m or j >= n or \
+                (i, j) in visited or board[i][j] not in cur.map
+            ):
                 return
 
             visited.add((i, j))
             c = board[i][j]
-            if c in cur.map:
-                new_prefix = prefix + c
-                if cur.map[c].end:
-                    found.add(new_prefix)
-                dfs(i + 1, j, new_prefix, cur.map[c])
-                dfs(i, j + 1, new_prefix, cur.map[c])
-                dfs(i - 1, j, new_prefix, cur.map[c])
-                dfs(i, j - 1, new_prefix, cur.map[c])
+            new_prefix = prefix + c
+            if cur.map[c].end:
+                found.add(new_prefix)
+                cur.map[c].end = False
+            dfs(i + 1, j, new_prefix, cur.map[c])
+            dfs(i, j + 1, new_prefix, cur.map[c])
+            dfs(i - 1, j, new_prefix, cur.map[c])
+            dfs(i, j - 1, new_prefix, cur.map[c])
 
             visited.remove((i, j))
+            # prune dead branch (optimization)
+            if not cur.map[c].map and not cur.map[c].end:
+                del cur.map[c]
             return
 
         found = set()
