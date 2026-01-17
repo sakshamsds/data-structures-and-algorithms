@@ -1,6 +1,6 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        intervals.sort()
+        intervals.sort(key=lambda x:x[0])
         prev_ends = []
         max_rooms = 1
 
