@@ -2,10 +2,12 @@ class HitCounter(object):
 
     def __init__(self):
         self.q = collections.deque()
+        self.hits = 0
 
     def remove(self, ts):
-        while self.q and ts - self.q[0] >= 300:
-            self.q.popleft()
+        while self.q and ts - self.q[0][0] >= 300:
+            _, hits = self.q.popleft()
+            self.hits -= hits
 
     def hit(self, timestamp):
         """
@@ -13,7 +15,12 @@ class HitCounter(object):
         :rtype: None
         """
         self.remove(timestamp)
-        self.q.append(timestamp)
+        hits = 0
+        if self.q and self.q[-1][0] == timestamp:
+            _, hits = self.q.pop()
+            self.hits -= hits
+        self.q.append((timestamp, hits + 1))
+        self.hits += hits + 1
 
     def getHits(self, timestamp):
         """
@@ -21,8 +28,7 @@ class HitCounter(object):
         :rtype: int
         """
         self.remove(timestamp)
-        return len(self.q)        
-
+        return self.hits
 
 # Your HitCounter object will be instantiated and called as such:
 # obj = HitCounter()
