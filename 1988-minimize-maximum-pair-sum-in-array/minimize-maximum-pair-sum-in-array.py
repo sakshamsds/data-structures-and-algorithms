@@ -1,12 +1,13 @@
 '''
-2, 3, 4, 4, 5, 6
-8, 8, 8
+    2   20  30  40   100     104
 '''
 
 class Solution:
     def minPairSum(self, nums: List[int]) -> int:
-        nums.sort()
-        max_sum = -1
-        for i in range(len(nums)//2):
-            max_sum = max(nums[i] + nums[len(nums) - 1 - i], max_sum)
+        max_sum = 0
+        nums.sort(key=lambda x : x)
+        n = len(nums)
+        for i in range(n//2):
+            max_sum = max(max_sum, nums[i] + nums[n - i - 1])
+
         return max_sum
