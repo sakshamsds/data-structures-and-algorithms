@@ -17,10 +17,9 @@ acbe
 class Solution {
     public long minimumCost(String source, String target, char[] original, char[] changed, int[] cost) {
         long[][] dist = new long[26][26];
-        for (int r = 0; r < 26; r++) {
-            for (int c = 0; c < 26; c++) {
-                dist[r][c] = (r == c) ? 0 : Integer.MAX_VALUE;
-            }
+        for (int i = 0; i < 26; i++) {
+            Arrays.fill(dist[i], Integer.MAX_VALUE);
+            dist[i][i] = 0;
         }
 
         int n = source.length();        // vertices
