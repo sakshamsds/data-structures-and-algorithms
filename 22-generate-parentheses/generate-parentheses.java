@@ -12,20 +12,24 @@ class Solution {
 
     public List<String> generateParenthesis(int n) {
         total_length = 2 * n;
-        backtrack(0, "");
+        backtrack(new StringBuilder());
         return valid;        
     }
 
-    private void backtrack(int idx, String s) {
-        if (idx == total_length) {
+    private void backtrack(StringBuilder sb) {
+        if (sb.length() == total_length) {
             // System.out.println(idx + "," + total_length + "," + s);
-            if (isValid(s)) {
-                valid.add(s);
+            if (isValid(sb.toString())) {
+                valid.add(sb.toString());
             }
             return;
         }
-        backtrack(idx + 1, s + '(');
-        backtrack(idx + 1, s + ')');
+        sb.append('(');
+        backtrack(sb);
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(')');
+        backtrack(sb);
+        sb.deleteCharAt(sb.length() - 1);
     }
 
     private boolean isValid(String s) {
