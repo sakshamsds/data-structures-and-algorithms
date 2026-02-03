@@ -1,33 +1,18 @@
 class Solution:
-
-    def all_palindromes(self, substrings):
-        for s in substrings:
-            if s != s[::-1]:
-                return False
-        return True
-
     def partition(self, s: str) -> List[List[str]]:
-        valid = []
         res = []
-
+        palindromes = []
+        
         def backtrack(i):
-            if i == len(s):
-                if self.all_palindromes(res):
-                    valid.append(res.copy())
-                return
+            if i >= len(s):
+                res.append(palindromes.copy())
 
-            # case 1
-            res.append(s[i])
-            backtrack(i + 1)
-            res.pop()
-
-            # case 2
-            if res:
-                res[-1] = res[-1] + s[i]
-                backtrack(i + 1)
-                res[-1] = res[-1][:-1]
-            return
+            for j in range(i + 1, len(s) + 1):
+                cur = s[i:j]
+                if cur == cur[::-1]:
+                    palindromes.append(cur)
+                    backtrack(j)
+                    palindromes.pop()
 
         backtrack(0)
-        return valid
-
+        return res
