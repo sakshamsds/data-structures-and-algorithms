@@ -17,29 +17,27 @@ class Solution {
         return response;
     }
 
-    private boolean isPalindrome(String substring) {
-        for (int i = 0; i < substring.length() / 2; i++) {
-            if (substring.charAt(i) != substring.charAt(substring.length() - 1 - i)) {
+    private boolean isPalindrome(String s, int left, int right) {
+        while (left < right) {
+            if (s.charAt(left++) != s.charAt(right--)) {
                 return false;
             }
         }
         return true;
     }
 
-    private void backtrack(int idx, String s, List<String> substrings) {
-        if (idx == N) {
+    private void backtrack(int start, String s, List<String> substrings) {
+        if (start == N) {
             response.add(new ArrayList<>(substrings));
             return;
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (int j = idx; j < s.length(); j++) {
-            sb.append(s.charAt(j));
-            if (!isPalindrome(sb.toString())) {
+        for (int end = start; end < s.length(); end++) {
+            if (!isPalindrome(s, start, end)) {
                 continue;
             }
-            substrings.add(sb.toString());
-            backtrack(j + 1, s, substrings);
+            substrings.add(s.substring(start, end + 1));
+            backtrack(end + 1, s, substrings);
             substrings.remove(substrings.size() - 1);
         }
     }
