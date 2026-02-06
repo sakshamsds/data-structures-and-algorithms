@@ -12,19 +12,15 @@ class Solution:
                     q.append((r, c))
         INF = 2 ** 31 - 1
 
-        dist = 0
         while q:
-            dist += 1
-            level = len(q)
-            for _ in range(level):
-                r, c = q.popleft()
-                for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
-                    nr, nc = r + dr, c + dc
-                    if (
-                        nr < 0 or nr >= rows or
-                        nc < 0 or nc >= cols or
-                        rooms[nr][nc] != INF
-                    ):
-                        continue
-                    q.append((nr, nc))
-                    rooms[nr][nc] = dist
+            r, c = q.popleft()
+            for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+                nr, nc = r + dr, c + dc
+                if (
+                    nr < 0 or nr >= rows or
+                    nc < 0 or nc >= cols or
+                    rooms[nr][nc] != INF
+                ):
+                    continue
+                q.append((nr, nc))
+                rooms[nr][nc] = rooms[r][c] + 1
