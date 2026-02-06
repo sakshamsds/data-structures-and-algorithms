@@ -1,16 +1,14 @@
 class Solution:
     def totalNQueens(self, n: int) -> int:
-        res = []
-        board = [["."] * n for _ in range(n)]
         cols = set()
         pos_diag = set()        # r - c
         neg_diag = set()        # r + c
 
         def backtrack(r):
             if r == n:
-                res.append(["".join(row) for row in board])
-                return
+                return 1
 
+            total = 0
             for c in range(n):
                 if c in cols or (r - c) in pos_diag or (r + c) in neg_diag:
                     continue
@@ -19,13 +17,11 @@ class Solution:
                 pos_diag.add(r - c)
                 neg_diag.add(r + c)
                 
-                board[r][c] = "Q"
-                backtrack(r + 1)
-                board[r][c] = "."
+                total += backtrack(r + 1)
                 
                 cols.remove(c)
                 pos_diag.remove(r - c)
                 neg_diag.remove(r + c)
+            return total
 
-        backtrack(0)
-        return len(res)
+        return backtrack(0)
