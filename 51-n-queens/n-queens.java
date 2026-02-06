@@ -15,9 +15,7 @@ class Solution {
         board = new char[n][n];
         // fill in the board
         for (int r = 0; r < n; r++){
-            for (int c = 0; c < n; c++) {
-                board[r][c] = '.';
-            }
+            Arrays.fill(board[r], '.');
         }
         backtrack(0);
         return solutions;        
@@ -26,8 +24,7 @@ class Solution {
     private List<String> createBoard() {
         List<String> output = new ArrayList<>();
         for (int row = 0; row < N; row++) {
-            String row_string = new String(board[row]);
-            output.add(row_string);
+            output.add(new String(board[row]));
         }
         return output;
     }
