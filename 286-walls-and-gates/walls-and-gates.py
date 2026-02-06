@@ -6,12 +6,11 @@ class Solution:
         rows, cols = len(rooms), len(rooms[0])
         
         q = deque()
-        visited = set()
         for r in range(rows):
             for c in range(cols):
                 if rooms[r][c] == 0:
                     q.append((r, c))
-                    visited.add((r, c))
+        INF = 2 ** 31 - 1
 
         dist = 0
         while q:
@@ -24,10 +23,8 @@ class Solution:
                     if (
                         nr < 0 or nr >= rows or
                         nc < 0 or nc >= cols or
-                        (nr, nc) in visited or
-                        rooms[nr][nc] == -1
+                        rooms[nr][nc] != INF
                     ):
                         continue
-                    visited.add((nr, nc))
                     q.append((nr, nc))
                     rooms[nr][nc] = dist
