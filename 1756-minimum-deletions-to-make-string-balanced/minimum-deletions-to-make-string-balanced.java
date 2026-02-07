@@ -18,17 +18,13 @@ class Solution {
         for (char c : s.toCharArray()) {
             suffix_a += (c == 'a') ? 1 : 0;
         }
-        int suffix_b = s.length() - suffix_a;
-        int prefix_a = 0;
         int prefix_b = 0;
 
         int min_deletions = prefix_b + suffix_a;
         for (char c : s.toCharArray()) {
             if (c == 'a') {
                 suffix_a--;
-                prefix_a++;
             } else {
-                suffix_b--;
                 prefix_b++;
             }
             min_deletions = Math.min(min_deletions, prefix_b + suffix_a);
