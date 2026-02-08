@@ -9,15 +9,14 @@ class Solution:
         
         def dfs(node):
             if not node:
-                return True, 0
+                return 0
 
-            left_valid, left_height = dfs(node.left)
-            right_valid, right_height = dfs(node.right)
-            subtree_height = 1 + max(left_height, right_height)
+            left_height = dfs(node.left)
+            right_height = dfs(node.right)
 
-            if not left_valid or not right_valid or abs(left_height - right_height) > 1:
-                return False, subtree_height
-            return True, subtree_height
+            if left_height < 0 or right_height < 0 or abs(left_height - right_height) > 1:
+                return -1
+            return 1 + max(left_height, right_height)
 
-        return dfs(root)[0]
+        return dfs(root) != -1
         
