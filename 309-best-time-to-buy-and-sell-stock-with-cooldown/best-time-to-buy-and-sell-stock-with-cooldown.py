@@ -1,26 +1,23 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        cache = {}
-        
-        def dfs(i, prev):
+        dp = {}
+
+        def dfs(i, can_buy):
             if i >= len(prices):
                 return 0
 
-            if (i, prev) in cache:
-                return cache[(i, prev)]
-            
-            # don't buy/sell
-            profit = dfs(i + 1, prev)
+            if (i, can_buy) in dp:
+                return dp[(i, can_buy)]
 
-            # buy the stock
-            profit = max(profit, dfs(i + 1, prices[i]))
+            cooldown = dfs(i + 1, can_buy)
+            if can_buy:
+                buy = dfs(i + 1, False) - prices[i]
+                profit = max(buy, cooldown)
+            else:
+                sell = dfs(i + 2, True) + prices[i]
+                profit = max(sell, cooldown)
 
-            # sell the stock
-            # can sell only if bought previously
-            if prev >= 0:
-                profit = max(profit, prices[i] - prev + dfs(i + 2, -1))
-
-            cache[(i, prev)] = profit
+            dp[(i, can_buy)] = profit
             return profit
 
-        return dfs(0, -1)
+        return dfs(0, True)
