@@ -18,35 +18,20 @@ class Solution {
     public boolean isInterleave(String s1, String s2, String s3) {
         if (s1.length() + s2.length() != s3.length()) return false;
 
-        int[] dp = new int[s2.length() + 1];
-        Arrays.fill(dp, 0);
-        dp[0] = 1;
+        boolean[] dp = new boolean[s2.length() + 1];
+        dp[0] = true;
         for (int j = 1; j < dp.length; j++) {
-            if (s2.charAt(j - 1) == s3.charAt(j - 1)) {
-                dp[j] = 1;
-            } else {
-                break;
-            }
+            dp[j] = dp[j - 1] && (s2.charAt(j - 1) == s3.charAt(j - 1));
         }
 
-        boolean s1_matching = true;
         for (int i = 0; i < s1.length(); i++) {
-            if (s1_matching && s1.charAt(i) == s3.charAt(i)) {
-                dp[0] = 1;
-            } else {
-                dp[0] = 0;
-                s1_matching = false;
-            }
+            dp[0] = dp[0] && (s1.charAt(i) == s3.charAt(i));
             for (int j = 1; j < dp.length; j++) {
-                if (dp[j] == 1 && s1.charAt(i) == s3.charAt(i + j)) {
-                    dp[j] = 1;
-                } else if (dp[j - 1] == 1 && s2.charAt(j - 1) == s3.charAt(i + j)) {
-                    dp[j] = 1;
-                } else {
-                    dp[j] = 0;
-                }
+                boolean from_top = dp[j] && (s1.charAt(i) == s3.charAt(i + j));
+                boolean from_left = dp[j - 1] && (s2.charAt(j - 1) == s3.charAt(i + j));
+                dp[j] = from_top || from_left;
             }
         }
-        return dp[dp.length - 1] == 1;
+        return dp[dp.length - 1];
     }
 }
