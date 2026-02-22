@@ -3,14 +3,11 @@ class Solution:
         dp = {}
 
         def dfs(i, j):
-            if i == len(s):
-                if j == len(t):
-                    return 1
-                else:
-                    return 0
-
             if j == len(t):
                 return 1    
+
+            if i == len(s):
+                return 0
 
             # s rem is less than t rem break
             if len(s) - i < len(t) - j:
