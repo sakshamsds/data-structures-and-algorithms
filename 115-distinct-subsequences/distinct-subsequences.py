@@ -1,7 +1,7 @@
 class Solution:
     def numDistinct(self, s: str, t: str) -> int:
-        
-        @cache
+        dp = {}
+
         def dfs(i, j):
             if i == len(s):
                 if j == len(t):
@@ -16,6 +16,9 @@ class Solution:
             if len(s) - i < len(t) - j:
                 return 0
 
+            if (i, j) in dp:
+                return dp[(i, j)]
+
             # skip cur char in s
             ways = dfs(i + 1, j)
 
@@ -23,6 +26,7 @@ class Solution:
             if s[i] == t[j]:
                 ways += dfs(i + 1, j + 1)
 
+            dp[(i, j)] = ways
             return ways
 
         r = dfs(0, 0)
