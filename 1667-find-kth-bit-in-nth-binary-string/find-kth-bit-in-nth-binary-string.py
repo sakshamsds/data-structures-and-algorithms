@@ -1,8 +1,15 @@
 class Solution:
     def findKthBit(self, n: int, k: int) -> str:
-        seq = "0"
-        for i in range(n - 1):
-            if k < len(seq):
-                return seq[k - 1]
-            seq = seq +  "1" + "".join([str(1 ^ int(bit)) for bit in seq][::-1])
-        return seq[k - 1]
+        if n == 1:
+            return "0"
+
+        length = 2 ** n - 1
+        mid = length // 2 + 1
+
+        if k < mid:
+            return self.findKthBit(n - 1, k)
+        elif k == mid:
+            return "1"
+        else:
+            return str(1 ^ int(self.findKthBit(n - 1, 1 + length - k)))
+        
