@@ -1,13 +1,24 @@
+'''
+    1   2   3   4
+    24  24  12  4   1
+            6
+    24  12  8   6
+
+'''
+
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        prefix = 1
-        res = []
-        for num in nums:
-            res.append(prefix)
-            prefix *= num
+        res = [1]
+        rightPdt = 1
+        n = len(nums)
+        for i in range(n - 1, 0, -1):
+            rightPdt *= nums[i]
+            res.append(rightPdt)
 
-        postfix = 1
-        for i in range(len(nums) - 1, -1, -1):
-            res[i] *= postfix
-            postfix *= nums[i]
+        res = res[::-1]
+        leftPdt = 1
+        for i in range(n):
+            res[i] *= leftPdt
+            leftPdt *= nums[i]
+
         return res
