@@ -6,12 +6,12 @@ class Solution {
         if (k % cols == 0) {
             return true;
         }
-
         k = k % cols;
 
-        // even matching
-        for (int r = 0; r < rows; r += 2) {
+        for (int r = 0; r < rows; r++) {
             int right = k;
+            if (r % 2 == 1) right = cols - k;
+
             for (int left = 0; left < cols; left++) {
                 if (mat[r][left] != mat[r][right]) return false;
                 right += 1;
@@ -19,16 +19,6 @@ class Solution {
             }
         }
 
-        // odd matching
-        for (int r = 1; r < rows; r += 2) {
-            int right = cols - k;
-            for (int left = 0; left < cols; left++) {
-                if (mat[r][left] != mat[r][right]) return false;
-                right += 1;
-                if (right == cols) right = 0;
-            }
-        }
-        
         return true;
     }
 }
