@@ -19,16 +19,16 @@ class Solution:
             visited.add(node)
             for nbr in adjList[node]:
                 if nbr not in visited:
-                    cValid, cNodes, cColor = dfs(nbr)
-                    if cValid and cColor == parentColor:
+                    cNodes, cColor = dfs(nbr)
+                    if cNodes > 0 and cColor == parentColor:
                         subtreeNodes += cNodes
                     else:
                         parentMatch = False
 
             if parentMatch == True:
                 self.max = max(self.max, subtreeNodes)
-                return True, subtreeNodes, parentColor
-            return False, subtreeNodes, parentColor
+                return subtreeNodes, parentColor
+            return -1, parentColor
 
         dfs(0)
         return self.max
