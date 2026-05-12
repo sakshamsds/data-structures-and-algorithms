@@ -1,6 +1,7 @@
 class FooBar {
     private int n;
-    private AtomicInteger atomicInteger = new AtomicInteger(0);
+    private Semaphore fooSem = new Semaphore(1);        // starts ready
+    private Semaphore barSem = new Semaphore(0);
 
     public FooBar(int n) {
         this.n = n;
@@ -9,20 +10,18 @@ class FooBar {
     public void foo(Runnable printFoo) throws InterruptedException {
         
         for (int i = 0; i < n; i++) {
-            while (atomicInteger.get() != 0) {}
-        	// printFoo.run() outputs "foo". Do not change or remove this line.
+            fooSem.acquire();
         	printFoo.run();
-            atomicInteger.incrementAndGet();
+            barSem.release();
         }
     }
 
     public void bar(Runnable printBar) throws InterruptedException {
         
         for (int i = 0; i < n; i++) {
-            while (atomicInteger.get() != 1) {}
-            // printBar.run() outputs "bar". Do not change or remove this line.
+            barSem.acquire();
         	printBar.run();
-            atomicInteger.decrementAndGet();
+            fooSem.release();
         }
     }
 }
