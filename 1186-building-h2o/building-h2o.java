@@ -1,26 +1,21 @@
 class H2O {
 
-    private int hCount = 0;
+    private Semaphore hydrogenSemaphore = new Semaphore(2);
+    private Semaphore oxygenSemaphore = new Semaphore(0);
 
     public H2O() {
         
     }
 
-    public synchronized void hydrogen(Runnable releaseHydrogen) throws InterruptedException {
-        while (hCount == 2) {
-            wait();
-        }
+    public void hydrogen(Runnable releaseHydrogen) throws InterruptedException {
+		hydrogenSemaphore.acquire(1);
         releaseHydrogen.run();
-        hCount++;
-        notifyAll();
+        oxygenSemaphore.release(1);
     }
 
-    public synchronized void oxygen(Runnable releaseOxygen) throws InterruptedException {
-        while (hCount < 2) {
-            wait();
-        }        
+    public void oxygen(Runnable releaseOxygen) throws InterruptedException {
+        oxygenSemaphore.acquire(2);
 		releaseOxygen.run();
-        hCount = 0;
-        notifyAll();
+        hydrogenSemaphore.release(2);
     }
 }
