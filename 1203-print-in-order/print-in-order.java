@@ -1,27 +1,24 @@
 class Foo {
 
-    private AtomicInteger jobNumber = new AtomicInteger(1);
+    private Semaphore sem2 = new Semaphore(0);
+    private Semaphore sem3 = new Semaphore(0);
 
     public Foo() {
-        
     }
 
     public void first(Runnable printFirst) throws InterruptedException {
-        // printFirst.run() outputs "first". Do not change or remove this line.
         printFirst.run();
-        jobNumber.incrementAndGet();
+        sem2.release();
     }
 
     public void second(Runnable printSecond) throws InterruptedException {
-        while (jobNumber.get() != 2){}
-        // printSecond.run() outputs "second". Do not change or remove this line.
+        sem2.acquire();
         printSecond.run();
-        jobNumber.incrementAndGet();
+        sem3.release();
     }
 
     public void third(Runnable printThird) throws InterruptedException {
-        while (jobNumber.get() != 3){}
-        // printThird.run() outputs "third". Do not change or remove this line.
+        sem3.acquire();
         printThird.run();
     }
 }
