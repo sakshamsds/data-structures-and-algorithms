@@ -1,7 +1,7 @@
 class ZeroEvenOdd {
     private int n;
-    private AtomicInteger atomicInteger = new AtomicInteger(0);
-    
+    private int state = 0;      // 0, 1, 2
+
     public ZeroEvenOdd(int n) {
         this.n = n;
     }
@@ -9,29 +9,44 @@ class ZeroEvenOdd {
     // printNumber.accept(x) outputs "x", where x is an integer.
     public void zero(IntConsumer printNumber) throws InterruptedException {
         for (int i = 0; i < n; i++) {
-            while (atomicInteger.get() != 0) {}
-            printNumber.accept(0);
-            if (i % 2 == 0) {
-                atomicInteger.set(1);
-            } else {
-                atomicInteger.set(2);
+            synchronized(this) {
+                while (state != 0) {
+                    this.wait();
+                }
+                if (i % 2 == 0) {
+                    state = 1;
+                } else {
+                    state = 2;
+                }
+                printNumber.accept(0);
+                this.notifyAll();
             }
         }
     }
 
     public void even(IntConsumer printNumber) throws InterruptedException {
-        for (int i = 2; i <= n; i += 2) {
-            while (atomicInteger.get() != 2) {}
-            printNumber.accept(i);
-            atomicInteger.set(0);
+        for (int i = 2; i < n + 1; i += 2) {
+            synchronized(this) {
+                while (state != 2) {
+                    this.wait();
+                }
+                printNumber.accept(i);
+                state = 0;
+                this.notifyAll();
+            }
         }
     }
 
     public void odd(IntConsumer printNumber) throws InterruptedException {
-        for (int i = 1; i <= n; i += 2) {
-            while (atomicInteger.get() != 1) {}
-            printNumber.accept(i);
-            atomicInteger.set(0);
+        for (int i = 1; i < n + 1; i += 2) {
+            synchronized(this) {
+                while (state != 1) {
+                    this.wait();
+                }
+                printNumber.accept(i);
+                state = 0;
+                this.notifyAll();
+            }
         }
     }
 }
