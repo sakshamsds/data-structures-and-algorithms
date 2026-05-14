@@ -1,40 +1,45 @@
 class TimeMap {
 
-    HashMap<String, ArrayList<Pair<Integer, String>>> keyTimeMap;
+    /*
+     key -> [(timestamp, value)]
+
+        k1 -> [(t1, v1), (t2, v2)]
+        k2 -> [(t3, v3), (t4, v4)]
+    */
+
+    private Map<String, List<Pair<Integer, String>>> store;
 
     public TimeMap() {
-        keyTimeMap = new HashMap<>();
+        store = new HashMap<>(); 
     }
     
     public void set(String key, String value, int timestamp) {
-        if (!keyTimeMap.containsKey(key)) {
-            keyTimeMap.put(key, new ArrayList());
+        if (!store.containsKey(key)) {
+            store.put(key, new ArrayList<>());
         }
-        keyTimeMap.get(key).add(new Pair(timestamp, value));
+        store.get(key).add(new Pair(timestamp, value));
     }
     
     public String get(String key, int timestamp) {
-        if (!keyTimeMap.containsKey(key)) {
+        if (!store.containsKey(key)) {
             return "";
         }
-        if (timestamp < keyTimeMap.get(key).get(0).getKey()) {
-            return "";
-        }
+        int left = 0, right = store.get(key).size();
 
-        int left = 0, right = keyTimeMap.get(key).size();
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (keyTimeMap.get(key).get(mid).getKey() <= timestamp) {
+            int timestampPrev = store.get(key).get(mid).getKey();
+            if (timestampPrev <= timestamp) {
                 left = mid + 1;
             } else {
                 right = mid;
             }
         }
 
-        if (right == 0) {
+        if (left == 0) {
             return "";
         }
-        return keyTimeMap.get(key).get(right - 1).getValue();
+        return store.get(key).get(left - 1).getValue();
     }
 }
 
