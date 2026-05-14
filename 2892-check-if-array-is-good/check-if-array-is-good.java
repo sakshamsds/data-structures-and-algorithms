@@ -1,23 +1,14 @@
 class Solution {
     public boolean isGood(int[] nums) {
-        // find the max element
-        // freq array, all 1 except last one
+        int n = nums.length - 1;
 
-        int max = 0;
+        int[] freqArray = new int[n + 1];
         for (int num : nums) {
-            max = Math.max(num, max);
+            if (num > n) return false;
+            freqArray[num]++;
         }
+        freqArray[n]--;
 
-        int[] freqArray = new int[max];
-        for (int num : nums) {
-            freqArray[num - 1]++;
-        }
-
-        freqArray[max - 1]--;
-        for (int freq : freqArray) {
-            if (freq != 1) return false;
-        }        
-
-        return true;
+        return Arrays.stream(freqArray, 1, n + 1).allMatch(count -> count == 1);
     }
 }
