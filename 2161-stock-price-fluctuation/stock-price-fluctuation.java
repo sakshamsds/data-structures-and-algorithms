@@ -2,30 +2,30 @@ class StockPrice {
 
     // ts -> price
     // hashmap, O(n)
-    // hashmap + 3 PQ + lazy deletions, O(logn)
+    // hashmap + 2 PQ + lazy deletions, O(logn)
     // Treemap, ts -> price, ts
 
     private Map<Integer, Integer> prices;
-    private Queue<Pair<Integer, Integer>> latestPQ;     // maxHeap -> ts, price
-    private Queue<Pair<Integer, Integer>> maxPQ;        // maxHeap -> ts, price
-    private Queue<Pair<Integer, Integer>> minPQ;        // minHeap -> ts, price
+    private Queue<int[]> maxPQ;        // maxHeap -> ts, price
+    private Queue<int[]> minPQ;        // minHeap -> ts, price
+    private int latestTS;
 
     public StockPrice() {
         prices = new HashMap<>();
-        latestPQ = new PriorityQueue<>((a, b) -> Integer.compare(b.getKey(), a.getKey()));
-        maxPQ = new PriorityQueue<>((a, b) -> Integer.compare(b.getValue(), a.getValue()));
-        minPQ = new PriorityQueue<>((a, b) -> Integer.compare(a.getValue(), b.getValue()));
+        latestTS = 0;
+        maxPQ = new PriorityQueue<>((a, b) -> Integer.compare(b[1], a[1]));
+        minPQ = new PriorityQueue<>((a, b) -> Integer.compare(a[1], b[1]));
     }
     
     public void update(int timestamp, int price) {
         prices.put(timestamp, price);
-        latestPQ.offer(new Pair(timestamp, price));
-        maxPQ.offer(new Pair(timestamp, price));
-        minPQ.offer(new Pair(timestamp, price));
+        latestTS = Math.max(timestamp, latestTS);
+        maxPQ.offer(new int[]{timestamp, price});
+        minPQ.offer(new int[]{timestamp, price});
     }
     
     public int current() {    
-        return cleanAndGetTop(latestPQ);
+        return prices.get(latestTS);
     }
     
     public int maximum() {      
@@ -36,11 +36,11 @@ class StockPrice {
         return cleanAndGetTop(minPQ);
     }
 
-    private int cleanAndGetTop(Queue<Pair<Integer, Integer>> pq) {
-        while (!prices.get(pq.peek().getKey()).equals(pq.peek().getValue())) {
+    private int cleanAndGetTop(Queue<int[]> pq) {
+        while (prices.get(pq.peek()[0]) != pq.peek()[1]) {
             pq.poll();
         }
-        return pq.peek().getValue();
+        return pq.peek()[1];
     }
 }
 
