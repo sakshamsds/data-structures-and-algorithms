@@ -3,9 +3,9 @@ class Solution {
         // bfs
 
         Deque<Integer> queue = new ArrayDeque<>();
-        Set<Integer> visited = new HashSet<>();
+        boolean[] visited = new boolean[arr.length];
         queue.offerLast(start);
-        visited.add(start);
+        visited[start] = true;
 
         while (!queue.isEmpty()) {
             int cur = queue.pollFirst();
@@ -14,10 +14,10 @@ class Solution {
             }
             int[] nbrs = new int[] {cur - arr[cur], cur + arr[cur]};
             for (int nbr : nbrs) {
-                if (nbr < 0 || nbr > arr.length - 1 || visited.contains(nbr)) {
+                if (nbr < 0 || nbr > arr.length - 1 || visited[nbr]) {
                     continue;
                 }
-                visited.add(nbr);
+                visited[nbr] = true;
                 queue.offerLast(nbr);
             }
         }
