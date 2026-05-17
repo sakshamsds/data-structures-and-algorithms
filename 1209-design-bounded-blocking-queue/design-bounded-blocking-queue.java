@@ -1,31 +1,29 @@
 class BoundedBlockingQueue {
 
-    private int capacity;
-    private Deque<Integer> boundedQueue;
+    private Semaphore enqueSem;
+    private Semaphore dequeSem;
+    private Deque<Integer> queue;
 
     public BoundedBlockingQueue(int capacity) {
-        boundedQueue = new ArrayDeque<>();
-        this.capacity = capacity;
+        enqueSem = new Semaphore(capacity);
+        dequeSem = new Semaphore(0);
+        queue = new ArrayDeque<>();
     }
     
-    public synchronized void enqueue(int element) throws InterruptedException {
-        while (boundedQueue.size() == capacity) {
-            wait();
-        }
-        boundedQueue.offerLast(element);
-        notifyAll();
+    public void enqueue(int element) throws InterruptedException {
+        enqueSem.acquire();
+        queue.offerLast(element);        
+        dequeSem.release();
     }
     
-    public synchronized int dequeue() throws InterruptedException {
-        while (boundedQueue.isEmpty()) {
-            wait();
-        }
-        int last = boundedQueue.pollFirst();
-        notifyAll();
-        return last;
+    public int dequeue() throws InterruptedException {
+        dequeSem.acquire();
+        int ret = queue.pollFirst();
+        enqueSem.release(1);
+        return ret;
     }
     
     public int size() {
-        return boundedQueue.size();
+        return queue.size();
     }
 }
