@@ -1,12 +1,11 @@
 class Solution {
     public boolean canReach(int[] arr, int start) {
         // bfs
-        // visited idxs
-        // queue
 
         Deque<Integer> queue = new ArrayDeque<>();
         Set<Integer> visited = new HashSet<>();
         queue.offerLast(start);
+        visited.add(start);
 
         while (!queue.isEmpty()) {
             int cur = queue.pollFirst();
