@@ -23,12 +23,8 @@ class Solution {
             int child = description[1];
             int isLeft = description[2];
 
-            if (!nodes.containsKey(parent)) {
-                nodes.put(parent, new TreeNode(parent));
-            }
-            if (!nodes.containsKey(child)) {
-                nodes.put(child, new TreeNode(child));
-            }
+            nodes.putIfAbsent(parent, new TreeNode(parent));
+            nodes.putIfAbsent(child, new TreeNode(child));
 
             if (isLeft == 1) {
                 nodes.get(parent).left = nodes.get(child);
