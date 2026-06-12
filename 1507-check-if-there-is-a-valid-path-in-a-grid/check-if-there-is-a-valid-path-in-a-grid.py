@@ -1,43 +1,29 @@
 class Solution:
     def hasValidPath(self, grid: List[List[int]]) -> bool:
+        # Up: (-1, 0), Down: (1, 0), Left: (0, -1), Right: (0, 1)
         directions = {
-            1 : 'LR',
-            2 : 'UD',
-            3 : 'LD',
-            4 : 'RD',
-            5 : 'LU',
-            6 : 'RU',
-        }
-
-        prevNextMap = {
-            'L' : 'R',
-            'R' : 'L',
-            'U' : 'D',
-            'D' : 'U'
+            1 : [(0, -1), (0, 1)],   # Left, Right
+            2 : [(-1, 0), (1, 0)],   # Up, Down
+            3 : [(0, -1), (1, 0)],   # Left, Down
+            4 : [(0, 1), (1, 0)],    # Right, Down
+            5 : [(0, -1), (-1, 0)],  # Left, Up
+            6 : [(0, 1), (-1, 0)],   # Right, Up
         }
 
         ROWS, COLS = len(grid), len(grid[0])
 
+        q = deque([(0, 0)])
+        visited = set([(0, 0)])
 
+        while q:
+            r, c = q.popleft()
+            if (r, c) == (ROWS - 1, COLS - 1):
+                return True
 
-        def isValid(enter):
-            visited = set()
-            r, c = 0, 0
-            while 0 <= r < ROWS and 0 <= c < COLS and enter in directions[grid[r][c]] and (r, c) not in visited:
-                visited.add((r, c))     
-                # print(r, c)
-                if (r, c) == (ROWS - 1, COLS - 1):
-                    return True
-                nxt = [d for d in directions[grid[r][c]] if d != enter][0]
-                if nxt == 'R':
-                    c += 1
-                elif nxt == 'L':
-                    c -= 1
-                elif nxt == 'U':
-                    r -= 1
-                else:   # nxt = 'D'
-                    r += 1
-                enter = prevNextMap[nxt]
-            return False
+            for dr, dc in directions[grid[r][c]]:
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < ROWS and 0 <= nc < COLS and (-dr, -dc) in directions[grid[nr][nc]] and (nr, nc) not in visited:
+                    visited.add((r, c))
+                    q.append((nr, nc))
 
-        return isValid('L') or isValid('R') or isValid('U') or isValid('D')
+        return False
