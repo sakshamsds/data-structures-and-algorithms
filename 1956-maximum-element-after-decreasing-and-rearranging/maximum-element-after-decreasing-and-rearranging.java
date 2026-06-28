@@ -1,21 +1,16 @@
-/**
-    1   1   2
- */
-
-
 class Solution {
     public int maximumElementAfterDecrementingAndRearranging(int[] arr) {
-        // what the element should be,
-        // what it actually is
-        Arrays.sort(arr);
-        int expected = 1;
+        int n = arr.length;
+        int[] freqs = new int[n + 1];
+
         for (int num : arr) {
-            if (num >= expected) {
-                expected += 1;
-            } else {
-                expected = num + 1;
-            }
+            freqs[Math.min(num, n)]++;
         }
-        return expected - 1;
+
+        int maxElement = 0;
+        for (int i = 1; i < n + 1; i++) {
+            maxElement = Math.min(maxElement + freqs[i], i);
+        }
+        return maxElement;
     }
 }
