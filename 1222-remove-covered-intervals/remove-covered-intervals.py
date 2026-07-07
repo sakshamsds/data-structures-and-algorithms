@@ -6,14 +6,17 @@
 
 class Solution:
     def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
-        intervals.sort(key = lambda x : (x[1], -x[0]))
+        intervals.sort(key = lambda x : (x[0], -x[1]))
         # print(intervals)
-        maxHeap = []        # contains start positions
+        result = 0
+        lastEnd = 0
 
-        for s, _ in intervals:
-            while maxHeap and -maxHeap[0] >= s:
-                heapq.heappop(maxHeap)
-            heapq.heappush(maxHeap, -s)
+        # check if the current is gonna get consumed or not
+        for start, end in intervals:
+            if lastEnd < end:
+                result += 1
+                lastEnd = end
 
-        return len(maxHeap)
+        return result
+
 
