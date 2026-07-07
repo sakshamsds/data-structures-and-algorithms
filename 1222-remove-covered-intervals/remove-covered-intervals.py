@@ -12,7 +12,7 @@ class Solution:
         lastEnd = 0
 
         # check if the current is gonna get consumed or not
-        for start, end in intervals:
+        for _, end in intervals:
             if lastEnd < end:
                 result += 1
                 lastEnd = end
