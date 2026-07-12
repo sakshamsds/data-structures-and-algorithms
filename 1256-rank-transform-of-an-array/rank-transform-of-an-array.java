@@ -1,24 +1,15 @@
 class Solution {
-    
-    private record Element(int val, int idx) {}
-
     public int[] arrayRankTransform(int[] arr) {
-        Queue<Element> minHeap = new PriorityQueue<>(Comparator.comparingInt(e -> e.val));
+        TreeMap<Integer, Integer> rankMap = new TreeMap<>();
 
-        for (int i = 0; i < arr.length; i++) {
-            minHeap.offer(new Element(arr[i], i));
+        for (int num : arr) {
+            rankMap.put(num, 0);
+        }
+        int rank = 1;
+        for (int num : rankMap.keySet()) {
+            rankMap.put(num, rank++);
         }
 
-        int prev = Integer.MIN_VALUE;
-        int rank = 0;
-
-        while (!minHeap.isEmpty()) {
-            Element cur = minHeap.poll();
-            if (cur.val > prev) rank++;
-            arr[cur.idx] = rank;
-            prev = cur.val;
-        }
-
-        return arr;
+        return Arrays.stream(arr).map(rankMap::get).toArray();
     }
 }
