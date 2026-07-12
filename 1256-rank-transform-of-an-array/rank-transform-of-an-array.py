@@ -1,25 +1,17 @@
 class Solution:
     def arrayRankTransform(self, arr: List[int]) -> List[int]:
-        n = len(arr)
-        heap = []
-        for num in arr:
-            heapq.heappush(heap, num)
+        # heap -> element, idx
 
-        # make rank list in a hashmap
-        rank_map = dict()
-        rank = 1
-        prev = float('inf')
-        while heap:
-            num = heapq.heappop(heap)
-            if num not in rank_map:
-                rank_map[num] = rank
-                if num != prev:
-                    rank += 1
-                prev = num
+        minHeap = []
+        for i, num in enumerate(arr):
+            heapq.heappush(minHeap, (num, i))
 
-        res = []
-        for num in arr:
-            rank = rank_map[num]
-            res.append(rank)
+        prev, rank = float(-inf), 0
+        while minHeap:
+            num, i = heapq.heappop(minHeap)
+            if num > prev:
+                rank += 1
+            arr[i] = rank
+            prev = num
 
-        return res        
+        return arr
