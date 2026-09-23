@@ -1,19 +1,22 @@
 class Solution:
-    def minOperations(self, nums: List[int], x: int) -> int:
+    def minOperations(self, nums: list[int], x: int) -> int:
+        # 11 - 5 = 6
+        # largest subarray with sum = 6
+
+        targetSum = sum(nums) - x
         n = len(nums)
-        target = sum(nums) - x
-
-        l, r = 0, 0
-        cur_sum = 0
-        max_window = -1
-        for r in range(len(nums)):
-            cur_sum += nums[r]
-
-            while l <= r and cur_sum > target:
-                cur_sum -= nums[l]
+        l = 0
+        subarraySum = 0
+        maxSize = -1
+        for r in range(n):
+            subarraySum += nums[r]
+            while l <= r and subarraySum > targetSum:
+                subarraySum -= nums[l]
                 l += 1
-    
-            if cur_sum == target:
-                max_window = max(max_window, r - l + 1)
+            if subarraySum == targetSum:
+                maxSize = max(maxSize, r - l + 1)
 
-        return -1 if max_window == -1 else len(nums) - max_window
+        # print(maxSize)
+        return n - maxSize if maxSize > -1 else -1
+
+            
