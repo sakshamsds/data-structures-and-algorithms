@@ -16,10 +16,10 @@ class DetectSquares:
         for p2, f in self.points.items():
             x2, y2 = p2[0], p2[1]
             if (
-                abs(x1 - x2) != abs(y1 - y2) or
-                x1 == x2 or y1 == y2 or 
-                (x1, y2) not in self.points or 
-                (x2, y1) not in self.points
+                    abs(x1 - x2) != abs(y1 - y2) or
+                    x1 == x2 or y1 == y2 or 
+                    (x1, y2) not in self.points or 
+                    (x2, y1) not in self.points
                 ):
                 continue
             squares += f * self.points[(x1, y2)] * self.points[(x2, y1)]
