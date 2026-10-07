@@ -1,18 +1,20 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
         l, r = 0, len(s) - 1
-        
+
+        def isAlphaNumeric(c):
+            return 'a' <= c.lower() <= 'z' or '0' <= c <= '9'
+
         while l < r:
-            if s[l].isalnum() and s[r].isalnum():
-                if s[l].lower() != s[r].lower():
-                    return False
-                else:
-                    l += 1
-                    r -= 1
-            if not s[l].isalnum():
+            if not isAlphaNumeric(s[l]):
                 l += 1
-            if not s[r].isalnum():
+                continue
+            if not isAlphaNumeric(s[r]):
                 r -= 1
-                
-        return True                
-                
+                continue
+            if s[l].lower() != s[r].lower():
+                return False
+            l += 1
+            r -= 1
+
+        return True
