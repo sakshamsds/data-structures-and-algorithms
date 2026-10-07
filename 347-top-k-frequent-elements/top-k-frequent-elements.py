@@ -1,12 +1,16 @@
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # heap -> (freq, num)
+    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
+        # bucket sort
 
         freqs = collections.Counter(nums)
-        min_heap = []
+        buckets = [[] for _ in range(len(nums) + 1)]
         for num, freq in freqs.items():
-            heapq.heappush(min_heap, (freq, num))
-            if len(min_heap) > k:
-                heapq.heappop(min_heap)
+            buckets[freq].append(num)
 
-        return [num for _, num in min_heap]
+        topk = []
+        for bucket in reversed(buckets):
+            topk.extend(bucket)
+            if len(topk) == k:
+                return topk
+
+        return []
