@@ -1,13 +1,27 @@
+'''
+-
+    ---------
+        ---------
+            ---
+                    -----
+'''
+
+
 class Solution:
-    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        intervals.sort(key=lambda x:x[0])
-        merged = [intervals[0]]     # most recent interval
+    def merge(self, intervals: list[list[int]]) -> list[list[int]]:
+        intervals.sort(key = lambda x : (x[0], x[1]))
 
-        for start, end in intervals[1:]:
-            lastEnd = merged[-1][1]
-            if start <= lastEnd:
-                merged[-1][1] = max(lastEnd, end)
+        res = [[-1, -1]]
+
+        # if prev overlaps with current, update prev
+        # if not, add current to the res
+
+        for start, end in intervals:
+            prev_start, prev_end = res[-1][0], res[-1][1]
+
+            if start <= prev_end:   # overlap
+                res[-1][1] = max(prev_end, end)
             else:
-                merged.append([start, end])
+                res.append([start, end])
 
-        return merged
+        return res[1:]
