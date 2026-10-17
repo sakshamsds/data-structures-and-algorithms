@@ -12,14 +12,13 @@ class Solution:
     def findMinArrowShots(self, points: list[list[int]]) -> int:
         points.sort(key = lambda x : x[0])
         arrows = 1
-        px, py = points[0]
-        for x, y in points[1:]:
+        py = points[0][1]
+        for x, y in points:
             if x <= py:
                 py = min(y, py)
             else:
                 arrows += 1
                 py = y
-            px = x
 
         return arrows
             
