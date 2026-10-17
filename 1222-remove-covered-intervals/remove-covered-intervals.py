@@ -1,22 +1,21 @@
 '''
-    1           4
-            3               6
+    1               4
         2                           8
+            3               6
+
+    -----------------
+        -----------
+            ---------------------
 '''
 
 class Solution:
-    def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
-        intervals.sort(key = lambda x : (x[0], -x[1]))
-        # print(intervals)
-        result = 0
-        lastEnd = 0
+    def removeCoveredIntervals(self, intervals: list[list[int]]) -> int:
+        intervals.sort(key=lambda x:x[0])
+        res = [intervals[0]]
+        for left, right in intervals[1:]:
+            prev_left, prev_right = res[-1]
+            if prev_left < left and prev_right < right:
+                res.append((left, right))
 
-        # check if the current is gonna get consumed or not
-        for _, end in intervals:
-            if lastEnd < end:
-                result += 1
-                lastEnd = end
-
-        return result
-
+        return len(res)
 
