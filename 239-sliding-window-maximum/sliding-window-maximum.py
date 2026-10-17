@@ -7,7 +7,6 @@ class Solution:
                 window.pop()
             window.append(nums[i])
 
-        l = 0
         res = []
         for r in range(k - 1, len(nums)):
             while window and window[-1] < nums[r]:
@@ -15,8 +14,7 @@ class Solution:
             window.append(nums[r])
             res.append(window[0])
 
-            if window[0] == nums[l]:
+            if window[0] == nums[r - k + 1]:
                 window.popleft()
-            l += 1
 
         return res
