@@ -9,7 +9,7 @@
 
 class Solution:
     def merge(self, intervals: list[list[int]]) -> list[list[int]]:
-        intervals.sort(key = lambda x : (x[0], x[1]))
+        intervals.sort(key = lambda x : x[0])
 
         res = [[-1, -1]]
 
