@@ -4,29 +4,58 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+
+'''
+			5
+		2		6
+
+	1		3		10
+				11		12
+
+
+num_nodes = [0, 100]
+node.val = [-100, 100]
+
+vert_pos = [[] for _ in range(201)]
+
+0
+.
+.	[1,
+99	[2,
+100	[5, 3
+101	[6, 11
+102	[10
+.	[12, 
+.
+200
+
+'''
+
 class Solution:
-    def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if root is None:
+    def verticalOrder(self, root: TreeNode | None) -> list[list[int]]:
+        if not root:
             return []
+            
+        order = collections.defaultdict(list)
 
-        col_nodes = collections.defaultdict(list)
-        q = collections.deque([(root, 0)])
-        min_col, max_col = 0, 0
-
+        # level order traversal
+        q = deque([(root, 100)])
+        min_pos, max_pos = 100, -100
         while q:
-            lvl_size = len(q)
-            for _ in range(lvl_size):
-                node, col = q.popleft()
-                col_nodes[col].append(node.val)
-                min_col, max_col = min(min_col, col), max(max_col, col)
+            cur, pos = q.popleft()
+            order[pos].append(cur.val)
+            min_pos = min(min_pos, pos)
+            max_pos = max(max_pos, pos)
 
-                if node.left:
-                    q.append((node.left, col - 1))
-                if node.right:
-                    q.append((node.right, col + 1))
+            if cur.left:
+                q.append((cur.left, pos - 1))
+            if cur.right:
+                q.append((cur.right, pos + 1))
 
-        vertical_order = []
-        for col in range(min_col, max_col + 1):
-            vertical_order.append(col_nodes[col])
-        
-        return vertical_order
+        res = []
+        for i in range(min_pos, max_pos + 1):
+            res.append(order[i])
+        return res
+
+	
