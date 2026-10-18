@@ -37,25 +37,25 @@ class Solution:
         if not root:
             return []
             
-        order = collections.defaultdict(list)
-
+        vert_pos = [[] for _ in range(201)]
+        
         # level order traversal
         q = deque([(root, 100)])
-        min_pos, max_pos = 100, -100
+	
         while q:
             cur, pos = q.popleft()
-            order[pos].append(cur.val)
-            min_pos = min(min_pos, pos)
-            max_pos = max(max_pos, pos)
+            vert_pos[pos].append(cur.val)
 
             if cur.left:
                 q.append((cur.left, pos - 1))
             if cur.right:
                 q.append((cur.right, pos + 1))
 
-        res = []
-        for i in range(min_pos, max_pos + 1):
-            res.append(order[i])
-        return res
+        vertical_order = []
+        for row in vert_pos:
+            if row:
+                vertical_order.append(row)
+
+        return vertical_order
 
 	
