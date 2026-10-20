@@ -1,34 +1,34 @@
 class Solution:
     def sequenceReconstruction(self, nums: List[int], sequences: List[List[int]]) -> bool:
         n = len(nums)
+        indegree = [0] * (n + 1)
+        adj_list = collections.defaultdict(list)
 
-        adj_list = collections.defaultdict(set)
         for seq in sequences:
             for i in range(len(seq) - 1):
-                adj_list[seq[i]].add(seq[i + 1])
-        # print(adj_list)
+                start, end = seq[i], seq[i + 1]
+                indegree[end] += 1
+                adj_list[start].append(end)
 
-        indegree = [0] * (n + 1)
-        for num, nbrs in adj_list.items():
-            for node in nbrs:
-                indegree[node] += 1
-        # print(indegree)
-        
-        q = collections.deque()
-        for num, degree in enumerate(indegree):
-            if num != 0 and degree == 0:
-                q.append(num)
+        q = deque()
+        for i in range(1, n + 1):
+            if indegree[i] == 0:
+                q.append(i)
 
-        req_sequence = []
+        res = []
         while q:
-            if len(q) > 1:  # more than 1 indegree element means more than 1 solution
+            if len(q) > 1:
                 return False
             cur = q.popleft()
-            req_sequence.append(cur)
+            res.append(cur)
             for nbr in adj_list[cur]:
                 indegree[nbr] -= 1
                 if indegree[nbr] == 0:
                     q.append(nbr)
 
-        # print('req', req_sequence)
-        return req_sequence == nums
+        return res == nums
+
+
+
+
+        
