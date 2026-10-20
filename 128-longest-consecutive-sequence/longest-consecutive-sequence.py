@@ -1,14 +1,16 @@
 class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
-        uniques = set(nums)
-        mx = 0
+    def longestConsecutive(self, nums: list[int]) -> int:
+        # if num - 1 is present, then skip
+        # start making the sequence from current element
+        store = set(nums)       # for faster lookup
 
-        for num in nums:
-            if num - 1 in uniques:      # not a good starting point
+        longest = 0
+        for num in store:
+            if num - 1 in store:
                 continue
-            else:
-                cnt = 1
-                while num + cnt in uniques:
-                    cnt += 1
-                mx = max(mx, cnt)
-        return mx
+            cur = num
+            while cur in store:
+                cur += 1
+            longest = max(longest, cur - num)
+
+        return longest
