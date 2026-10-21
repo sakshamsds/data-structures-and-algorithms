@@ -1,24 +1,20 @@
 '''
-    1   2   3   4
-    24  24  12  4   1
-            6
-    24  12  8   6
-
+                    1   2   3   4
+    left pdt        1   1   2   6
+    right pdt       24  12  4   1    
 '''
 
+
 class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
-        res = [1]
-        rightPdt = 1
-        n = len(nums)
-        for i in range(n - 1, 0, -1):
-            rightPdt *= nums[i]
-            res.append(rightPdt)
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
+        right_pdt = [1]
+        for num in nums[::-1]:
+            right_pdt.append(right_pdt[-1] * num)
+        right_pdt.reverse()
 
-        res = res[::-1]
-        leftPdt = 1
-        for i in range(n):
-            res[i] *= leftPdt
-            leftPdt *= nums[i]
-
+        left_pdt = 1
+        res = []
+        for i, num in enumerate(nums):   
+            res.append(left_pdt * right_pdt[i + 1])
+            left_pdt *= num
         return res
