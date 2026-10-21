@@ -16,7 +16,7 @@ class Solution:
                 return None
 
             # early quitting
-            if node.val in [p.val, q.val]:
+            if node == p or node == q:
                 return node
             
             left = dfs(node.left)
