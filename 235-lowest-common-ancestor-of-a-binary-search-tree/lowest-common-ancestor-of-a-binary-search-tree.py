@@ -16,14 +16,10 @@ class Solution:
             if lower <= node.val <= upper:
                 return node
 
-            right = None
             if node.val < lower:
-                right = dfs(node.right)
+                return dfs(node.right)
 
-            left = None
             if node.val > upper:
-                left =  dfs(node.left)
-
-            return left or right
+                return dfs(node.left)
 
         return dfs(root)
