@@ -7,27 +7,24 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        # p in left, q in right
-        # node is p and q in either left or right
-        # node is q and p in either left or right
 
-        lca = []
+        nodes_exists = [0]
 
         def dfs(node):
             if not node:
-                return False
+                return None
 
             left = dfs(node.left)
             right = dfs(node.right)
 
-            if (
-                (node.val in [p.val, q.val] and (left or right)) or \
-                (left and right)
-            ):
-                if len(lca) == 0:
-                    lca.append(node)
+            if node == p or node == q:
+                nodes_exists[0] += 1
+                return node
 
-            return left or right or node.val in [p.val, q.val]
+            if left and right:
+                return node
 
-        dfs(root)
-        return None if len(lca) == 0 else lca[0]
+            return left or right
+
+        lca = dfs(root)
+        return lca if nodes_exists[0] == 2 else None 
