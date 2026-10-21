@@ -8,16 +8,20 @@ class Solution:
 
         # fix first point
         prev = float(-inf)
-        res = set()
-
+        res = []
         for i in range(len(nums)):
+            if nums[i] == prev:
+                continue
+            prev = nums[i]
             l, r = i + 1, len(nums) - 1
             while l < r:
                 curSum = nums[i] + nums[l] + nums[r]
                 if curSum == 0:
-                    res.add(tuple(sorted((nums[i], nums[l], nums[r]))))
+                    res.append([nums[i], nums[l], nums[r]])
                     l += 1
                     r -= 1
+                    while l < r and nums[l] == nums[l - 1]:
+                        l += 1
                 elif curSum > 0:
                     r -= 1
                 else:
