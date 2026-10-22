@@ -1,28 +1,21 @@
 '''
-    -   a   b   c   d   e   e
--   0   0   0   0   0   0   0
-a   0   1   1   1   1   1   1
-c   0   1   1   2   2   2   2
-e   0   1   1   2   2   3   3
-
-abcd[e]
-ac[e]
-
-abcde
-ac[e]
-
-abcd[e]
-ace
+            a   b   c   d   e
+        0   0   0   0   0   0
+    a   0   1   1   1   1   1     
+    c   0   1   1   2   2   2
+    e   9
 '''
 
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        m, n = len(text1), len(text2)
-        dp = [0] * (n + 1)
-        for i in range(m):
-            new_dp = [0] * (n + 1)
-            for j in range(1, n + 1):
-                incre = 1 if text1[i] == text2[j - 1] else 0
-                new_dp[j] = max(new_dp[j - 1], dp[j], dp[j - 1] + incre)
+        cols, rows = len(text1), len(text2)
+        dp = [0] * (cols + 1)
+
+        for r in range(rows):
+            new_dp = [0] * (cols + 1)
+            for c in range(cols):
+                increment = 1 if text1[c] == text2[r] else 0
+                new_dp[c + 1] = max(dp[c + 1], new_dp[c], increment + dp[c])
             dp = new_dp
-        return new_dp[-1]
+
+        return dp[-1]
