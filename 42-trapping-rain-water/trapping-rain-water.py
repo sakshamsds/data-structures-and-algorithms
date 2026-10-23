@@ -9,10 +9,10 @@ class Solution:
             rightMax = max(rightMax, heights[right])
 
             if heights[left] < heights[right]:
-                water += max(0, min(leftMax, rightMax) - heights[left])
+                water += leftMax - heights[left]
                 left += 1
             else:
-                water += max(0, min(leftMax, rightMax) - heights[right])
+                water += rightMax - heights[right]
                 right -= 1
 
         return water
