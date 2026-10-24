@@ -1,22 +1,34 @@
+'''
+        0   1   2   3   4   5   6   7   8   9   10  11
+    0   T   F   F   F   F   F   F   F   F   F   F   F
+    1   T   T   F   F   F   F   F   F   F   F   F   F
+    5   T                   T   T   
+    11  T                   T   T                   T
+    5   T                   T   T               T   T
+
+    1   5   11  5
+    1   5   11    
+        6   12
+'''
+
+
 class Solution:
     def canPartition(self, nums: list[int]) -> bool:
-        cache = {}
-
         total = sum(nums)
-        if total & 1 == 1:
+        if total & 1 == 1:  # odd total
             return False
-        half = total // 2
+        target = total // 2
+        prev_dp = [True] + [False] * target
 
-        def dfs(i, rem):
-            if rem == 0:
-                return True
-            if i == len(nums):
-                return False
+        for num in nums:
+            new_dp = prev_dp.copy()
+            for cur_total in range(1, target + 1):
+                diff = cur_total - num
+                if diff >= 0:
+                    if prev_dp[diff]:
+                        new_dp[cur_total] = True
+            # print(new_dp)
+            prev_dp = new_dp
 
-            if (i, rem) in cache:
-                return cache[(i, rem)]
-
-            cache[(i, rem)] = dfs(i + 1, rem) or dfs(i + 1, rem - nums[i])
-            return cache[(i, rem)]
-
-        return dfs(0, half)
+        return new_dp[-1]
+            
