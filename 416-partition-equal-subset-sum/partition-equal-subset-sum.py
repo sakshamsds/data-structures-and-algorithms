@@ -27,6 +27,9 @@ class Solution:
                 if diff >= 0:
                     if prev_dp[diff]:
                         new_dp[cur_total] = True
+
+            if new_dp[-1]:
+                return True
             # print(new_dp)
             prev_dp = new_dp
 
