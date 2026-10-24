@@ -1,29 +1,26 @@
+'''
+    1   2   3   4   5
+            l   r
+'''
+
+
 class Solution:
-    def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        # brute force search range = 1, max(piles)
-        # binary search 
-        # math.ceil will give the hours it take to eat certain pile
+    def minEatingSpeed(self, piles: list[int], h: int) -> int:
+        num_piles = len(piles)
 
-        l = 1
-        r = max(piles)
-        res = r
+        def canFinishBeforeTime(k):
+            time_taken = 0
+            for p in piles:
+                time_taken += math.ceil(p / k)
+            # print(k, time_taken)
+            return time_taken <= h
 
-        while l <= r:
-            k = l + (r - l)//2
-
-            time = 0
-            for pile in piles:
-                time += math.ceil(pile / k)
-
-            # see if following k works
-            # if time taken > h, then increase speed, l = k + 1
-            # if time taken < h, then decrese speed, r = k - 1
-            # if time taken == h, then found optimal solution, no, can be optimized further
-            if time > h:
-                l = k + 1
+        l, r = 1, max(piles)
+        while l < r:
+            mid = l + (r - l) // 2
+            if canFinishBeforeTime(mid):
+                r = mid
             else:
-                res = min(res, k)
-                r = k - 1
+                l = mid + 1
 
-            # print(res)
-        return res
+        return l
