@@ -1,44 +1,34 @@
-# https://www.youtube.com/watch?v=4OQeCuLYj-4
-
-# floyd warshall, negative weights are allowed
-
 class Graph:
 
     def __init__(self, n: int, edges: list[list[int]]):
-        # adj matrix
-        # via -> source -> destination
-        self.adj_matrix = [[float('inf')] * n for _ in range(n)]
+        self.adjList = collections.defaultdict(list)
+        for edge in edges:
+            s, e, edge_weight = edge
+            self.adjList[s].append((e, edge_weight))
         self.n = n
-        for i in range(n):
-            self.adj_matrix[i][i] = 0
-
-        for u, v, dist in edges:
-            self.adj_matrix[u][v] = dist 
-
-        for via in range(n):
-            for u in range(n):
-                for v in range(n):
-                    self.adj_matrix[u][v] = min(
-                        self.adj_matrix[u][v],
-                        self.adj_matrix[u][via] + self.adj_matrix[via][v]
-                    )
 
     def addEdge(self, edge: list[int]) -> None:
-        # s, e in edge
-        # source -> s
-        # e -> destination
-
-        s, e, dist = edge
-        for u in range(self.n):
-            for v in range(self.n):
-                self.adj_matrix[u][v] = min(
-                    self.adj_matrix[u][v],
-                    self.adj_matrix[u][s] + dist + self.adj_matrix[e][v]
-                )
+        s, e, edge_weight = edge
+        self.adjList[s].append((e, edge_weight))        # nbr, edge_weight
 
     def shortestPath(self, node1: int, node2: int) -> int:
-        min_dist = self.adj_matrix[node1][node2]
-        return min_dist if min_dist != float('inf') else -1
+        distances = [float('inf')] * self.n
+        distances[node1] = 0
+        min_heap = [(0, node1)]     # dist from start, node
+
+        while min_heap:
+            dist, node = heapq.heappop(min_heap)
+            if node == node2:
+                return dist
+
+            for nbr, edge_weight in self.adjList[node]:
+                new_dist = dist + edge_weight
+                if new_dist < distances[nbr]:
+                    distances[nbr] = new_dist
+                    heapq.heappush(min_heap, (new_dist, nbr))
+
+        return -1
+
 
 
 # Your Graph object will be instantiated and called as such:
