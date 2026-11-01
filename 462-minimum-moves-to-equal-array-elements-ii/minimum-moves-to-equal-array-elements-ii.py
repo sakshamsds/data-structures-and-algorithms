@@ -19,16 +19,14 @@
 
 class Solution:
     def minMoves2(self, nums: list[int]) -> int:
+        # two pointers, we select k in between
+        # contribution is (k - min) + (max - k) = max - min
+
         nums.sort()
-        n = len(nums)
-
-        if n & 1 == 0:
-            median = (nums[(n - 1) // 2] + nums[n // 2]) // 2
-        else:
-            median = nums[(n - 1) // 2]
-        # print(median)
-
-        moves = 0
-        for num in nums:
-            moves += abs(median - num)
+        l, r, moves = 0, len(nums) - 1, 0
+        while l < r:
+            moves += nums[r] - nums[l]
+            l += 1
+            r -= 1
+        
         return moves
