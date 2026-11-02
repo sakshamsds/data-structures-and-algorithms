@@ -11,8 +11,6 @@ class Solution:
         # dp[coin][amt] = dp[coin - 1][amt] + dp[coin][amt - coinValue]
         dp = [1] + [0] * amount
         for coin in coins:
-            for amt in range(1, amount + 1):
-                if coin > amt:
-                    continue
+            for amt in range(coin, amount + 1):
                 dp[amt] += dp[amt - coin]
         return dp[-1]
