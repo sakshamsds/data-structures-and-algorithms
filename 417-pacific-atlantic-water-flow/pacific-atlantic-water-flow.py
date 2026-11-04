@@ -1,31 +1,33 @@
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        # dfs from ocean
         rows, cols = len(heights), len(heights[0])
-        pac, atl = set(), set()
 
-        def dfs(r, c, visited):
-            if (r, c) in visited:
-                return 
+        def bfs(q, visited):
+            while q:
+                r, c = q.popleft()
+                for dr, dc in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+                    nr, nc = r + dr, c + dc
+                    if (
+                        nr < 0 or nr >= rows or
+                        nc < 0 or nc >= cols or
+                        (nr, nc) in visited or
+                        heights[nr][nc] < heights[r][c]
+                    ):
+                        continue
+                    q.append((nr, nc))
+                    visited.add((nr, nc))
+            return visited
 
-            visited.add((r, c))
-            for dr, dc in [(0, 1), (1, 0), (-1, 0), (0, -1)]:
-                nr, nc = r + dr, c + dc
-                if (
-                    nr < 0 or rows <= nr or
-                    nc < 0 or cols <= nc or
-                    (nr, nc) in visited or       # they already have pacific flow
-                    heights[nr][nc] < heights[r][c]
-                ):
-                    continue
-                dfs(nr, nc, visited)
-
+        pacificCells = deque()
+        atlanticCells = deque()
         for c in range(cols):
-            dfs(0, c, pac)
-            dfs(rows - 1, c, atl)
+            pacificCells.append((0, c))
+            atlanticCells.append((rows - 1, c))
+        for r in range(1, rows):
+            pacificCells.append((r, 0))
+            atlanticCells.append((r - 1, cols - 1))
 
-        for r in range(rows):
-            dfs(r, 0, pac)
-            dfs(r, cols - 1, atl)
+        pacificSet = bfs(pacificCells, set(pacificCells))
+        atlanticSet = bfs(atlanticCells, set(atlanticCells))
 
-        return list(pac & atl)
+        return list(pacificSet.intersection(atlanticSet))
