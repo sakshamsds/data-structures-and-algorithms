@@ -1,22 +1,28 @@
-class Solution:
-    def lemonadeChange(self, bills: List[int]) -> bool:
-        count_5, count_10 = 0, 0
+'''
+    5s can be used for both 10s and 20s
+    but 10s can only be used for 20s
+    if we get 20s, always try to empty 10s first
+'''
 
+class Solution:
+    def lemonadeChange(self, bills: list[int]) -> bool:
+        fives = 0
+        tens = 0
         for bill in bills:
             if bill == 5:
-                count_5 += 1
+                fives += 1
             elif bill == 10:
-                if count_5 == 0:
+                if fives == 0:
                     return False
-                count_5 -= 1
-                count_10 += 1
-            else:       # 20
-                if count_10 > 0 and count_5 > 0:    # greedy
-                    count_10 -= 1
-                    count_5 -= 1
-                elif count_5 > 2:
-                    count_5 -= 3
+                fives -= 1
+                tens += 1
+            else:       # bill = 20
+                if tens > 0 and fives > 0:
+                    tens -= 1
+                    fives -= 1
+                elif fives >= 3:
+                    fives -= 3
                 else:
                     return False
-            
+
         return True
