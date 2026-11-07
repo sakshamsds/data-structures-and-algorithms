@@ -15,15 +15,13 @@ class MyHashMap:
 
     def put(self, key: int, val: int) -> None:
         h = self.getHash(key)
-        prev = self.map[h]
-        cur = prev.next
-        while cur:
-            if cur.key == key:
-                cur.val = val
+        cur = self.map[h]
+        while cur.next:
+            if cur.next.key == key:
+                cur.next.val = val
                 return
-            prev = cur
             cur = cur.next
-        prev.next = Node(key, val)
+        cur.next = Node(key, val)
 
     def get(self, key: int) -> int:
         h = self.getHash(key)
@@ -36,13 +34,11 @@ class MyHashMap:
 
     def remove(self, key: int) -> None:
         h = self.getHash(key)
-        prev = self.map[h]
-        cur = prev.next
-        while cur:
-            if cur.key == key:
-                prev.next = cur.next
+        cur = self.map[h]
+        while cur.next:
+            if cur.next.key == key:
+                cur.next = cur.next.next
                 return
-            prev = cur
             cur = cur.next
 
 
