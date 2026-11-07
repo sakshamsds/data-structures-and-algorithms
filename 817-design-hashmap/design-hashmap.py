@@ -7,8 +7,8 @@ class Node:
 class MyHashMap:
 
     def __init__(self):
-        self.map = [Node(-1, -1)] * 1000
         self.maxBuckets = 1000        
+        self.map = [Node(-1, -1) for _ in range(self.maxBuckets)] 
 
     def getHash(self, key: int) -> int:
         return key % self.maxBuckets
