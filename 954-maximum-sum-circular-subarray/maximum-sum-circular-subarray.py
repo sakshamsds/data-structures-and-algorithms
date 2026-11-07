@@ -1,14 +1,18 @@
 class Solution:
-    def maxSubarraySumCircular(self, nums: List[int]) -> int:
-        overall_min = idx_min = float('inf')
-        overall_max = idx_max = float('-inf')     # ending at that index
-        for num in nums:
-            idx_max = max(idx_max + num, num)
-            overall_max = max(overall_max, idx_max)
-            idx_min = min(idx_min + num, num)
-            overall_min = min(overall_min, idx_min)
-        total = sum(nums)
-        if overall_min == total:
-            return overall_max
+    def maxSubarraySumCircular(self, nums: list[int]) -> int:
+        # delete min subarray sum from the total
+        max_num = max(nums)
+        if max_num <= 0:
+            return max_num
 
-        return max(overall_max, sum(nums) - overall_min)
+        maxSum, curSumPos = float('-inf'), float('-inf')
+        minSum, curSumNeg = float('inf'), float('inf')
+        total = 0
+        for num in nums:   
+            curSumPos = max(curSumPos, 0) + num     # discard neg
+            maxSum = max(maxSum, curSumPos)
+            curSumNeg = min(curSumNeg, 0) + num     # discard pos
+            minSum = min(minSum, curSumNeg)
+            total += num
+
+        return max(maxSum, total - minSum)
