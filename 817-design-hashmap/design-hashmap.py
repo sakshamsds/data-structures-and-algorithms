@@ -1,32 +1,33 @@
 class Node:
-    def __init__(self, key, val, next=None):
+    def __init__(self, key, val, nxt=None):
         self.key = key
         self.val = val
-        self.next = next
+        self.next = nxt
 
 class MyHashMap:
 
-    def __init__(self):     # list of linkedlist
-        self.buckets = [Node(-1, -1) for _ in range(1000)]
+    def __init__(self):
+        self.map = [Node(-1, -1)] * 1000
+        self.maxBuckets = 1000        
 
-    def get_hash(self, key: int):
-        return key % 1000
+    def getHash(self, key: int) -> int:
+        return key % self.maxBuckets
 
-    def put(self, key: int, value: int) -> None:    # store key value pairs
-        bucket_num = self.get_hash(key)
-        cur = self.buckets[bucket_num]
-        prev = None
+    def put(self, key: int, val: int) -> None:
+        h = self.getHash(key)
+        prev = self.map[h]
+        cur = prev.next
         while cur:
             if cur.key == key:
-                cur.val = value
+                cur.val = val
                 return
             prev = cur
             cur = cur.next
-        prev.next = Node(key, value)
+        prev.next = Node(key, val)
 
     def get(self, key: int) -> int:
-        bucket_num = self.get_hash(key)
-        cur = self.buckets[bucket_num]
+        h = self.getHash(key)
+        cur = self.map[h]
         while cur:
             if cur.key == key:
                 return cur.val
@@ -34,16 +35,15 @@ class MyHashMap:
         return -1
 
     def remove(self, key: int) -> None:
-        bucket_num = self.get_hash(key)
-        cur = self.buckets[bucket_num]
-        prev = None
+        h = self.getHash(key)
+        prev = self.map[h]
+        cur = prev.next
         while cur:
             if cur.key == key:
                 prev.next = cur.next
                 return
             prev = cur
             cur = cur.next
-
 
 
 # Your MyHashMap object will be instantiated and called as such:
