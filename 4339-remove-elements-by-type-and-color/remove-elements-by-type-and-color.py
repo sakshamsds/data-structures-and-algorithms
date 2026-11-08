@@ -1,15 +1,11 @@
 class Solution:
     def canRemoveAll(self, types: list[int], colors: list[int], groupSize: list[int]) -> bool:
         stack = []          # type, color, freq
-        for i in range(len(types)):
-            elementType, color = types[i], colors[i]
-            size = groupSize[elementType]
-            if size == 1:
-                continue
-            if not stack or (stack[-1][0] != elementType or stack[-1][1] != color):
-                stack.append((elementType, color, 1))
+        for t, c in zip(types, colors):
+            if stack and stack[-1][0] == t and stack[-1][1] == c:
+                stack[-1][2] += 1
             else:
-                _, _, freq = stack.pop()
-                if freq + 1 != size:
-                    stack.append((elementType, color, freq + 1))
+                stack.append([t, c, 1])
+            if stack[-1][2] == groupSize[stack[-1][0]]:
+                stack.pop()
         return not stack
