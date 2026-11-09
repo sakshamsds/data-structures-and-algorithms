@@ -1,14 +1,13 @@
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-        min_size = len(nums) + 1
-        left = 0
-        subarray_sum = 0
-        for right in range(len(nums)):
-            subarray_sum += nums[right]
+        l = 0
+        curSum = 0
+        minSize = len(nums) + 1
+        for r, num in enumerate(nums):
+            curSum += num
+            while curSum >= target:
+                minSize = min(minSize, r - l + 1)
+                curSum -= nums[l]
+                l += 1
 
-            while subarray_sum >= target:        # goal, how much we can shrink this
-                min_size = min(min_size, right - left + 1)
-                subarray_sum -= nums[left]
-                left += 1
-
-        return min_size if min_size != len(nums) + 1 else 0
+        return 0 if minSize == len(nums) + 1 else minSize 
