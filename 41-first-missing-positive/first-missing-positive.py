@@ -1,21 +1,19 @@
 class Solution:
-    def firstMissingPositive(self, nums: List[int]) -> int:
-        # remove negatives
+    def firstMissingPositive(self, nums: list[int]) -> int:
+        MAX = len(nums)
         for i, num in enumerate(nums):
             if num < 1:
-                nums[i] = len(nums) + 5
+                nums[i] = MAX + 1
+        # print(nums)
 
-        # index marking
-        for i, num in enumerate(nums):
-            idx = abs(num) - 1
-            if idx < len(nums):
+        for i in range(MAX):
+            idx = abs(nums[i]) - 1
+            if idx < MAX:
                 nums[idx] = -abs(nums[idx])
+                # print(idx, nums[idx])
 
-        # find first missing
-        for i, num in enumerate(nums):
-            if num > 0:
+        # print(nums)
+        for i in range(MAX):
+            if nums[i] > 0:
                 return i + 1
-
-        return len(nums) + 1
-
-        
+        return MAX + 1
