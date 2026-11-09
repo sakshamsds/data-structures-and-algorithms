@@ -1,15 +1,14 @@
 class StockSpanner:
 
     def __init__(self):
-        self.stack = []
-        self.day = 0            # day counter
+        self.stack = [(float(inf), 0)]     
+        self.day = 0
 
     def next(self, price: int) -> int:
         self.day += 1
-        while self.stack and self.stack[-1][0] <= price:
+        while self.stack[-1][0] <= price:
             self.stack.pop()
-
-        span = self.day if not self.stack else self.day - self.stack[-1][1]
+        span = self.day - self.stack[-1][1]
         self.stack.append((price, self.day))
         return span        
 
