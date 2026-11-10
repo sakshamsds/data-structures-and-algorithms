@@ -7,21 +7,17 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', nodes: 'List[TreeNode]') -> 'TreeNode':
-        uniques = set(nodes)
+        store = set(nodes)
 
         def dfs(node):
-            if not node:
-                return None
-
-            if node in uniques:
+            if not node or node in store:
                 return node
 
             left = dfs(node.left)
             right = dfs(node.right)
-
             if left and right:
                 return node
-
             return left or right
-        
+
         return dfs(root)
+
