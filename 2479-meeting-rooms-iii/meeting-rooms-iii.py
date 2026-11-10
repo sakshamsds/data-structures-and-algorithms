@@ -1,29 +1,38 @@
+'''
+    for every new meeting
+    see if any used meeting is over (heap [endTime, roomNum])
+        - add to available
+    choose lowest from available rooms (heap [roomNum])
+
+    TC - O(M * logN + M * logM) - O(M * logNM)
+    SC - O(N)
+'''
+
 class Solution:
-    def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
-        free_rooms = list(range(n))     # heap: room_num
-        occupied_rooms = []     # heap: (end_time, room_num)
-        num_meetings = [0] * n      # array: meetings
-        meetings.sort()
-        # print(meetings)
+    def mostBooked(self, n: int, meetings: list[list[int]]) -> int:
+        meetings.sort(key=lambda x: x[0])   # sort by the start time
+
+        free = list(range(n))       # roomNum
+        heapq.heapify(free)
+        busy = []       # (endTime, roomNum)
+        freqs = [0] * n
 
         for start, end in meetings:
-            # free up rooms before cur start
-            while occupied_rooms and occupied_rooms[0][0] <= start:
-                heapq.heappush(free_rooms, heapq.heappop(occupied_rooms)[1])
-            # print('free_rooms', free_rooms)
+            while busy and busy[0][0] <= start:
+                heapq.heappush(free, heapq.heappop(busy)[1])
 
-            if free_rooms:      # free_rooms available
-                room_num = heapq.heappop(free_rooms)
-            else:           # pop from occupied rooms
-                prev_end, room_num = heapq.heappop(occupied_rooms)
-                end += prev_end - start
-            heapq.heappush(occupied_rooms, (end, room_num))
-            num_meetings[room_num] += 1
-            # print("occupied_rooms", occupied_rooms)
-        
-        # print(num_meetings)
-        mx_meetings, res = -1, -1
-        for room_num, meetings in enumerate(num_meetings):
-            if meetings > mx_meetings:
-                mx_meetings, res = meetings, room_num
-        return res
+            if free:
+                roomNum = heapq.heappop(free)
+                heapq.heappush(busy, (end, roomNum))
+            else:
+                endTime, roomNum = heapq.heappop(busy)
+                duration = end - start
+                heapq.heappush(busy, (endTime + duration, roomNum))
+            freqs[roomNum] += 1
+
+        mostFreq, resNum = freqs[0], 0
+        for roomNum, freq in enumerate(freqs):
+            if freq > mostFreq:
+                mostFreq, resNum = freq, roomNum
+            
+        return resNum
