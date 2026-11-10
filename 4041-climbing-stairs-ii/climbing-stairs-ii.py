@@ -9,12 +9,7 @@
 
 class Solution:
     def climbStairs(self, n: int, costs: List[int]) -> int:
-        dp = [0] + [cost for cost in costs]
-
-        for i in range(1, n + 1):
-            prev = dp[i - 1] + 1
-            prev_prev = dp[i - 2] + 4 if i >= 2 else float('inf')
-            prev_prev_prev = dp[i - 3] + 9 if i >= 3 else float('inf')
-            dp[i] += min(prev, prev_prev, prev_prev_prev)
-
-        return dp[-1]
+        a, b, c = 0, 0, 0
+        for i in range(n):
+            a, b, c = b, c, min(a + 9, b + 4, c + 1) + costs[i]
+        return c
