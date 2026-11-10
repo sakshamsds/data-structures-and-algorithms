@@ -1,12 +1,14 @@
 class Solution:
     def maxWidthRamp(self, nums: list[int]) -> int:
-        array = [(num, i) for i, num in enumerate(nums)]
-        array.sort(key=lambda x: x[0])
+        stack = []      # non increasing order
+        for i, num in enumerate(nums):
+            if not stack or nums[stack[-1]] > num:
+                stack.append(i)
 
-        smallestIdx = array[0][1]
-        maxRamp = 0
-        for num, i in array:
-            smallestIdx = min(smallestIdx, i)
-            maxRamp = max(maxRamp, i - smallestIdx)
-        
-        return maxRamp
+        # print(stack)
+        maxWidth = 0
+        for r in range(len(nums) - 1, -1, -1):
+            while stack and nums[r] >= nums[stack[-1]]:
+                maxWidth = max(maxWidth, r - stack.pop())
+
+        return maxWidth
