@@ -6,11 +6,6 @@ class Solution:
             prevI = i
             while stack and stack[-1][0] > h:
                 prevH, prevI = stack.pop()
-                maxArea = max(
-                    maxArea, 
-                    (i - prevI + 1) * h,
-                    (i - prevI) * prevH
-                )
-            stack.append((h, min(prevI, i)))
+                maxArea = max(maxArea, (i - prevI) * prevH)
+            stack.append((h, prevI))
         return maxArea
-            
