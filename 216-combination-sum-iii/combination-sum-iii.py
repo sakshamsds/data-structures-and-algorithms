@@ -3,23 +3,19 @@ class Solution:
         res = []
         comb = []
 
-        def dfs(digit, curSum):
-            # print(digit, curSum, comb)
+        def backtrack(i, curSum):
             if len(comb) == k:
                 if curSum == n:
                     res.append(comb.copy())
                 return
-
-            if curSum > n or digit == 10:
+            
+            if curSum > n:
                 return
 
-            # don't pick cur
-            dfs(digit + 1, curSum)
+            for j in range(i + 1, 10):
+                comb.append(j)
+                backtrack(j, curSum + j)
+                comb.pop()
 
-            # pick cur
-            comb.append(digit)
-            dfs(digit + 1, curSum + digit)
-            comb.pop()
-
-        dfs(1, 0)
+        backtrack(0, 0)
         return res
