@@ -1,18 +1,24 @@
 class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:    
-        n = len(candidates)   
+    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
         res = []
-        def backtrack(start, cur_sum, comb):
-            if cur_sum > target:
+        comb = []
+
+        def dfs(i, curSum):
+            if i == len(candidates):
+                if curSum == target:
+                    res.append(comb.copy())
                 return
-            if cur_sum == target:
-                res.append(comb.copy())
+
+            if curSum > target:
                 return
             
-            for i in range(start, n):
-                comb.append(candidates[i])
-                backtrack(i, cur_sum + candidates[i], comb)
-                comb.pop()
+            # skip cur
+            dfs(i + 1, curSum)
 
-        backtrack(0, 0, [])
+            comb.append(candidates[i])
+            dfs(i, curSum + candidates[i])
+            comb.pop()
+
+        dfs(0, 0)
         return res
+        
