@@ -1,27 +1,25 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # kahn's algorithm, topological sort
+        # find a cycle in a directed graph
 
-        adj_list = collections.defaultdict(list)
-        indegree = [0] * numCourses                 # indegree for given courses
-        for course, preq in prerequisites:
-            indegree[preq] += 1
-            adj_list[course].append(preq)
+        indegree = [0] * numCourses
+        adjList = collections.defaultdict(list)
+        for course, prereq in prerequisites:            # end, start
+            adjList[prereq].append(course)
+            indegree[course] += 1                       # indegree[end] += 1
 
-        q = collections.deque()                     # queue for processing
-        for i in range(numCourses):
-            if indegree[i] == 0:
-                q.append(i)
+        q = deque()
+        for prereq, indeg in enumerate(indegree):
+            if indeg == 0:
+                q.append(prereq)
 
+        taken = 0
         while q:
-            cur = q.popleft()
-            for nbr in adj_list[cur]:               # remove indegree for the nbrs 
-                indegree[nbr] -= 1
-                if indegree[nbr] == 0:
-                    q.append(nbr)
+            prereq = q.popleft()
+            taken += 1
+            for course in adjList[prereq]:
+                indegree[course] -= 1
+                if indegree[course] == 0:       # all prereq are taken/cleared
+                    q.append(course)
 
-        return sum(indegree) == 0
-
-         
-
-
+        return taken == numCourses
