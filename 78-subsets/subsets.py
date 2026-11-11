@@ -3,19 +3,13 @@ class Solution:
         res = []
         subset = []
 
-        # select current number or not
-        def dfs(i):
-            if i == len(nums):
-                res.append(subset.copy())
-                return
+        def backtrack(i):
+            res.append(subset.copy())                
 
-            # don't choose current
-            dfs(i + 1)
+            for j in range(i, len(nums)):
+                subset.append(nums[j])
+                backtrack(j + 1)
+                subset.pop()
 
-            # choose current
-            subset.append(nums[i])
-            dfs(i + 1)
-            subset.pop()
-
-        dfs(0)
+        backtrack(0)
         return res
