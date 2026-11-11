@@ -1,26 +1,27 @@
 class Solution:
     def maximalRectangle(self, matrix: List[List[str]]) -> int:
-        # find largest histogram at every row
         rows, cols = len(matrix), len(matrix[0])
+        heights = [0] * cols
+        self.maxArea = 0
 
-        def largest_histogram(heights):
-            stack, largest = [], 0
-            for i, height in enumerate(heights + [0]):
-                start = i
-                while stack and stack[-1][0] > height:
-                    prev_h, start = stack.pop()
-                    largest = max(largest, prev_h * (i - start))
-                stack.append((height, start))
-            return largest
+        def getMax():
+            stack = []      # (h, i)
+            for i, h in enumerate(heights + [0]):
+                prevI = i
+                while stack and stack[-1][0] > h:
+                    prevH, prevI = stack.pop()
+                    self.maxArea = max(
+                        self.maxArea,
+                        (i - prevI) * prevH
+                    )
+                stack.append((h, prevI))
 
-        maximal_rect = 0
-        prev = [0] * cols
-        for r in range(rows):
-            nxt = [0] * cols
-            for c in range(cols):
-                nxt[c] = prev[c] + 1 if matrix[r][c] == '1' else 0
-            maximal_rect = max(maximal_rect, largest_histogram(nxt))
-            # print(nxt, largest_histogram(nxt))
-            prev = nxt
+        for row in matrix:
+            for i, num in enumerate(row):
+                if num == '0':
+                    heights[i] = 0
+                else:
+                    heights[i] += 1
+            getMax()
 
-        return maximal_rect
+        return self.maxArea
