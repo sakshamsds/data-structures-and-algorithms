@@ -1,32 +1,28 @@
-'''
-if we send anything to upper, we bring the min to lower 
-    this way we lower will always be >= upper size
-'''
-
 class MedianFinder:
 
     def __init__(self):
-        self.upper = [10 ** 5 + 1]     # min_heap
-        self.lower = [10 ** 5 + 1]     # max_heap, negative of lowest
+        self.lower = []          # max heap, can contain the extra element
+        self.upper = []         # min heap
 
     def addNum(self, num: int) -> None:
-        upper_min = self.upper[0]
-        if num > upper_min:
-            heapq.heappop(self.upper)
-            heapq.heappush(self.upper, num)
-            heapq.heappush(self.lower, -upper_min)
-        else:
+        if not self.lower or -self.lower[0] >= num:
             heapq.heappush(self.lower, -num)
+        else:
+            heapq.heappush(self.upper, num)
 
-        if len(self.lower) == len(self.upper) + 2:
-            lower_max = -heapq.heappop(self.lower)
-            heapq.heappush(self.upper, lower_max)
+
+        # adjust the sizes
+        if len(self.upper) > len(self.lower):
+            heapq.heappush(self.lower, -heapq.heappop(self.upper))
+
+        if len(self.lower) - len(self.upper) == 2:
+            heapq.heappush(self.upper, -heapq.heappop(self.lower))
 
 
     def findMedian(self) -> float:
-        if len(self.upper) == len(self.lower):
-            return (self.upper[0] + -self.lower[0]) / 2
-        else:       # size of lower - upper = 1
+        if len(self.lower) == len(self.upper):
+            return (self.upper[0] - self.lower[0]) / 2 
+        else:
             return -self.lower[0]
 
 
