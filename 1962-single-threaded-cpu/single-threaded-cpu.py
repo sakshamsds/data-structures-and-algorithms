@@ -10,21 +10,17 @@
 
 class Solution:
     def getOrder(self, tasks: list[list[int]]) -> list[int]:
-        nextTask = []        # duration, idx
-        endTime, i = 0, 0
-        processed = []
-        newOrder = [(t[0], t[1], i) for i, t in enumerate(tasks)]
-        newOrder.sort(key=lambda x: (x[0], x[1]))
+        pending = deque(sorted([(s, d, i) for i, (s, d) in enumerate(tasks)]))
+        available, processed, endTime = [], [], 0
 
-        while nextTask or i < len(newOrder):        # len(processed) < len(tasks)
-            if not nextTask and endTime < newOrder[i][0]:     # cpu idle time
-                endTime = newOrder[i][0]
-            while i < len(newOrder) and newOrder[i][0] <= endTime:
-                heapq.heappush(nextTask, (newOrder[i][1], newOrder[i][2]))
-                i += 1
-            # tasks are in heap
-            duration, idx = heapq.heappop(nextTask)
-            processed.append(idx)
-            endTime += duration
+        while pending or available:
+            if not available and endTime < pending[0][0]:     # cpu idle time
+                endTime = pending[0][0]
+            while pending and pending[0][0] <= endTime:
+                _, d, i = pending.popleft()
+                heapq.heappush(available, (d, i))
+            d, i = heapq.heappop(available)
+            processed.append(i)
+            endTime += d
         
         return processed
