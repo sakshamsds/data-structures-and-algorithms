@@ -16,6 +16,8 @@ class Graph:
             dist, node = heapq.heappop(minHeap)
             if node == node2:
                 return dist
+            if node in visited:
+                continue
             visited.add(node)
             for nbr, nbrCost in self.adjList[node]:
                 if nbr not in visited:
