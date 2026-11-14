@@ -1,24 +1,56 @@
-'''
-leetcode 
-dfs(0) -> matches with leet -> dfs(4) -> matches with code -> dfs(8) = True
-'''
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.end = False
 
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def add(self, word: str) -> None:
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.end = True
+
+    def search(self, s, i) -> int:
+        cur = self.root
+        nextPtrs = []
+        while i < len(s):
+            # print(s[i], cur.children)
+            if s[i] not in cur.children:
+                break
+            cur = cur.children[s[i]]
+            if cur.end:
+                nextPtrs.append(i + 1)
+            i += 1
+        return nextPtrs
 
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        cache = {len(s): True}
-        
-        def dfs(idx):
-            if idx in cache:    # already computed the subproblem
-                return cache[idx]
+        trie = Trie()
+        for word in wordDict:
+            trie.add(word)
+        # print(trie.search(s, 0))
 
-            for word in wordDict:
-                if idx + len(word) <= len(s) and s[idx:idx + len(word)] == word:
-                    if dfs(idx + len(word)):
-                        cache[idx] = True
-                        return True
+        cache = {}
+        def dfs(i):
+            if i == len(s):
+                return True
 
-            cache[idx] = False
-            return False
-        
+            if i in cache:
+                return cache[i]
+
+            nextPtrs = trie.search(s, i)
+            isBreak = False
+            for j in nextPtrs:
+                if dfs(j):
+                    isBreak = True
+                    break
+            cache[i] = isBreak
+            return isBreak
+
         return dfs(0)
+        
