@@ -1,18 +1,26 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
-        cache = {len(s): 1}
-
+        n = len(s)
+        cache = {}
+        
         def dfs(i):
+            if i == n:
+                return 1
+
             if i in cache:
                 return cache[i]
 
-            cur_count = 0
-            if s[i] != '0':     # checking single digit
-                cur_count += dfs(i + 1)
-            
-            if i + 1 < len(s) and '1' <= s[i:i + 2] <= '26':    # check two digits
-                cur_count += dfs(i + 2)
-            cache[i] = cur_count
-            return cur_count
-        
+            if s[i] == '0':
+                return 0
+
+            # use current as single
+            num = dfs(i + 1)
+
+            # use current and next
+            if i < n - 1 and int(s[i:i+2]) <= 26:
+                num += dfs(i + 2)
+
+            cache[i] = num
+            return num
+
         return dfs(0)
