@@ -1,21 +1,20 @@
 class Solution:
-    def shipWithinDays(self, weights: List[int], days: int) -> int:
+    def shipWithinDays(self, weights: list[int], days: int) -> int:
+        def isValid(capacity):
+            curDays, curSum = 1, 0
+            for w in weights:
+                curSum += w
+                if curSum > capacity:
+                    curDays += 1
+                    curSum = w
+            return curDays <= days
+
         l, r = max(weights), sum(weights)
         while l < r:
-            capacity = l + (r - l) // 2
-
-            current_load = 0
-            days_needed = 1
-            for weight in weights:
-                if current_load + weight > capacity:
-                    days_needed += 1
-                    current_load = 0
-                current_load += weight
-                if days_needed > days:          # early termination
-                    break
-
-            if days_needed <= days:
-                r = capacity
+            mid = l + (r - l) // 2
+            if not isValid(mid):
+                l = mid + 1
             else:
-                l = capacity + 1
+                r = mid
+
         return l
