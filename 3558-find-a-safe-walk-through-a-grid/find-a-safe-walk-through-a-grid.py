@@ -5,27 +5,24 @@ class Solution:
 
         q = deque()       # remHealth, r, c
         q.append((health - grid[0][0], 0, 0))
-        visited = set([(0, 0)])
+        visited = {
+            (0, 0): health
+        }
 
         while q:
             remHealth, r, c = q.popleft()
-            if remHealth == 0:
-                continue
             if r == rows - 1 and c == cols - 1:
                 return True
             for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
                 nr, nc = r + dr, c + dc
-                if (
-                    nr < 0 or nr >= rows or
-                    nc < 0 or nc >= cols or
-                    (nr, nc) in visited
-                ):
-                    continue
-                
-                if grid[nr][nc] == 0:
-                    q.appendleft((remHealth, nr, nc))
-                else:
-                    q.append((remHealth - 1, nr, nc))
-                visited.add((nr, nc))
+                if 0 <= nr < rows and 0 <= nc < cols:
+                    nextHealth = remHealth - grid[nr][nc]
+                    if nextHealth > 0 and nextHealth > visited.get((nr, nc), 0):
+                        visited[(nr, nc)] = nextHealth
+                        
+                        if grid[nr][nc] == 0:
+                            q.appendleft((nextHealth, nr, nc))
+                        else:
+                            q.append((nextHealth, nr, nc))
 
         return False
