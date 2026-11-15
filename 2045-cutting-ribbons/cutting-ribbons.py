@@ -11,12 +11,12 @@ class Solution:
                 cuts += ribbon // maxLength
             return cuts >= k
 
-        l, r = 1, sum(ribbons)
+        l, r = 1, max(ribbons)
         while l < r:
-            mid = l + (r - l) // 2
+            mid = 1 + l + (r - l) // 2
             if isValid(mid):
-                l = mid + 1
+                l = mid
             else:
-                r = mid
+                r = mid - 1
 
-        return l - 1
+        return l
