@@ -13,10 +13,10 @@ class Solution:
 
         l, r = 1, sum(ribbons)
         while l < r:
-            mid = 1 + l + (r - l) // 2
+            mid = l + (r - l) // 2
             if isValid(mid):
-                l = mid
+                l = mid + 1
             else:
-                r = mid - 1
+                r = mid
 
-        return l
+        return l - 1
