@@ -1,15 +1,22 @@
 class Solution:
     def subsetXORSum(self, nums: List[int]) -> int:
         self.total = 0
+        subset = []
 
-        def backtrack(i, cur_xor):
-            if i == len(nums):
-                self.total += cur_xor
-                return
+        def getXOR():
+            xor = 0
+            for num in subset:
+                xor ^= num
+            # print(subset, xor)
+            return xor
 
-            backtrack(i + 1, cur_xor)
-            backtrack(i + 1, cur_xor ^ nums[i])
+        def backtrack(i):
+            self.total += getXOR()
 
-        backtrack(0, 0)
+            for j in range(i, len(nums)):
+                subset.append(nums[j])
+                backtrack(j + 1)
+                subset.pop()
+
+        backtrack(0)
         return self.total
-            
