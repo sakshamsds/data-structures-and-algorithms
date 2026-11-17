@@ -1,24 +1,21 @@
 class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
-        # buy, sell, do nothing
-        dp = {}
+        cache = {}
 
-        def dfs(i, can_buy):
-            if i == len(prices):
+        def dfs(i, canBuy):
+            if i >= len(prices):
                 return 0
 
-            if (i, can_buy) in dp:
-                return dp[(i, can_buy)]
-
-            nothing = dfs(i + 1, can_buy)
-            if can_buy:
-                buy = dfs(i + 1, False) - prices[i]
-                profit = max(buy, nothing)
+            if (i, canBuy) in cache:
+                return cache[(i, canBuy)]
+            
+            profit = dfs(i + 1, canBuy)
+            if canBuy:
+                profit = max(profit, dfs(i + 1, False) - prices[i])
             else:
-                sell = dfs(i + 1, True) + prices[i] - fee
-                profit = max(sell, nothing)
+                profit = max(profit, dfs(i + 1, True) + prices[i] - fee)
 
-            dp[(i, can_buy)] = profit
+            cache[(i, canBuy)] = profit
             return profit
 
         return dfs(0, True)
