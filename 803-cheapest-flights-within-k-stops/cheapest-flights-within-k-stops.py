@@ -1,17 +1,33 @@
 class Solution:
     def findCheapestPrice(self, n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:
-        # go through every edge again and again
-        # k = 0 means first iteration, direct flights
+        
+        # TC - O(n**2 + nklognk)
+        # SC - O(n**2 + nk)
 
-        # initialize the distances to be infinite
-        prices = [float('inf')] * n
-        prices[src] = 0
+        adjList = collections.defaultdict(list)
+        for u, v, p in flights:
+            adjList[u].append((v, p))
 
-        for _ in range(k + 1):      # since k = 0 means one iteration
-            new_prices = prices.copy()
-            for start, end, price in flights:       # iterate each edge
-                if prices[start] != float('inf'):       # can we reach this start
-                    new_prices[end] = min(new_prices[end], prices[start] + price)
-            prices = new_prices
-            
-        return -1 if prices[dst] == float('inf') else prices[dst]
+        # dist, stops
+        minHeap = [(0, -1, src)]  # dist, stops, node
+        visited = set()
+        visited = {
+            (src, 0): 0     # node, stops -> cost
+        }        
+
+        while minHeap:
+            dist, stops, node = heapq.heappop(minHeap)
+            if node == dst:
+                return dist
+
+            if stops == k:      # can't process nbrs anymore
+                continue
+
+            for nbr, nbrCost in adjList[node]:
+                newCost = dist + nbrCost
+                newStops = stops + 1
+                if (nbr, newStops) not in visited or visited[(nbr, newStops)] > newCost:
+                    visited[(nbr, newStops)] = newCost
+                    heapq.heappush(minHeap, (newCost, newStops, nbr))
+
+        return -1
