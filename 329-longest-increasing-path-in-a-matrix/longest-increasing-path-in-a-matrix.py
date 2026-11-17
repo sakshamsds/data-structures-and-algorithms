@@ -1,32 +1,31 @@
 class Solution:
-    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        # store longest path at each matrix entry
+    def longestIncreasingPath(self, matrix: list[list[int]]) -> int:
         rows, cols = len(matrix), len(matrix[0])
-        cache = {}
-        directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+
+        dp = {}     # (r, c) -> max path
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
         def dfs(r, c):
-            if (r, c) in cache:
-                return cache[(r, c)]
-            
-            path_length = 1
+            if (r, c) in dp:
+                return dp[(r, c)]
+
+            longest = 1
             for dr, dc in directions:
                 nr, nc = r + dr, c + dc
-                if (
+                if (        # out of bounds
                     nr < 0 or nr >= rows or
                     nc < 0 or nc >= cols or
                     matrix[nr][nc] <= matrix[r][c]
                 ):
                     continue
-                path_length = max(path_length, 1 + dfs(nr, nc))
+                longest = max(longest, 1 + dfs(nr, nc))
 
-            cache[(r, c)] = path_length
-            return path_length
-
-        longest = 0
+            dp[(r, c)] = longest
+            return longest
+        
         for r in range(rows):
             for c in range(cols):
-                longest = max(longest, dfs(r, c))   
-        
-        # print(cache)
-        return longest
+                if (r, c) not in dp:
+                    dfs(r, c)
+
+        return max(dp.values())
