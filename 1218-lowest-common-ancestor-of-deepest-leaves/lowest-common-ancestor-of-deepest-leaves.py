@@ -5,20 +5,21 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        def dfs(node):  # returns depth, lca
+    def lcaDeepestLeaves(self, root: TreeNode | None) -> TreeNode | None:
+        # dfs(node) -> depth, node
+
+        def dfs(node):
             if not node:
-                return 0, None
+                return 0, node
 
-            left_depth, left_lca = dfs(node.left)
-            right_depth, right_lca = dfs(node.right)
+            leftDepth, left = dfs(node.left)
+            rightDepth, right = dfs(node.right)
 
-            if left_depth > right_depth:    # lca lies in left
-                return 1 + left_depth, left_lca
-            
-            if right_depth > left_depth:
-                return 1 + right_depth, right_lca
-
-            return 1 + left_depth, node     # cur node is the lca
+            if leftDepth > rightDepth:
+                return leftDepth + 1, left
+            elif leftDepth < rightDepth:
+                return rightDepth + 1, right
+            else:
+                return max(leftDepth, rightDepth) + 1, node
 
         return dfs(root)[1]
