@@ -1,49 +1,55 @@
 class TrieNode:
     def __init__(self):
-        self.children = {}
-        self.word = False
+        self.children = dict()
+        self.end = False
 
 class Trie:
-    def __init__(self, words):
+    def __init__(self):
         self.root = TrieNode()
-        for w in words:
-            cur = self.root
-            for c in w:
-                if c not in cur.children:
-                    cur.children[c] = TrieNode()
-                cur = cur.children[c]
-            cur.word = True
+
+    def add(self, word):
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.end = True
+    
+    def match(self, word, startIdx):
+        cur = self.root
+        nxtIdxs = []
+        for i in range(startIdx, len(word)):
+            c = word[i]
+            if c not in cur.children:
+                break
+            if cur.children[c].end:     # if a word ends here
+                nxtIdxs.append(i + 1)
+            cur = cur.children[c]
+        return nxtIdxs
 
 class Solution:
     def minExtraChar(self, s: str, dictionary: List[str]) -> int:
-        # brute force solution
-        # memoization
-        # words = set(dictionary)     # O(1) lookup
-        dp = {len(s): 0}        # base case add
+        trie = Trie()
+        for word in dictionary:
+            trie.add(word)
+        
+        cache = {}
 
-        # [leet, code, leetcode]
-        # s = 'ahdflkajsdfljasl;kfkjsad'
-
-        # Prefix Tree (Trie)
-        trie = Trie(dictionary).root
-
-        # O(n * n * n)
-        # start, cur pos where we add characters
         def dfs(i):
-            if i in dp:
-                return dp[i]
+            if i >= len(s):
+                return 0
+            if i in cache:
+                return cache[i]
 
-            res = 1 + dfs(i + 1)       # we skip cur char
-            cur = trie
-            for j in range(i, len(s)):
-                if s[j] not in cur.children:
-                    break
-                cur = cur.children[s[j]]
-                if cur.word:
-                    res = min(res, dfs(j + 1))
-                # if s[i:j + 1] in words:
-                #     res = min(res, dfs(j + 1))
-            dp[i] = res
-            return res
+            # skip cur
+            left = 1 + dfs(i + 1)
+
+            # don't skip cur
+            nxtIdxs = trie.match(s, i)
+            for j in nxtIdxs:
+                left = min(left, dfs(j))
+
+            cache[i] = left
+            return left
 
         return dfs(0)
