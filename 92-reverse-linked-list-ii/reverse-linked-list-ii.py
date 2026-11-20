@@ -4,23 +4,23 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+    def reverseBetween(self, head: ListNode | None, left: int, right: int) -> ListNode | None:
+        dummy = ListNode(-1, head)
+        cur = dummy
 
-        dummy = ListNode(0, head)
-        left_prev, cur = dummy, head
-
-        # reach node at position left
-        for _ in range(left - 1):
-            left_prev, cur = left_prev.next, cur.next
+        beforeLeft = None
+        for _ in range(left):
+            beforeLeft = cur
+            cur = cur.next
+        leftNode = cur
 
         prev = None
         for _ in range(right - left + 1):
-            temp = cur.next
+            nxt = cur.next         
             cur.next = prev
             prev = cur
-            cur = temp
+            cur = nxt
 
-        left_prev.next.next = cur
-        left_prev.next = prev
-
-        return dummy.next
+        leftNode.next = cur
+        beforeLeft.next = prev
+        return dummy.next        
