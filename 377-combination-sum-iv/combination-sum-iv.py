@@ -1,18 +1,21 @@
 class Solution:
-    def combinationSum4(self, nums: List[int], target: int) -> int:
-        cache = {0: 1}
-        
-        def dfs(target_sum):
-            if target_sum < 0:
+    def combinationSum4(self, nums: list[int], target: int) -> int:
+        dp = {}
+
+        def dfs(rem):
+            if rem == 0:
+                return 1
+            if rem < 0:
                 return 0
-            if target_sum in cache:
-                return cache[target_sum]
-                
-            count = 0
+
+            if rem in dp:
+                return dp[rem]
+
+            ways = 0
             for num in nums:
-                count += dfs(target_sum - num)        
-            cache[target_sum] = count
-            return count
+                ways += dfs(rem - num)
+
+            dp[rem] = ways
+            return ways
 
         return dfs(target)
-
