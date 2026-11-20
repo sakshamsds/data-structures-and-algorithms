@@ -1,25 +1,23 @@
 class Solution:
-    def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
-        # sort both intervals and queries
-        intervals.sort(key=lambda x:x)
+    def minInterval(self, intervals: list[list[int]], queries: list[int]) -> list[int]:
+        intervals.sort(key=lambda x:x[0])
+        sortedQueries = sorted([(query, idx) for idx, query in enumerate(queries)])
 
-        min_heap = []       # size, end
-        res = {}
-        k = 0
-        for q in sorted(queries):
-            while k < len(intervals) and intervals[k][0] <= q:
-                # print(k)
-                heapq.heappush(
-                    min_heap, 
-                    (intervals[k][1] - intervals[k][0] + 1, intervals[k][1])
-                )
-                k += 1
+        minHeap = []        # size, end
+        res = [-1] * len(queries)
+        i = 0
+        for query, queryIdx in sortedQueries:
+            # add to heap
+            while i < len(intervals) and intervals[i][0] <= query:
+                start, end = intervals[i]
+                heapq.heappush(minHeap, (end - start + 1, end))
+                i += 1
 
-            # print(q, i, min_heap)
-            while min_heap and min_heap[0][1] < q:
-                heapq.heappop(min_heap)
+            # remove from heap
+            while minHeap and minHeap[0][1] < query:
+                heapq.heappop(minHeap)
 
-            res[q] = min_heap[0][0] if min_heap else -1
+            if minHeap:
+                res[queryIdx] = minHeap[0][0]
 
-        return [res[q] for q in queries]
-
+        return res
