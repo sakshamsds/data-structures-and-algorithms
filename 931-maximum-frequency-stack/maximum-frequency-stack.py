@@ -1,19 +1,25 @@
 class FreqStack:
 
+    # stack of stack
     def __init__(self):
-        self.freqs = {}
-        self.maxHeap = []       # -f, -order, val
-        self.insertionOrder = 0
+        self.freq = {}
+        self.maxFreq = 0
+        self.stacks = {}
 
     def push(self, val: int) -> None:
-        self.freqs[val] = self.freqs.get(val, 0) + 1
-        heapq.heappush(self.maxHeap, (-self.freqs[val], -self.insertionOrder, val))
-        self.insertionOrder += 1
+        self.freq[val] = self.freq.get(val, 0) + 1
+        if self.freq[val] > self.maxFreq:
+            self.maxFreq += 1
+            self.stacks[self.maxFreq] = []
+        self.stacks[self.freq[val]].append(val)
 
     def pop(self) -> int:
-        _, _, val = heapq.heappop(self.maxHeap)
-        self.freqs[val] -= 1
-        return val
+        x = self.stacks[self.maxFreq].pop()
+        self.freq[x] -= 1
+        if not self.stacks[self.maxFreq]:
+            self.stacks.pop(self.maxFreq)
+            self.maxFreq -= 1
+        return x
 
 
 # Your FreqStack object will be instantiated and called as such:
