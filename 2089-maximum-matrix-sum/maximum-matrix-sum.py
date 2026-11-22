@@ -1,20 +1,21 @@
 class Solution:
-    def maxMatrixSum(self, matrix: List[List[int]]) -> int:
-        # if num neg is even then sum
-        # if num neg is odd then min element
-        # break up case - if min element is 0
+    def maxMatrixSum(self, matrix: list[list[int]]) -> int:
+        numNeg = 0
+        minAbsVal, total = float('inf'), 0
 
-        n = len(matrix)
-        total = 0
-        num_neg = 0
-        min_val = abs(matrix[0][0])
         for row in matrix:
-            for num in row:
-                total += abs(num)
-                num_neg += 1 if num < 0 else 0
-                min_val = min(min_val, abs(num))
+            for val in row:
+                if val < 0:
+                    numNeg += 1
+                minAbsVal = min(minAbsVal, abs(val))
+                total += abs(val)
 
-        if min_val == 0 or num_neg & 1 == 0:
+        if minAbsVal == 0 or numNeg & 1 == 0:
             return total
+
+        return total - 2 * minAbsVal
+
         
-        return total - 2 * min_val
+
+
+        
