@@ -1,15 +1,16 @@
 class Solution:
     def maxProfitAssignment(self, difficulty: list[int], profit: list[int], worker: list[int]) -> int:
-        jobs = [(d, p) for d, p in zip(difficulty, profit)]
-        jobs.sort()
-        worker.sort()
+        maxW = max(worker)
+        jobs = [0] * (maxW + 1)     # max profit at that difficulty
 
-        i = 0
-        totalProfit = maxProfit = 0
+        for d, p in zip(difficulty, profit):
+            if d <= maxW:
+                jobs[d] = max(jobs[d], p)
+
+        for j in range(1, len(jobs)):
+            jobs[j] = max(jobs[j], jobs[j - 1])
+
+        totalProfit = 0
         for w in worker:
-            while i < len(jobs) and jobs[i][0] <= w:
-                maxProfit = max(maxProfit, jobs[i][1])
-                i += 1
-            totalProfit += maxProfit
+            totalProfit += jobs[w]
         return totalProfit
-            
