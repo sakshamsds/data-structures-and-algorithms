@@ -2,8 +2,11 @@ class HitCounter:
 
     def __init__(self):
         self.q = deque()
+        self.hits = 0
 
     def hit(self, timestamp: int) -> None:
+        while self.q and self.q[0] <= timestamp - 300:
+            self.q.popleft()
         self.q.append(timestamp)
 
     def getHits(self, timestamp: int) -> int:
