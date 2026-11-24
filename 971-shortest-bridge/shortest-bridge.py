@@ -1,51 +1,50 @@
 class Solution:
     def shortestBridge(self, grid: list[list[int]]) -> int:
-        # make all points on 1 island as 2
-        # run bfs
-        # TC - O(n**2), SC - O(n)
+        # mark one island as 2
+        # add those in queue
+        # multisource bfs to find the nearest 1
 
-        bfs_queue = deque()
-        visited = set()
-        n = len(grid)
+        rows, cols = len(grid), len(grid[0])
+        q = deque()
 
         def dfs(r, c):
             if (
-                r < 0 or r >= n or
-                c < 0 or c >= n or
+                r < 0 or r == rows or
+                c < 0 or c == cols or 
                 grid[r][c] != 1
             ):
-                return 
+                return
+            q.append((r, c))
             grid[r][c] = 2
-            bfs_queue.append((r, c)) 
-            visited.add((r, c))               
             dfs(r + 1, c)
             dfs(r - 1, c)
             dfs(r, c + 1)
             dfs(r, c - 1)
 
-        def makeTwos():
-            for r in range(n):
-                for c in range(n):
+        def markTwos():
+            for r in range(rows):
+                for c in range(cols):
                     if grid[r][c] == 1:
                         dfs(r, c)
                         return
-        makeTwos()
+        markTwos()
 
-        distance = 0
-        while bfs_queue:
-            for _ in range(len(bfs_queue)):
-                r, c = bfs_queue.popleft()
-                for dr, dc in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+        flips = 0
+        visited = set(q)
+        while q:
+            for _ in range(len(q)):
+                r, c = q.popleft()
+                for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
                     nr, nc = r + dr, c + dc
                     if (
-                        nr < 0 or nr >= n or
-                        nc < 0 or nc >= n or
+                        nr < 0 or nr == rows or 
+                        nc < 0 or nc == cols or
                         (nr, nc) in visited
                     ):
                         continue
-                    bfs_queue.append((nr, nc))
+                    if grid[nr][nc] == 1:       # reached other island
+                        return flips
+                    q.append((nr, nc))
                     visited.add((nr, nc))
-                    if grid[nr][nc] == 1:
-                        return distance
-            distance += 1
-        return distance        
+            flips += 1
+        return -1
