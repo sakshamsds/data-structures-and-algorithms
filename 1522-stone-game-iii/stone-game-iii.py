@@ -1,35 +1,18 @@
 class Solution:
     def stoneGameIII(self, stones: list[int]) -> str:
-        numStones = len(stones)
+        n = len(stones)
+        stones = stones + [0, 0, 0]
+        dp = [0] * (n + 3)
 
-        cache = {}      # i -> alice score - bob score
-        def dfs(i):
-            if i >= numStones:
-                return 0
-            
-            if i in cache:
-                return cache[i]
-            
-            # take 1
-            score = stones[i] - dfs(i + 1)
-
-            # take 2
-            if i < numStones - 1:
-                score = max(score, stones[i] + stones[i + 1] - dfs(i + 2))
-
-            # take 3
-            if i < numStones - 2:
-                score = max(
-                    score, 
-                    stones[i] + stones[i + 1] + stones[i + 2] - dfs(i + 3)
-                )
-
-            cache[i] = score
-            return score
-
-        res = dfs(0)
-        if res == 0:
+        for i in range(n - 1, -1, -1):
+            dp[i] = max(
+                stones[i] - dp[i + 1],
+                stones[i] + stones[i + 1] - dp[i + 2],
+                stones[i] + stones[i + 1] + stones[i + 2] - dp[i + 3]
+            )
+        
+        if dp[0] == 0:
             return "Tie"
-        if res > 0:
+        if dp[0] > 0:
             return "Alice"
         return "Bob"
