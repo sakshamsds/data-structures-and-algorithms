@@ -1,22 +1,27 @@
 class Solution:
-    def leastInterval(self, tasks: List[str], n: int) -> int:
-        # O(n * m), m -> idle time
-        freqs = collections.Counter(tasks)
-        maxHeap = [-cnt for cnt in freqs.values()]
-        heapq.heapify(maxHeap)
-        q = deque()     # pairs [-cnt, nextTime]
-        time = 0
+    def leastInterval(self, tasks: list[str], n: int) -> int:
+        # pick the most popular task
+        # maintain a queue
+        # TC - NlogN
+        # SC - N
 
-        while maxHeap or q:
-            time += 1
+        available = [(-freq, task) for task, freq in collections.Counter(tasks).items()]
+        heapq.heapify(available)
+        cooldown = deque()      # nextAvailability, -freq, task
 
-            if maxHeap:
-                cnt = 1 + heapq.heappop(maxHeap)
-                if cnt:
-                    q.append([cnt, time + n])
+        interval = 0
+        while available or cooldown:
+            if not available:
+                interval = max(interval, cooldown[0][0])
 
-            if q and q[0][1] == time:
-                heapq.heappush(maxHeap, q.popleft()[0])
+            while cooldown and cooldown[0][0] <= interval:
+                _, freq, task = cooldown.popleft()
+                heapq.heappush(available, (freq, task))
 
-        return time
-
+            freq, task = heapq.heappop(available)
+            # print(interval, task)
+            if freq < -1:
+                cooldown.append((interval + n + 1, freq + 1, task))
+            interval += 1
+        return interval
+            
